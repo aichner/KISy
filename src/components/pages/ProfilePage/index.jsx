@@ -58,15 +58,54 @@ import {
 import "./profilepage.scss";
 
 //> Images
-// To be added
+import { ReactComponent as MorningImg } from  '../../../assets/icons/morning.svg';
+import { ReactComponent as DayImg } from  '../../../assets/icons/day.svg';
+import { ReactComponent as NightImg } from  '../../../assets/icons/night.svg';
 
 class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   componentDidMount = () => {
+    // Load welcoming picture
+    this.getGreetingImg();
+  }
 
+  getGreetingTxt = () => {
+    // Get date
+    let today = new Date()
+    // Get current hours
+    let curHr = today.getHours()
+
+    // Store selected greeting
+    let selected = null;
+
+    if (curHr < 11) {
+      selected = <span>Guten Morgen</span>;
+    } else if (curHr < 18) {
+      selected = <span>Willkommen zurück</span>;
+    } else {
+      selected = <span>Guten Abend</span>;
+    }
+
+    return selected;
+  }
+
+  getGreetingImg = () => {
+    // Get date
+    let today = new Date()
+    // Get current hours
+    let curHr = today.getHours()
+
+    if (curHr < 11) {
+      this.setState({greetingImage: <MorningImg className="img-fluid" />});
+    } else if (curHr < 18) {
+      this.setState({greetingImage: <DayImg className="img-fluid" />});
+    } else {
+      this.setState({greetingImage: <NightImg className="img-fluid" />});
+    }
   }
 
   render() {
@@ -75,9 +114,39 @@ class ProfilePage extends React.Component {
     if(auth.uid === undefined) return <Redirect to="/"/> 
 
     return (
-      <MDBContainer id="profile" className="pt-5 mt-5">
-        <p>Logged in</p>
-      </MDBContainer>
+      <div id="profile">
+        <div className="greeting py-5 text-center">
+            {this.state.greetingImage}
+            <h2 className="text-center font-weight-bold">
+            {this.getGreetingTxt()}, <span>{profile.first_name}</span>!
+            </h2>
+        </div>
+        <MDBContainer className="pt-5 mt-5">
+          <MDBRow className="flex-center">
+            <MDBCol md="4">
+              <MDBCard>
+                <MDBCardBody>
+                  Test
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+            <MDBCol md="8">
+              <MDBCard>
+                <MDBCardBody>
+                  Test
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+            <MDBCol md="12">
+              <MDBCard>
+                <MDBCardBody>
+                  Test
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </div>
     );
   }
 }

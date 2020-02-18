@@ -1,50 +1,25 @@
 #profile {
-	.col-md-3,
-	.col-md-6 {
-		padding-left: 5px;
-		padding-right: 5px;
-	}
-
 	// Custom cards
 	.card {
-		background: #1e1e1e;
-		color: white;
+		color: #1e1e1e;
+		background: white;
+		border-radius: 0;
+		box-shadow: none;
 		.text-muted {
 			color: #848e96;
 		}
 	}
-	.posts {
-		.card {
-			background: #3e3e3e;
-			.avatar-img {
-				width: 2.5rem;
-			}
-			.author-info {
-				.feeling {
-					margin: 0;
-					color: lightgreen;
-					i {
-						margin-left: 0;
-						margin-right: 7px;
-					}
-				}
-				i {
-					margin-left: 0.2em;
-					margin-right: 0.2em;
-				}
-			}
+	// Greeting
+	.greeting {
+		background: #2a3c4a;
+		color: white;
+		svg {
+			max-height: 50px;
+			margin-bottom: 1rem;
 		}
-		.spinners {
-			.spinner-grow {
-				animation: spinner-grow 1s linear infinite;
-			}
-			.spinner-grow:nth-child(1) {
-				animation-delay: 0.4s;
-			}
-			.spinner-grow:nth-child(2) {
-				animation-delay: 0.8s;
-			}
-		}
+	}
+	.greeting-actions {
+		background: #e7edf2;
 	}
 
 	.alert {
@@ -200,8 +175,8 @@
 
 	// Admin panel
 	.admin-panel {
-    background: #1e1e1e;
-    color: white;
+		background: #1e1e1e;
+		color: white;
 	}
 }
 
