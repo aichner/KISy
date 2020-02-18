@@ -1,108 +1,166 @@
 .flyout {
-	display: flex;
+	display:flex;
 	flex-direction: column;
-	min-height: 100vh;
+	min-height:100vh;
 	justify-content: space-between;
 }
 
 // Custom colors
-.bg-dark {
-	background-color: $dark !important;
-	&.darken-1 {
-		background-color: darken($dark, 5%) !important;
+.sithcult-dark{
+	background-color: $agencyDark !important;
+	&.darken-1{
+		background-color: darken($agencyDark, 5%) !important;
 	}
-	&.darken-2 {
-		background-color: darken($dark, 10%) !important;
+	&.darken-2{
+		background-color: darken($agencyDark, 10%) !important;
 	}
-	&.darken-3 {
-		background-color: darken($dark, 15%) !important;
+	&.darken-3{
+		background-color: darken($agencyDark, 15%) !important;
 	}
-	&.lighten-1 {
-		background-color: lighten($dark, 10%) !important;
+	&.lighten-1{
+		background-color: lighten($agencyDark, 10%) !important;
 	}
-	&.lighten-2 {
-		background-color: lighten($dark, 20%) !important;
+	&.lighten-2{
+		background-color: lighten($agencyDark, 20%) !important;
 	}
-	&.lighten-3 {
-		background-color: lighten($dark, 30%) !important;
-	}
-}
-.bg-red {
-	background-color: $red !important;
-	&.darken-1 {
-		background-color: darken($red, 10%) !important;
-	}
-	&.darken-2 {
-		background-color: darken($red, 20%) !important;
-	}
-	&.darken-3 {
-		background-color: darken($red, 30%) !important;
-	}
-	&.lighten-1 {
-		background-color: lighten($red, 10%) !important;
-	}
-	&.lighten-2 {
-		background-color: lighten($red, 20%) !important;
-	}
-	&.lighten-3 {
-		background-color: lighten($red, 30%) !important;
+	&.lighten-3{
+		background-color: lighten($agencyDark, 30%) !important;
 	}
 }
-.bg-green {
-	background-color: $green !important;
-	&.darken-1 {
-		background-color: darken($green, 10%) !important;
+.sithcult-red{
+	background-color: $agencyRed !important;
+	&.darken-1{
+		background-color: darken($agencyRed, 10%) !important;
 	}
-	&.darken-2 {
-		background-color: darken($green, 20%) !important;
+	&.darken-2{
+		background-color: darken($agencyRed, 20%) !important;
 	}
-	&.darken-3 {
-		background-color: darken($green, 30%) !important;
+	&.darken-3{
+		background-color: darken($agencyRed, 30%) !important;
 	}
-	&.lighten-1 {
-		background-color: lighten($green, 10%) !important;
+	&.lighten-1{
+		background-color: lighten($agencyRed, 10%) !important;
 	}
-	&.lighten-2 {
-		background-color: lighten($green, 20%) !important;
+	&.lighten-2{
+		background-color: lighten($agencyRed, 20%) !important;
 	}
-	&.lighten-3 {
-		background-color: lighten($green, 30%) !important;
+	&.lighten-3{
+		background-color: lighten($agencyRed, 30%) !important;
 	}
 }
 
 // Custom text
-.red-text {
-	color: $red !important;
+.text-red{
+	color: $agencyRed !important;
 }
-.pink-text {
-	color: $pink !important;
+.text-gold{
+	color: gold !important;
 }
-
-// Buttons
-.btn {
-	box-shadow: none !important;
-	&:hover {
-		box-shadow: none;
-	}
-	&:active {
-		box-shadow: none;
-	}
-	&:focus {
-		box-shadow: none;
-	}
+.text-white{
+	color: white !important;
 }
 
-// Cards
-.card {
+body{
+	background-color: #f2f2f2 !important;
+}
+
+// Custom buttons
+.underlined {
+	cursor: pointer;
+	font-weight: bold;
+  text-decoration: none;
+  color: gold;
+  padding-bottom: 0.15em;
+  box-sizing: border-box;
+  box-shadow: inset 0 -0.2em 0 gold;
+  transition: 0.2s;
+  &:hover {
+    color: #222;
+    box-shadow: inset 0 -2em 0 gold;
+    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+}
+
+.clickable{
+	cursor: pointer;
+}
+
+.btn-modern {
+	overflow: visible !important;
+  position: relative;
+  background: none;
+  color: gold;
+	text-transform: uppercase;
+	font-size: .9em;
+  text-decoration: none;
+  border: 0.2em solid gold;
+	padding: 0.5em 1em;
 	box-shadow: none;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 10%;
+    background: #222;
+    height: 0.3em;
+    right: 20%;
+    top: -0.21em;
+    transform: skewX(-45deg);
+    -webkit-transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 10%;
+    background: #222;
+    height: 0.3em;
+    left: 20%;
+    bottom: -0.25em;
+    transform: skewX(45deg);
+    -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
+    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+  &:hover {
+		color: gold;
+    &::before {
+      right: 80%;
+    }
+    &::after {
+      left: 80%;
+    }
+	}
 }
 
-// Generic
-.clickable {
-	cursor: pointer !important;
+.btn{
+	box-shadow: none;
+	&:hover{
+		box-shadow: none;
+	}
+	&:focus{
+		box-shadow: none;
+	}
+	&:active{
+		box-shadow: none;
+	}
+}
+
+// Custom scrollbar
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #555;
 }
 
 /** 
  * SPDX-License-Identifier: (EUPL-1.2)
- * Copyright © 2019 Werbeagentur Christian Aichner
+ * Copyright © 2019 Christian Aichner
  */
