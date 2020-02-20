@@ -52,6 +52,12 @@ import {
   MDBDropdownItem,
   MDBProgress,
 } from "mdbreact";
+import { Radar } from "react-chartjs-2";
+
+//> Components
+import {
+  ResultChart,
+} from "../../molecules/charts";
 
 //> CSS
 // Profile page
@@ -121,23 +127,42 @@ class ProfilePage extends React.Component {
             {this.getGreetingTxt()}, <span>{profile.first_name}</span>!
             </h2>
         </div>
+        <div className="mb-4 py-4 greeting-actions">
+          <MDBContainer>
+            <MDBRow className="flex-center text-center">
+              <MDBCol md="6">
+                <p className="lead">
+                <MDBIcon icon="bolt" className="pr-2 orange-text"/>
+                Quick actions
+                </p>
+              </MDBCol>
+              <MDBCol md="6">
+                <MDBBtn 
+                color="blue"
+                >
+                Sync
+                </MDBBtn>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+        </div>
         <MDBContainer className="pt-5 mt-5">
           <MDBRow className="flex-center">
-            <MDBCol md="4">
+            <MDBCol md="5">
+              <MDBCard>
+                <MDBCardBody>
+                  <ResultChart data={profile} />
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+            <MDBCol md="7">
               <MDBCard>
                 <MDBCardBody>
                   Test
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
-            <MDBCol md="8">
-              <MDBCard>
-                <MDBCardBody>
-                  Test
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-            <MDBCol md="12">
+            <MDBCol md="12" className="mt-5">
               <MDBCard>
                 <MDBCardBody>
                   Test
