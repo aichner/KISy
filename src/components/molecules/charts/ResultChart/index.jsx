@@ -9,46 +9,45 @@ import { Radar } from "react-chartjs-2";
 class ResultChart extends React.Component{
   state = {
     dataRadarOptions: {
-        responsive: true,
-        elements: {
-            line: {
-                tension: 0.4
-            }
-        },
-        legend: {
-            display: false,
-        },
-        scale: {
-            ticks: {
-                beginAtZero: true,
-                max: 10,
-                min: 0
-            }
-        },
-        scales: {
-            yAxes: [{
-                gridLines: {
-                    display: false,
-                    drawBorder: false
-                },
-                ticks: {
-                    display: false
-                }
-            }],
-            xAxes: [{
-                gridLines: {
-                    display: false,
-                    drawBorder: false
-                },
-                ticks: {
-                    beginAtZero: true,
-                    display: false,
-                    stepSize: 1,
-                    min: 0,
-                    max: 10
-                }
-            }]
+      responsive: true,
+      elements: {
+        line: {
+          tension: 0.2
         }
+      },
+      legend: {
+        display: false,
+      },
+      scale: {
+        ticks: {
+          beginAtZero: true,
+          display: false,
+          max: 100,
+          min: 0,
+          stepSize: 20
+        }
+      },
+      scales: {
+        yAxes: [{
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          ticks: {
+            display: false
+          }
+        }],
+        xAxes: [{
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          ticks: {
+            beginAtZero: true,
+            display: false,
+          }
+        }]
+      }
     },
     dataRadarPlugins: [{
         beforeInit: function (chart) {
@@ -61,43 +60,33 @@ class ResultChart extends React.Component{
     }]
   }
 
-  componentDidMount = () => {
-    
-  }
-
   getChart = () => {
     if(this.props.data.data){
-      console.log("Got data",this.props.data);
       let labels, data;
       labels = [];
       data = [];
 
-      this.props.data.data.map((item) => {
-        console.log(item);
+      // Get value and label
+      Object.keys(this.props.data.data[0].results).map((keyName, i) => {
+          console.log(keyName, this.props.data.data[0].results[keyName]);
+          labels.push(keyName);
+          data.push(this.props.data.data[0].results[keyName]);
       });
-      // Set new labels
+
+      // Set data radar chart
       this.setState({
         dataRadar: {
-          labels: [
-            'Große Poren',
-            'Sensible Haut',
-            'Hautalterung',
-            'Ölige Haut',
-            'Trockene Haut',
-            'Unreine Haut',
-            'Pigmentflecken',
-            'Zeichen\noxidativen Stresses'
-          ],
+          labels,
           datasets: [{
-              label: '# of Votes',
-              data: [10, 7, 10, 10, 4, 10, 2, 5],
-              backgroundColor: [
-                  'rgba(246, 26, 66, 0.2)',
-              ],
-              borderColor: [
-                  'rgba(246, 26, 66, 1)',
-              ],
-              borderWidth: 1
+            label: '# of Votes',
+            data,
+            backgroundColor: [
+              'rgba(246, 26, 66, 0.2)',
+            ],
+            borderColor: [
+              'rgba(246, 26, 66, 1)',
+            ],
+            borderWidth: 1
           }]
         },
       });
