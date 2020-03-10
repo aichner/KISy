@@ -135,6 +135,9 @@ body{
 
 .btn{
 	box-shadow: none;
+	.fa{
+		margin-right: .4rem !important; 
+	}
 	&:hover{
 		box-shadow: none;
 	}
@@ -143,6 +146,20 @@ body{
 	}
 	&:active{
 		box-shadow: none;
+	}
+	&.btn-agency-red{
+		background: $agencyRed;
+		color: white;
+		&:hover{
+			background: lighten($agencyRed, 10%);
+		}
+	}
+	&.btn-primary{
+		background: #2a3c4a !important;
+		color: white;
+		&:hover{
+			background: lighten(#2a3c4a, 6%) !important;
+		}
 	}
 }
 

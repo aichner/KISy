@@ -127,7 +127,7 @@ class ProfilePage extends React.Component {
             {this.getGreetingTxt()}, <span>{profile.first_name}</span>!
             </h2>
         </div>
-        <div className="mb-4 py-4 greeting-actions">
+        <div className="py-4 greeting-actions">
           <MDBContainer>
             <MDBRow className="flex-center text-center">
               <MDBCol md="6">
@@ -140,7 +140,14 @@ class ProfilePage extends React.Component {
                 <MDBBtn 
                 color="blue"
                 >
-                Sync
+                <MDBIcon icon="euro-sign" />
+                Rechnungen
+                </MDBBtn>
+                <MDBBtn 
+                color="primary"
+                >
+                <MDBIcon icon="cogs" />
+                Einstellungen
                 </MDBBtn>
               </MDBCol>
             </MDBRow>
@@ -150,8 +157,15 @@ class ProfilePage extends React.Component {
           <MDBRow className="flex-center">
             <MDBCol md="5">
               <MDBCard>
-                <MDBCardBody>
-                  <ResultChart data={profile} />
+                <MDBCardBody className="text-center">
+                  <h2 className="font-weight-bold mb-2">Meine Analyse</h2>
+                  <div className="my-3">
+                    <ResultChart data={profile} />
+                  </div>
+                  <MDBBtn color="agency-red">
+                  <MDBIcon icon="list-alt" className="mr-2"/>
+                  Auswertung
+                  </MDBBtn>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
