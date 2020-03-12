@@ -2,7 +2,7 @@
 // Contains all the functionality necessary to define React components
 import React from "react";
 // Router
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter, } from "react-router-dom";
 
 //> Additional modules
 // Fade In Animation
@@ -56,8 +56,10 @@ import { Radar } from "react-chartjs-2";
 
 //> Components
 import {
-  ResultChart,
-} from "../../molecules/charts";
+  Coach,
+  Customer,
+  FormCat,
+} from "../../organisms";
 
 //> CSS
 // Profile page
@@ -71,7 +73,9 @@ import { ReactComponent as NightImg } from  '../../../assets/icons/night.svg';
 class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      page: null
+    };
   }
 
   componentDidMount = () => {
@@ -114,6 +118,24 @@ class ProfilePage extends React.Component {
     }
   }
 
+  renderRoute = (props) => {
+    console.log(props);
+    if(props.match.params.action){
+      switch(props.match.params.action){
+        case "add":
+          return(
+            <FormCat {...props} />
+          )
+        default: 
+          return(
+            <Coach {...props} />
+          );
+      }
+    } else {
+      return <Coach {...props} />;
+    }
+  }
+
   render() {
     const { auth, profile } = this.props;
 
@@ -127,64 +149,11 @@ class ProfilePage extends React.Component {
             {this.getGreetingTxt()}, <span>{profile.first_name}</span>!
             </h2>
         </div>
-        <div className="py-4 greeting-actions">
-          <MDBContainer>
-            <MDBRow className="flex-center text-center">
-              <MDBCol md="6">
-                <p className="lead">
-                <MDBIcon icon="bolt" className="pr-2 orange-text"/>
-                Quick actions
-                </p>
-              </MDBCol>
-              <MDBCol md="6">
-                <MDBBtn 
-                color="blue"
-                >
-                <MDBIcon icon="euro-sign" />
-                Rechnungen
-                </MDBBtn>
-                <MDBBtn 
-                color="primary"
-                >
-                <MDBIcon icon="cogs" />
-                Einstellungen
-                </MDBBtn>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
-        </div>
-        <MDBContainer className="pt-5 mt-5">
-          <MDBRow className="flex-center">
-            <MDBCol md="5">
-              <MDBCard>
-                <MDBCardBody className="text-center">
-                  <h2 className="font-weight-bold mb-2">Meine Analyse</h2>
-                  <div className="my-3">
-                    <ResultChart data={profile} />
-                  </div>
-                  <MDBBtn color="agency-red">
-                  <MDBIcon icon="list-alt" className="mr-2"/>
-                  Auswertung
-                  </MDBBtn>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-            <MDBCol md="7">
-              <MDBCard>
-                <MDBCardBody>
-                  Test
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-            <MDBCol md="12" className="mt-5">
-              <MDBCard>
-                <MDBCardBody>
-                  Test
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
+        {profile.coach ? (
+          this.renderRoute(this.props)
+        ) : (
+          <Customer {...this.props} />
+        )}
       </div>
     );
   }
@@ -204,7 +173,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ProfilePage);
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(ProfilePage));
 
 /** 
  * SPDX-License-Identifier: (EUPL-1.2)

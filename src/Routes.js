@@ -21,6 +21,7 @@ class Routes extends React.Component {
     return (
       <Switch>
         <Route exact path='/me' component={ProfilePage} />
+        <Route exact path='/me/:action' component={ProfilePage} />
         <Route exact path='/' component={LoginPage} />
         <Route 
         exact
