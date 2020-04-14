@@ -19,6 +19,10 @@ class ResultChart extends React.Component{
         display: false,
       },
       scale: {
+        pointLabels: {
+          fontSize: 16,
+          fontFamily: "Roboto"
+        },
         ticks: {
           beginAtZero: true,
           display: false,
