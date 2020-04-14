@@ -1,6 +1,6 @@
 //> Components
 // Import all components to export them for easy access from parent components
-import AboutUs from './AboutUs';
+import AboutUs from "./AboutUs";
 
 export {
     AboutUs,

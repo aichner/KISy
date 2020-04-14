@@ -82,13 +82,13 @@ class ResultChart extends React.Component{
         dataRadar: {
           labels,
           datasets: [{
-            label: '# of Votes',
+            label: "# of Votes",
             data,
             backgroundColor: [
-              'rgba(246, 26, 66, 0.2)',
+              "rgba(246, 26, 66, 0.2)",
             ],
             borderColor: [
-              'rgba(246, 26, 66, 1)',
+              "rgba(246, 26, 66, 1)",
             ],
             borderWidth: 1
           }]

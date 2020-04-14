@@ -1,8 +1,8 @@
 //> React
 // Contains all the functionality necessary to define React components
-import React from 'react';
+import React from "react";
 // DOM bindings for React Router
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from "react-router-dom";
 
 //> Components
 /**
@@ -14,27 +14,27 @@ import {
   ProfilePage,
   LoginPage,
   MessagePage,
-} from './components/pages';
+} from "./components/pages";
 
 class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path='/' component={LoginPage} />
-        <Route exact path='/me' component={ProfilePage} />
+        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/me" component={ProfilePage} />
         <Route 
         exact
-        path='/about'
+        path="/about"
         component={(props) => <MessagePage {...props}/>}
         />
         <Route
         exact
-        path='/privacy'
+        path="/privacy"
         component={(props) => <MessagePage {...props} />}
         />
         <Route
         exact
-        path='/privacy/me'
+        path="/privacy/me"
         component={(props) => <MessagePage {...props} />}
         />
         <Route

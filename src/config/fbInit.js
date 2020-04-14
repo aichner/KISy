@@ -1,11 +1,11 @@
 //> Firebase
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-import 'firebase/auth'
-import 'firebase/analytics'
+import firebase from "firebase/app"
+import "firebase/firestore"
+import "firebase/auth"
+import "firebase/analytics"
 
 // Import secret credentials
-import config from './fbConfig.js'
+import config from "./fbConfig.js"
 
 // Init Firebase
 firebase.initializeApp(config);

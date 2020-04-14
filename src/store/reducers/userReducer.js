@@ -5,24 +5,24 @@ const initState = {
 
 const userReducer = (state = initState, action) => {
   switch(action.type){
-    case 'USERLOAD_SUCCESS':
-      console.log('Get user info success');
+    case "USERLOAD_SUCCESS":
+      console.log("Get user info success");
       return {
         ...state,
         receivedUser: action.results
       };
-    case 'USERLOAD_ERROR':
-      console.log('Get user info error', action.err);
+    case "USERLOAD_ERROR":
+      console.log("Get user info error", action.err);
       return {
         ...state,
         receivedUser: null,
       };
-    case 'USERLOAD_LOADING':
+    case "USERLOAD_LOADING":
       return {
         ...state,
         receivedUser: true,
       };
-    case 'USERLOAD_CLEAR':
+    case "USERLOAD_CLEAR":
       return {
         ...state,
         receivedUser: undefined,

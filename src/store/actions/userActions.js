@@ -4,22 +4,22 @@ export const getUser = (uid) => {
         const firestore = getFirestore();
 
         // Get loading
-        dispatch({ type: 'USERLOAD_LOADING' });
+        dispatch({ type: "USERLOAD_LOADING" });
 
         console.log(uid);
 
-        firestore.collection('users').doc(uid).get().then((doc) => {
+        firestore.collection("users").doc(uid).get().then((doc) => {
             if (!doc.exists) {
-                console.log('User no longer exists!');
-                dispatch({ type: 'USERLOAD_ERROR', err: "User no longer exists." });
+                console.log("User no longer exists!");
+                dispatch({ type: "USERLOAD_ERROR", err: "User no longer exists." });
             } else {
-                console.log('Document data:', doc.data());
-                dispatch({ type: 'USERLOAD_SUCCESS', results: doc.data() });
+                console.log("Document data:", doc.data());
+                dispatch({ type: "USERLOAD_SUCCESS", results: doc.data() });
                 
             }
         })
         .catch((err) => {
-            dispatch({ type: 'USERLOAD_ERROR', err });
+            dispatch({ type: "USERLOAD_ERROR", err });
         });
     }
 }
@@ -27,7 +27,7 @@ export const getUser = (uid) => {
 export const clearUser = () => {
     return (dispatch) => {
         // Clear currently selected user
-        dispatch({ type: 'USERLOAD_CLEAR' });
+        dispatch({ type: "USERLOAD_CLEAR" });
     }
 }
 

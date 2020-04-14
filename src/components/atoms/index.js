@@ -1,8 +1,8 @@
 //> Components
 // Import all components to export them for easy access from parent components
-import DocsLink from './DocsLink';
-import MenuLink from './MenuLink';
-import ScrollToTop from './ScrollToTop';
+import DocsLink from "./DocsLink";
+import MenuLink from "./MenuLink";
+import ScrollToTop from "./ScrollToTop";
 
 export {
     DocsLink,
