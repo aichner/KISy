@@ -57,5 +57,5 @@ export const createCat = (newUser) => {
 
 /**
  * SPDX-License-Identifier: (EUPL-1.2)
- * Copyright © 2019 Christian Aichner
+ * Copyright © 2020 Christian Aichner
  */
