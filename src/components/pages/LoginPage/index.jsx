@@ -1,18 +1,14 @@
 //> React
 // Contains all the functionality necessary to define React components
-import React from 'react';
+import React from "react";
 // Redirect from Router
-import { Redirect, withRouter } from 'react-router-dom';
-
-//> Additional modules
-// Fade In Animation
-import FadeIn from 'react-fade-in';
+import { Redirect, withRouter } from "react-router-dom";
 
 //> Redux
 // Connect
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 // Actions
-import { signIn, signUp } from '../../../store/actions/authActions';
+import { signIn } from "../../../store/actions/authActions";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
@@ -24,16 +20,24 @@ import {
   MDBInput,
   MDBBtn,
   MDBIcon,
-} from 'mdbreact';
+  MDBView,
+  MDBMask,
+  MDBCard,
+  MDBCardBody,
+} from "mdbreact";
 
 //> Components
-// To be added
+// To be added here
 
 //> CSS
-import './loginpage.scss';
+import "./loginpage.scss";
 
 //> Images
-import IMGlogo from '../../../assets/images/logo_sm.png';
+import IMGlogo from "../../../assets/agency-small.png";
+
+//> Configuration
+// The route of your profile page (include /)
+const profileRoute = "/me";
 
 class LoginPage extends React.Component {
   state = {
@@ -41,116 +45,115 @@ class LoginPage extends React.Component {
     password: "",
   };
 
-  componentDidMount = () => {
-    //this.props.signUp();
-  }
-
-  submitHandler = event => {
+  submitHandler = (event) => {
     event.preventDefault();
-
     this._loginUser();
-  }
+  };
 
-  changeHandler = event => {
+  changeHandler = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
-  }
+  };
 
   _loginUser = () => {
-    let email = this.state.email;
-    let psw = this.state.password;
+    const email = this.state.email;
+    const password = this.state.password;
 
-    if(email && psw){
+    if (email && password) {
       this.props.signIn({
-        email: email,
-        password: psw
+        email,
+        password,
       });
     } else {
       this.setState({
-        error: true
+        error: true,
       });
     }
-  }
+  };
 
   render() {
     const { authErrorDetails, auth, location } = this.props;
 
-    let params = location.search.substr(1) ? location.search.substr(1).split("=") : null;
-    if(params){
-      if(params[0] === "refer"){
-        switch(params[1]){
-          case "basic":
-            if(auth.uid !== undefined) return <Redirect to="/basic"/> 
+    // Get GET parameters from URL
+    let params = location.search.substr(1)
+      ? location.search.substr(1).split("=")
+      : null;
+
+    // Check if there are any GET parameters in the URL
+    if (params) {
+      // Check if the GET parameter on position 0 is a refer
+      if (params[0] === "refer") {
+        // Check for custom refers (You would use this when a user tries to access /me, but is not logged in)
+        switch (params[1]) {
+          case "me":
+            if (auth.uid !== undefined) return <Redirect to="/me" />;
             break;
           default:
-            if(auth.uid !== undefined) return <Redirect to="/me"/>
+            if (auth.uid !== undefined) return <Redirect to={profileRoute} />;
         }
       }
     } else {
-      if(auth.uid !== undefined) return <Redirect to="/me"/>
+      // User is not logged in and has no refer GET parameter
+      if (auth.uid !== undefined) return <Redirect to={profileRoute} />;
     }
 
     return (
-      <MDBContainer id="login" className="text-center text-white pt-5 mt-5">
-        <img src={IMGlogo} alt="SithCult logo" className="img-fluid"/>
-        <h2 className="font-weight-bold mt-5">Login</h2>
-        <form
-        onSubmit={this.submitHandler}
-        >
+      <MDBView id="login" className="flex-center">
+        <MDBMask overlay="indigo-strong" />
+        <MDBContainer>
           <MDBRow className="flex-center">
-          <MDBCol md="4">
-            {authErrorDetails &&
-              <MDBAlert color="gold">
-              <p
-              className="text-gold"
-              >
-              The password is invalid or the user does not exist.
-              </p>
-              </MDBAlert>
-            }
-            <MDBInput
-              value={this.state.email}
-              onChange={this.changeHandler}
-              type="email"
-              id="materialFormRegisterConfirmEx2"
-              name="email"
-              outline
-              label="Your email"
-              required
-            > 
-            <small id="emailHelp" className="form-text text-muted">
-              You can use your SithCult E-Mail (sithname@sithcult.com)
-            </small>
-            </MDBInput>
-          </MDBCol>
-          <MDBCol md="12"></MDBCol>
-          <MDBCol md="4">
-            <MDBInput
-              value={this.state.password}
-              onChange={this.changeHandler}
-              type="password"
-              id="materialFormRegisterConfirmEx4"
-              outline
-              name="password"
-              label="Password"
-              required
-            >
-              <small id="passwordHelp" className="form-text text-muted text-right">
-                <a className="underlined" href="mailto:center@sithcult.com">Forgot password?</a><br/>
-              </small>
-            </MDBInput>
-          </MDBCol>
+            <MDBCol md="6" xl="5" className="mb-4">
+              <MDBCard className="dark-grey-text">
+                <MDBCardBody className="z-depth-2 text-center">
+                  <h3 className="dark-grey-text text-center">
+                    <strong>KISy</strong>
+                  </h3>
+                  <p className="lead">Kunden Informations System</p>
+                  <hr />
+                  <form onSubmit={this.submitHandler}>
+                    {authErrorDetails && (
+                      <MDBAlert color="danger">
+                        Das Passwort ist ungültig oder der Benutzer existiert
+                        nicht.
+                      </MDBAlert>
+                    )}
+                    <input
+                      value={this.state.email}
+                      onChange={this.changeHandler}
+                      type="email"
+                      placeholder="E-Mail"
+                      id="materialFormRegisterConfirmEx2"
+                      name="email"
+                      className="form-control my-3"
+                      required
+                    />
+                    <input
+                      value={this.state.password}
+                      onChange={this.changeHandler}
+                      type="password"
+                      id="materialFormRegisterConfirmEx4"
+                      className="form-control mb-1"
+                      placeholder="Kennwort"
+                      name="password"
+                      required
+                    />
+                    <div className="text-right mb-3">
+                      <span className="clickable text-muted">
+                        Passwort vergessen
+                      </span>
+                    </div>
+                    <MDBBtn color="indigo" type="submit">
+                      <MDBIcon icon="angle-right" />
+                      login
+                    </MDBBtn>
+                  </form>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
           </MDBRow>
-          <MDBBtn
-          color="red"
-          type="submit"
-          >
-          <MDBIcon icon="key" className="pr-2" />
-          Login
-          </MDBBtn>
-        </form>
-      </MDBContainer>
+        </MDBContainer>
+      </MDBView>
     );
   }
 }
@@ -158,20 +161,22 @@ class LoginPage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     authErrorDetails: state.auth.authErrorDetails,
-    auth: state.firebase.auth
-  }
-}
+    auth: state.firebase.auth,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (credentials) => dispatch(signIn(credentials)),
-    signUp: () => dispatch(signUp())
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(LoginPage));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(LoginPage));
 
-/** 
+/**
  * SPDX-License-Identifier: (EUPL-1.2)
  * Copyright © 2019 Christian Aichner
  */
