@@ -32,9 +32,7 @@ import {
 } from "mdbreact";
 
 //> Components
-import {
-  FormCat,
-} from "../../organisms";
+import { FormCat } from "../../organisms";
 
 //> CSS
 import "./profilepage.scss";
@@ -60,12 +58,12 @@ class ProfilePage extends React.Component {
 
     // Store selected greeting
     let selected = null;
-
-    if (curHr < 11) {
+    console.log(curHr);
+    if (curHr > 5) {
       selected = <span>Guten Morgen</span>;
-    } else if (curHr < 18) {
+    } else if (curHr > 11) {
       selected = <span>Willkommen zurück</span>;
-    } else {
+    } else if (curHr > 18 || curHr > 0) {
       selected = <span>Guten Abend</span>;
     }
 
@@ -78,11 +76,11 @@ class ProfilePage extends React.Component {
     // Get current hours
     let curHr = today.getHours();
 
-    if (curHr < 11) {
+    if (curHr > 5) {
       this.setState({ greetingImage: <MorningImg className="img-fluid" /> });
-    } else if (curHr < 18) {
+    } else if (curHr > 11) {
       this.setState({ greetingImage: <DayImg className="img-fluid" /> });
-    } else {
+    } else if (curHr > 18 || curHr > 0) {
       this.setState({ greetingImage: <NightImg className="img-fluid" /> });
     }
   };
