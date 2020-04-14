@@ -106,9 +106,7 @@ class LoginPage extends React.Component {
             <MDBCol md="6" xl="5" className="mb-4">
               <MDBCard className="dark-grey-text">
                 <MDBCardBody className="z-depth-2 text-center">
-                  <h3 className="dark-grey-text text-center">
-                    <strong>KISy</strong>
-                  </h3>
+                  <img src={IMGlogo} alt="Agency logo" className="mx-auto my-3"/>
                   <p className="lead">Kunden Informations System</p>
                   <hr />
                   <form onSubmit={this.submitHandler}>
