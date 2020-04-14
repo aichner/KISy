@@ -59,6 +59,12 @@ class Customer extends React.Component{
             <MDBIcon icon="cogs" />
             Einstellungen
             </MDBBtn>
+            <MDBBtn 
+            color="danger"
+            onClick={() => this.props.signOut()}
+            >
+            Logout
+            </MDBBtn>
           </MDBCol>
           </MDBRow>
         </MDBContainer>

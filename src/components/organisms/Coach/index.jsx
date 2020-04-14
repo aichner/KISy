@@ -55,6 +55,12 @@ class Coach extends React.Component{
             <MDBIcon icon="cogs" />
             Einstellungen
             </MDBBtn>
+            <MDBBtn 
+            color="danger"
+            onClick={() => this.props.signOut()}
+            >
+            Logout
+            </MDBBtn>
           </MDBCol>
           </MDBRow>
         </MDBContainer>
@@ -79,7 +85,8 @@ class Coach extends React.Component{
           <MDBCol md="7">
           <MDBCard>
             <MDBCardBody>
-            Test
+              <h2 className="font-weight-bold mb-2">Übersicht</h2>
+              <p>Table</p>
             </MDBCardBody>
           </MDBCard>
           </MDBCol>

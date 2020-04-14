@@ -144,10 +144,10 @@ class ProfilePage extends React.Component {
     return (
       <div id="profile">
         <div className="greeting py-5 text-center">
-            {this.state.greetingImage}
-            <h2 className="text-center font-weight-bold">
-            {this.getGreetingTxt()}, <span>{profile.first_name}</span>!
-            </h2>
+          {this.state.greetingImage}
+          <h2 className="text-center font-weight-bold">
+          {this.getGreetingTxt()}, <span>{profile.first_name}</span>!
+          </h2>
         </div>
         {profile.coach ? (
           this.renderRoute(this.props)
