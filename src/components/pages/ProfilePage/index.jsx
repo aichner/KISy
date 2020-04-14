@@ -30,8 +30,11 @@ import {
   MDBIcon,
   MDBBadge,
 } from "mdbreact";
+
 //> Components
-// To be added here
+import {
+  FormCat,
+} from "../../organisms";
 
 //> CSS
 import "./profilepage.scss";
@@ -139,63 +142,7 @@ class ProfilePage extends React.Component {
                 <MDBCol md="7">
                   <MDBCard className="w-100">
                     <MDBCardBody>
-                      <MDBRow>
-                        <MDBCol col="6">
-                          <p className="lead font-weight-bold">
-                            Ihre offenen Anfragen
-                          </p>
-                        </MDBCol>
-                        <MDBCol col="6" className="text-right">
-                          <span className="clickable text-muted">
-                            Alle Anfragen
-                          </span>
-                        </MDBCol>
-                      </MDBRow>
-
-                      <div className="orders">
-                        {false ? (
-                          <p className="text-muted">
-                            Derzeit haben Sie keine offenen Anfragen.
-                          </p>
-                        ) : (
-                          <MDBListGroup className="mb-3">
-                            <MDBListGroupItem>
-                              <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1">
-                                  Gutschein2Go Überprüfung
-                                </h5>
-                                <span>
-                                  Status:{" "}
-                                  <MDBBadge color="info">
-                                    In Bearbeitung
-                                  </MDBBadge>
-                                </span>
-                              </div>
-                              <p className="my-3">
-                                <MDBBtn color="elegant" size="md">
-                                  <MDBIcon icon="upload" />
-                                  Dokumente hochladen
-                                </MDBBtn>
-                              </p>
-                              <div className="d-flex w-100 justify-content-between align-items-center">
-                                <div>
-                                  <MDBBtn color="indigo" outline size="sm">
-                                    Details
-                                  </MDBBtn>
-                                  <MDBBtn color="indigo" size="sm">
-                                    Anmerkung hinzufügen
-                                  </MDBBtn>
-                                </div>
-                                <small>Vor 3 Tagen aktualisiert</small>
-                              </div>
-                            </MDBListGroupItem>
-                          </MDBListGroup>
-                        )}
-                        <MDBBtn color="indigo">
-                          <MDBIcon icon="plus" />
-                          Anfrage
-                        </MDBBtn>
-                      </div>
+                      <FormCat />
                     </MDBCardBody>
                   </MDBCard>
                 </MDBCol>
@@ -204,7 +151,10 @@ class ProfilePage extends React.Component {
                     <MDBCardUp className="indigo lighten-3" />
                     <MDBAvatar className="mx-auto white">
                       <img
-                        src={"https://www.aichner-christian.com/img/kisy/"+profile.image}
+                        src={
+                          "https://www.aichner-christian.com/img/kisy/" +
+                          profile.image
+                        }
                         alt=""
                       />
                     </MDBAvatar>

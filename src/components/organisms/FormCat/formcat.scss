@@ -1,0 +1,28 @@
+.formcat {
+  .col-md-6,
+  .col-md-3,
+  .col-md-4,
+  .col-md-5 {
+    margin-bottom: 1rem;
+  }
+  .col-md-12 {
+    margin-bottom: 0.5rem;
+  }
+  p {
+    &.lead {
+      font-weight: bold;
+      border-bottom: 3px #3f51b5 solid;
+      display: inline-block;
+    }
+  }
+  .activated {
+    input[type="range"]::-webkit-slider-thumb {
+      background: #00e25b;
+    }
+  }
+}
+
+/** 
+ * SPDX-License-Identifier: (EUPL-1.2)
+ * Copyright © 2019 Christian Aichner
+ */
