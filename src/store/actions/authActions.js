@@ -50,7 +50,7 @@ export const createCat = (newUser) => {
         return;
       })
       .catch((err) => {
-        dispatch({ type: "CAT_SUCCESS", err });
+        dispatch({ type: "CAT_ERROR", err });
       });
   };
 };

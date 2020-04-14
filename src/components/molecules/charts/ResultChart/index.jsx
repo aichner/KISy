@@ -61,16 +61,16 @@ class ResultChart extends React.Component{
   }
 
   getChart = () => {
-    if(this.props.data.data){
+    if(this.props.data){
       let labels, data;
       labels = [];
       data = [];
 
       // Get value and label
-      Object.keys(this.props.data.data[0].results).map((keyName, i) => {
-          console.log(keyName, this.props.data.data[0].results[keyName]);
-          labels.push(keyName);
-          data.push(this.props.data.data[0].results[keyName]);
+      Object.keys(this.props.data).map((keyName, i) => {
+          console.log(keyName, this.props.data[keyName]);
+          labels.push(this.props.data[keyName].name);
+          data.push(this.props.data[keyName].value);
       });
 
       // Set data radar chart
