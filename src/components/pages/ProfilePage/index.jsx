@@ -32,7 +32,7 @@ import {
 } from "mdbreact";
 
 //> Components
-import { FormCat } from "../../organisms";
+import { FormCat, CatList, CoachPage } from "../../organisms";
 
 //> CSS
 import "./profilepage.scss";
@@ -43,7 +43,9 @@ import { ReactComponent as DayImg } from "../../../assets/icons/day.svg";
 import { ReactComponent as NightImg } from "../../../assets/icons/night.svg";
 
 class ProfilePage extends React.Component {
-  state = {};
+  state = {
+    activePage: 0,
+  };
 
   componentDidMount = () => {
     // Load welcoming picture
@@ -85,6 +87,23 @@ class ProfilePage extends React.Component {
     }
   };
 
+  goTo = (name) => {
+    let to;
+    switch (name) {
+      case "formcat":
+        to = 1;
+        break;
+      case "catlist":
+        to = 2;
+        break;
+      default:
+        to = 0;
+    }
+    this.setState({
+      activePage: to,
+    });
+  };
+
   render() {
     const { auth, profile } = this.props;
     console.log(auth, profile);
@@ -122,10 +141,17 @@ class ProfilePage extends React.Component {
                   </p>
                 </MDBCol>
                 <MDBCol md="5" className="text-center">
-                  <MDBBtn color="indigo">
-                    <MDBIcon icon="history" />
-                    History
-                  </MDBBtn>
+                  {this.state.activePage !== 0 ? (
+                    <MDBBtn color="indigo" onClick={() => this.goTo(0)}>
+                      <MDBIcon icon="columns" />
+                      Dashboard
+                    </MDBBtn>
+                  ) : (
+                    <MDBBtn color="indigo" onClick={() => this.goTo("formcat")}>
+                      <MDBIcon icon="cat" />
+                      Add cat
+                    </MDBBtn>
+                  )}
                   <MDBBtn color="elegant">
                     <MDBIcon far icon="file" />
                     Meine Dokumente
@@ -136,49 +162,11 @@ class ProfilePage extends React.Component {
           </div>
           <div className="main">
             <MDBContainer className="py-5">
-              <MDBRow className="justify-content-center">
-                <MDBCol md="7">
-                  <MDBCard className="w-100">
-                    <MDBCardBody>
-                      <FormCat />
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-                <MDBCol md="3" className="text-center">
-                  <MDBCard className="w-100" testimonial>
-                    <MDBCardUp className="indigo lighten-3" />
-                    <MDBAvatar className="mx-auto white">
-                      <img
-                        src={
-                          "https://www.aichner-christian.com/img/kisy/" +
-                          profile.image
-                        }
-                        alt=""
-                      />
-                    </MDBAvatar>
-                    <MDBCardBody>
-                      <input
-                        type="text"
-                        className="form-control mb-3"
-                        placeholder="What are you doing?"
-                      />
-                      <p className="lead mb-3">0:00</p>
-                      <MDBBtn outline color="indigo" className="w-100 mx-0">
-                        <MDBIcon far icon="pause-circle" />
-                        Pause
-                      </MDBBtn>
-                      <MDBBtn color="indigo" className="w-100 mx-0">
-                        <MDBIcon icon="stopwatch" />
-                        Start
-                      </MDBBtn>
-                      <MDBBtn color="indigo" className="w-100 mx-0">
-                        <MDBIcon icon="stop-circle" />
-                        Stop
-                      </MDBBtn>
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-              </MDBRow>
+              {this.state.activePage === 0 && (
+                <CoachPage goTo={this.goTo} profile={profile} />
+              )}
+              {this.state.activePage === 1 && <FormCat />}
+              {this.state.activePage === 2 && <CatList />}
             </MDBContainer>
           </div>
         </div>
