@@ -1,9 +1,13 @@
 //> Components
 // Import all components to export them for easy access from parent components
 import FormCat from "./FormCat";
+import CatList from "./CatList";
+import CoachPage from "./CoachPage";
 
 export {
   FormCat,
+  CatList,
+  CoachPage,
 };
 
 /** 
