@@ -43,7 +43,7 @@ export const createCat = (newUser) => {
     firestore
       .collection("cats")
       .add({
-        ...newUser
+        ...newUser,
       })
       .then(() => {
         dispatch({ type: "CAT_SUCCESS", newUser });
@@ -51,6 +51,76 @@ export const createCat = (newUser) => {
       })
       .catch((err) => {
         dispatch({ type: "CAT_ERROR", err });
+      });
+  };
+};
+
+export const getCats = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    firestore
+      .collection("cats")
+      .get()
+      .then((querySnapshot) => {
+        let cats = querySnapshot.docs.map((doc) => {
+          let data = doc.data();
+          data.uid = doc.id;
+          return data;
+        });
+        dispatch({
+          type: "GETCATS_SUCCESS",
+          cats,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "GETCATS_ERROR",
+          err,
+        });
+      });
+  };
+};
+
+export const removeCat = (uid) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    firestore
+      .collection("cats")
+      .doc(uid)
+      .set(
+        {
+          disabled: true,
+        },
+        { merge: true }
+      )
+      .then(() => {
+        firestore
+          .collection("cats")
+          .get()
+          .then((querySnapshot) => {
+            let cats = querySnapshot.docs.map((doc) => {
+              let data = doc.data();
+              data.uid = doc.id;
+              return data;
+            });
+            dispatch({
+              type: "GETCATS_SUCCESS",
+              cats,
+            });
+          })
+          .catch((err) => {
+            dispatch({
+              type: "GETCATS_ERROR",
+              err,
+            });
+          });
+      })
+      .catch((err) => {
+        dispatch({ type: "REMOVECAT_ERROR", err });
       });
   };
 };

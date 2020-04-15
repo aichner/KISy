@@ -29,7 +29,24 @@ const authReducer = (state = initState, action) => {
       console.log("Can not create cat", action.err);
       return {
         ...state,
-        catDetails: null
+        catDetails: null,
+      };
+    case "REMOVECAT_ERROR":
+      console.log("Can not disable cat", action.err);
+      return {
+        ...state,
+      };
+    case "GETCATS_SUCCESS":
+      console.log("Cats fetched");
+      return {
+        ...state,
+        cats: action.cats,
+      };
+    case "GETCATS_ERROR":
+      console.log("Can not get cats", action.err);
+      return {
+        ...state,
+        cats: null,
       };
     case "SIGNOUT_SUCCESS":
       console.log("Signout success");
