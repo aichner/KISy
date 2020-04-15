@@ -21,6 +21,7 @@ class ResultChart extends React.Component {
       scale: {
         pointLabels: {
           fontSize: 16,
+          display: this.props.hideLabels ? false : true,
           fontFamily: "Roboto",
         },
         ticks: {
@@ -78,7 +79,6 @@ class ResultChart extends React.Component {
 
       // Get value and label
       Object.keys(this.props.data).map((keyName, i) => {
-        console.log(keyName, this.props.data[keyName]);
         labels.push(this.props.data[keyName].name);
         data.push(this.props.data[keyName].value);
       });
@@ -102,8 +102,6 @@ class ResultChart extends React.Component {
   };
 
   render() {
-    console.log(this.props, this.state);
-
     if (this.state.dataRadar) {
       return (
         <Radar
