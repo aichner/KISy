@@ -1,17 +1,17 @@
 //> Reducers
 // Authentication
-import authReducer from './authReducer';
-import postReducer from './postReducer';
-import userReducer from './userReducer';
+import authReducer from "./authReducer";
+import postReducer from "./postReducer";
+import userReducer from "./userReducer";
 
 //> Redux
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
 //> Firestore reducer
-import { firestoreReducer } from 'redux-firestore';
+import { firestoreReducer } from "redux-firestore";
 
 //> Firebase reducer
-import { firebaseReducer } from 'react-redux-firebase';
+import { firebaseReducer } from "react-redux-firebase";
 
 const rootReducer = combineReducers({
     auth: authReducer,

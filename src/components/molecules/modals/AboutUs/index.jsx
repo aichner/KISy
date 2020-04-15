@@ -1,6 +1,6 @@
 //> React
 // Contains all the functionality necessary to define React components
-import React from 'react';
+import React from "react";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
@@ -11,10 +11,10 @@ import {
   MDBModalFooter,
   MDBIcon,
   MDBIframe
-} from 'mdbreact';
+} from "mdbreact";
 
 //> CSS
-import './aboutus.scss';
+import "./aboutus.scss";
 
 class ModalPage extends React.Component {
   state = {
@@ -22,7 +22,7 @@ class ModalPage extends React.Component {
   }
 
   toggle = nr => () => {
-    let modalNumber = 'modal' + nr
+    let modalNumber = "modal" + nr
     this.setState({
       [modalNumber]: !this.state[modalNumber]
     });
@@ -98,5 +98,5 @@ export default ModalPage;
 
 /** 
  * SPDX-License-Identifier: (EUPL-1.2)
- * Copyright © 2019 Christian Aichner
+ * Copyright © 2020 Christian Aichner
  */

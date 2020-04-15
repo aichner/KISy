@@ -1,10 +1,10 @@
 //> React
 // Contains all the functionality necessary to define React components
-import React from 'react';
+import React from "react";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
-import { MDBRow, MDBIcon } from 'mdbreact';
+import { MDBRow, MDBIcon } from "mdbreact";
 
 const DocsLink = (props) => {
   return (
