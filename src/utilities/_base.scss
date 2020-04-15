@@ -1,73 +1,73 @@
 .flyout {
-	display:flex;
-	flex-direction: column;
-	min-height:100vh;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
 }
 
 // Custom colors
-.sithcult-dark{
-	background-color: $agencyDark !important;
-	&.darken-1{
-		background-color: darken($agencyDark, 5%) !important;
-	}
-	&.darken-2{
-		background-color: darken($agencyDark, 10%) !important;
-	}
-	&.darken-3{
-		background-color: darken($agencyDark, 15%) !important;
-	}
-	&.lighten-1{
-		background-color: lighten($agencyDark, 10%) !important;
-	}
-	&.lighten-2{
-		background-color: lighten($agencyDark, 20%) !important;
-	}
-	&.lighten-3{
-		background-color: lighten($agencyDark, 30%) !important;
-	}
+.sithcult-dark {
+  background-color: $agencyDark !important;
+  &.darken-1 {
+    background-color: darken($agencyDark, 5%) !important;
+  }
+  &.darken-2 {
+    background-color: darken($agencyDark, 10%) !important;
+  }
+  &.darken-3 {
+    background-color: darken($agencyDark, 15%) !important;
+  }
+  &.lighten-1 {
+    background-color: lighten($agencyDark, 10%) !important;
+  }
+  &.lighten-2 {
+    background-color: lighten($agencyDark, 20%) !important;
+  }
+  &.lighten-3 {
+    background-color: lighten($agencyDark, 30%) !important;
+  }
 }
-.sithcult-red{
-	background-color: $agencyRed !important;
-	&.darken-1{
-		background-color: darken($agencyRed, 10%) !important;
-	}
-	&.darken-2{
-		background-color: darken($agencyRed, 20%) !important;
-	}
-	&.darken-3{
-		background-color: darken($agencyRed, 30%) !important;
-	}
-	&.lighten-1{
-		background-color: lighten($agencyRed, 10%) !important;
-	}
-	&.lighten-2{
-		background-color: lighten($agencyRed, 20%) !important;
-	}
-	&.lighten-3{
-		background-color: lighten($agencyRed, 30%) !important;
-	}
+.sithcult-red {
+  background-color: $agencyRed !important;
+  &.darken-1 {
+    background-color: darken($agencyRed, 10%) !important;
+  }
+  &.darken-2 {
+    background-color: darken($agencyRed, 20%) !important;
+  }
+  &.darken-3 {
+    background-color: darken($agencyRed, 30%) !important;
+  }
+  &.lighten-1 {
+    background-color: lighten($agencyRed, 10%) !important;
+  }
+  &.lighten-2 {
+    background-color: lighten($agencyRed, 20%) !important;
+  }
+  &.lighten-3 {
+    background-color: lighten($agencyRed, 30%) !important;
+  }
 }
 
 // Custom text
-.text-red{
-	color: $agencyRed !important;
+.text-red {
+  color: $agencyRed !important;
 }
-.text-gold{
-	color: gold !important;
+.text-gold {
+  color: gold !important;
 }
-.text-white{
-	color: white !important;
+.text-white {
+  color: white !important;
 }
 
-body{
-	background-color: #f2f2f2 !important;
+body {
+  background-color: #f2f2f2 !important;
 }
 
 // Custom buttons
 .underlined {
-	cursor: pointer;
-	font-weight: bold;
+  cursor: pointer;
+  font-weight: bold;
   text-decoration: none;
   color: gold;
   padding-bottom: 0.15em;
@@ -81,21 +81,21 @@ body{
   }
 }
 
-.clickable{
-	cursor: pointer;
+.clickable {
+  cursor: pointer;
 }
 
 .btn-modern {
-	overflow: visible !important;
+  overflow: visible !important;
   position: relative;
   background: none;
   color: gold;
-	text-transform: uppercase;
-	font-size: .9em;
+  text-transform: uppercase;
+  font-size: 0.9em;
   text-decoration: none;
   border: 0.2em solid gold;
-	padding: 0.5em 1em;
-	box-shadow: none;
+  padding: 0.5em 1em;
+  box-shadow: none;
   &::before {
     content: "";
     display: block;
@@ -123,44 +123,44 @@ body{
     transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
   }
   &:hover {
-		color: gold;
+    color: gold;
     &::before {
       right: 80%;
     }
     &::after {
       left: 80%;
     }
-	}
+  }
 }
 
-.btn{
-	box-shadow: none;
-	.fa{
-		margin-right: .4rem !important; 
-	}
-	&:hover{
-		box-shadow: none;
-	}
-	&:focus{
-		box-shadow: none;
-	}
-	&:active{
-		box-shadow: none;
-	}
-	&.btn-agency-red{
-		background: $agencyRed;
-		color: white;
-		&:hover{
-			background: lighten($agencyRed, 10%);
-		}
-	}
-	&.btn-primary{
-		background: #2a3c4a !important;
-		color: white;
-		&:hover{
-			background: lighten(#2a3c4a, 6%) !important;
-		}
-	}
+.btn {
+  box-shadow: none;
+  .fa {
+    margin-right: 0.4rem !important;
+  }
+  &:hover {
+    box-shadow: none;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+  &:active {
+    box-shadow: none;
+  }
+  &.btn-agency-red {
+    background: $agencyRed;
+    color: white;
+    &:hover {
+      background: lighten($agencyRed, 10%);
+    }
+  }
+  &.btn-primary {
+    background: #2a3c4a !important;
+    color: white;
+    &:hover {
+      background: lighten(#2a3c4a, 6%) !important;
+    }
+  }
 }
 
 // Custom scrollbar
@@ -177,10 +177,10 @@ body{
   background-color: #555;
 }
 
-.btn{
-	i{
-		margin-right: .3rem;
-	}
+.btn {
+  i {
+    margin-right: 0.3rem;
+  }
 }
 
 /** 
