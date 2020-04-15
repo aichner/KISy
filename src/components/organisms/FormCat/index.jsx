@@ -235,483 +235,527 @@ class FormCat extends React.Component {
           </>
         ) : (
           <>
-            <h2>Add cat</h2>
-            <MDBRow>
-              <MDBCol md="12">
-                <p className="lead">Basic information</p>
-                {this.state.error === 1 && (
-                  <MDBAlert color="danger">
-                    Please fill in all required details.
-                  </MDBAlert>
-                )}
-              </MDBCol>
-              <MDBCol md="6">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="company_name"
-                  placeholder="Company"
-                  value={this.state.company}
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.value })
-                  }
-                />
-              </MDBCol>
-              <MDBCol md="6">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="full_name"
-                  placeholder="Full name"
-                  value={this.state.full_name}
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.value })
-                  }
-                />
-              </MDBCol>
-              <MDBCol md="6">
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="E-Mail"
-                  value={this.state.email}
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.value })
-                  }
-                />
-              </MDBCol>
-              <MDBCol md="6">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="phone"
-                  placeholder="Phone"
-                  value={this.state.phone}
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.value })
-                  }
-                />
-              </MDBCol>
-              <MDBCol md="5">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="address"
-                  placeholder="Address"
-                  value={this.state.address}
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.value })
-                  }
-                />
-              </MDBCol>
-              <MDBCol md="4">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="city"
-                  placeholder="City"
-                  value={this.state.city}
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.value })
-                  }
-                />
-              </MDBCol>
-              <MDBCol md="3">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="zip"
-                  placeholder="ZIP Code"
-                  value={this.state.zip}
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.value })
-                  }
-                />
-              </MDBCol>
-              <MDBCol md="6">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="sector"
-                  placeholder="Sector"
-                  value={this.state.sector}
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.value })
-                  }
-                />
-              </MDBCol>
-              <MDBCol md="12">
-                <hr />
-                <p className="lead">Analysis Basic Info</p>
-              </MDBCol>
-              <MDBCol md="6">
-                <MDBInput
-                  label="Has Website"
-                  filled
-                  type="checkbox"
-                  name="has_website"
-                  id="has_website"
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.checked })
-                  }
-                  checked={this.state.has_website}
-                />
-                <MDBInput
-                  label="Has Facebook"
-                  filled
-                  type="checkbox"
-                  name="has_facebook"
-                  id="has_facebook"
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.checked })
-                  }
-                  checked={this.state.has_facebook}
-                />
-              </MDBCol>
-              <MDBCol md="6">
-                <MDBInput
-                  label="Has Instagram"
-                  filled
-                  type="checkbox"
-                  name="has_instagram"
-                  id="has_instagram"
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.checked })
-                  }
-                  checked={this.state.has_instagram}
-                />
-                <MDBInput
-                  label="Has Google Business"
-                  filled
-                  type="checkbox"
-                  name="has_gsuite"
-                  id="has_gsuite"
-                  onChange={(e) =>
-                    this.setState({ [e.target.name]: e.target.checked })
-                  }
-                  checked={this.state.has_gsuite}
-                />
-              </MDBCol>
-              <MDBCol md="12">
-                <hr />
-                <p className="lead">Website</p>
-                {!this.state.has_website && (
-                  <p>
-                    You told yourself, that the company does not have a website.
-                  </p>
-                )}
-              </MDBCol>
-              {this.state.has_website &&
-                analysis.web.map((item, i) => {
-                  return (
-                    <MDBCol md="12">
-                      <p className="mb-0">
-                        {item.label}
-                        <small className="blue-text ml-2">
-                          {this.state[item.name] !== undefined
-                            ? this.state[item.name]
-                            : 50}
-                        </small>
-                      </p>
-                      <small className="text-muted">{item.info}</small>
-                      <MDBRow className="my-4" center>
-                        <MDBIcon
-                          far
-                          className="font-weight-bold blue-text mr-2 mt-1"
-                          icon="thumbs-down"
-                        />
-                        <MDBRangeInput
-                          min={item.min}
-                          max={item.max}
-                          value={
-                            this.state[item.name] !== undefined
-                              ? this.state[item.name]
-                              : item.default
-                          }
-                          getValue={(value) =>
-                            this.setState({ [item.name]: value })
-                          }
-                          formClassName={
-                            this.state[item.name] !== undefined
-                              ? "w-75 activated"
-                              : "w-75"
+            <MDBRow className="justify-content-center">
+              <MDBCol md="7">
+                <MDBCard className="w-100">
+                  <MDBCardBody>
+                    <h2>Add cat</h2>
+                    <MDBRow>
+                      <MDBCol md="12">
+                        <p className="lead">Basic information</p>
+                        {this.state.error === 1 && (
+                          <MDBAlert color="danger">
+                            Please fill in all required details.
+                          </MDBAlert>
+                        )}
+                      </MDBCol>
+                      <MDBCol md="6">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="company_name"
+                          placeholder="Company"
+                          value={this.state.company}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
                           }
                         />
-                        <MDBIcon
-                          far
-                          className="font-weight-bold blue-text ml-2 mt-1"
-                          icon="thumbs-up"
-                        />
-                      </MDBRow>
-                    </MDBCol>
-                  );
-                })}
-              <MDBCol md="12">
-                <hr />
-                <p className="lead">Facebook</p>
-                {!this.state.has_facebook && (
-                  <p>
-                    You told yourself, that the company does not have a Facebook
-                    page.
-                  </p>
-                )}
-              </MDBCol>
-              {this.state.has_facebook &&
-                analysis.facebook.map((item, i) => {
-                  return (
-                    <MDBCol md="12">
-                      <p className="mb-0">
-                        {item.label}
-                        <small className="blue-text ml-2">
-                          {this.state[item.name] !== undefined
-                            ? this.state[item.name]
-                            : 50}
-                        </small>
-                      </p>
-                      <small className="text-muted">{item.info}</small>
-                      <MDBRow className="my-4" center>
-                        <MDBIcon
-                          far
-                          className="font-weight-bold blue-text mr-2 mt-1"
-                          icon="thumbs-down"
-                        />
-                        <MDBRangeInput
-                          min={item.min}
-                          max={item.max}
-                          value={
-                            this.state[item.name] !== undefined
-                              ? this.state[item.name]
-                              : item.default
-                          }
-                          getValue={(value) =>
-                            this.setState({ [item.name]: value })
-                          }
-                          formClassName={
-                            this.state[item.name] !== undefined
-                              ? "w-75 activated"
-                              : "w-75"
+                      </MDBCol>
+                      <MDBCol md="6">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="full_name"
+                          placeholder="Full name"
+                          value={this.state.full_name}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
                           }
                         />
-                        <MDBIcon
-                          far
-                          className="font-weight-bold blue-text ml-2 mt-1"
-                          icon="thumbs-up"
-                        />
-                      </MDBRow>
-                    </MDBCol>
-                  );
-                })}
-              <MDBCol md="12">
-                <hr />
-                <p className="lead">Instagram</p>
-                {!this.state.has_instagram && (
-                  <p>
-                    You told yourself, that the company does not have a
-                    Instagram account.
-                  </p>
-                )}
-              </MDBCol>
-              {this.state.has_instagram &&
-                analysis.instagram.map((item, i) => {
-                  return (
-                    <MDBCol md="12">
-                      <p className="mb-0">
-                        {item.label}
-                        <small className="blue-text ml-2">
-                          {this.state[item.name] !== undefined
-                            ? this.state[item.name]
-                            : 50}
-                        </small>
-                      </p>
-                      <small className="text-muted">{item.info}</small>
-                      <MDBRow className="my-4" center>
-                        <MDBIcon
-                          far
-                          className="font-weight-bold blue-text mr-2 mt-1"
-                          icon="thumbs-down"
-                        />
-                        <MDBRangeInput
-                          min={item.min}
-                          max={item.max}
-                          value={
-                            this.state[item.name] !== undefined
-                              ? this.state[item.name]
-                              : item.default
-                          }
-                          getValue={(value) =>
-                            this.setState({ [item.name]: value })
-                          }
-                          formClassName={
-                            this.state[item.name] !== undefined
-                              ? "w-75 activated"
-                              : "w-75"
+                      </MDBCol>
+                      <MDBCol md="6">
+                        <input
+                          type="email"
+                          className="form-control"
+                          name="email"
+                          placeholder="E-Mail"
+                          value={this.state.email}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
                           }
                         />
-                        <MDBIcon
-                          far
-                          className="font-weight-bold blue-text ml-2 mt-1"
-                          icon="thumbs-up"
+                      </MDBCol>
+                      <MDBCol md="6">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="phone"
+                          placeholder="Phone"
+                          value={this.state.phone}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
+                          }
                         />
-                      </MDBRow>
-                    </MDBCol>
-                  );
-                })}
-              <MDBCol md="12">
-                <hr />
-                <p className="lead">Corporate Identity</p>
-              </MDBCol>
-              {analysis.corporate.map((item, i) => {
-                return (
-                  <MDBCol md="12">
-                    <p className="mb-0">
-                      {item.label}
-                      <small className="blue-text ml-2">
-                        {this.state[item.name] !== undefined
-                          ? this.state[item.name]
-                          : 50}
-                      </small>
-                    </p>
-                    <small className="text-muted">{item.info}</small>
-                    <MDBRow className="my-4" center>
-                      <MDBIcon
-                        far
-                        className="font-weight-bold blue-text mr-2 mt-1"
-                        icon="thumbs-down"
-                      />
-                      <MDBRangeInput
-                        min={item.min}
-                        max={item.max}
-                        value={
-                          this.state[item.name] !== undefined
-                            ? this.state[item.name]
-                            : item.default
-                        }
-                        getValue={(value) =>
-                          this.setState({ [item.name]: value })
-                        }
-                        formClassName={
-                          this.state[item.name] !== undefined
-                            ? "w-75 activated"
-                            : "w-75"
-                        }
-                      />
-                      <MDBIcon
-                        far
-                        className="font-weight-bold blue-text ml-2 mt-1"
-                        icon="thumbs-up"
-                      />
+                      </MDBCol>
+                      <MDBCol md="5">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="address"
+                          placeholder="Address"
+                          value={this.state.address}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
+                          }
+                        />
+                      </MDBCol>
+                      <MDBCol md="4">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="city"
+                          placeholder="City"
+                          value={this.state.city}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
+                          }
+                        />
+                      </MDBCol>
+                      <MDBCol md="3">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="zip"
+                          placeholder="ZIP Code"
+                          value={this.state.zip}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
+                          }
+                        />
+                      </MDBCol>
+                      <MDBCol md="6">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="sector"
+                          placeholder="Sector"
+                          value={this.state.sector}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
+                          }
+                        />
+                      </MDBCol>
+                      <MDBCol md="12">
+                        <hr />
+                        <p className="lead">Analysis Basic Info</p>
+                      </MDBCol>
+                      <MDBCol md="6">
+                        <MDBInput
+                          label="Has Website"
+                          filled
+                          type="checkbox"
+                          name="has_website"
+                          id="has_website"
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.checked })
+                          }
+                          checked={this.state.has_website}
+                        />
+                        <MDBInput
+                          label="Has Facebook"
+                          filled
+                          type="checkbox"
+                          name="has_facebook"
+                          id="has_facebook"
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.checked })
+                          }
+                          checked={this.state.has_facebook}
+                        />
+                      </MDBCol>
+                      <MDBCol md="6">
+                        <MDBInput
+                          label="Has Instagram"
+                          filled
+                          type="checkbox"
+                          name="has_instagram"
+                          id="has_instagram"
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.checked })
+                          }
+                          checked={this.state.has_instagram}
+                        />
+                        <MDBInput
+                          label="Has Google Business"
+                          filled
+                          type="checkbox"
+                          name="has_gsuite"
+                          id="has_gsuite"
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.checked })
+                          }
+                          checked={this.state.has_gsuite}
+                        />
+                      </MDBCol>
+                      <MDBCol md="12">
+                        <hr />
+                        <p className="lead">Website</p>
+                        {!this.state.has_website && (
+                          <p>
+                            You told yourself, that the company does not have a
+                            website.
+                          </p>
+                        )}
+                      </MDBCol>
+                      {this.state.has_website &&
+                        analysis.web.map((item, i) => {
+                          return (
+                            <MDBCol md="12" key={i}>
+                              <p className="mb-0">
+                                {item.label}
+                                <small className="blue-text ml-2">
+                                  {this.state[item.name] !== undefined
+                                    ? this.state[item.name]
+                                    : 50}
+                                </small>
+                              </p>
+                              <small className="text-muted">{item.info}</small>
+                              <MDBRow className="my-4" center>
+                                <MDBIcon
+                                  far
+                                  className="font-weight-bold blue-text mr-2 mt-1"
+                                  icon="thumbs-down"
+                                />
+                                <MDBRangeInput
+                                  min={item.min}
+                                  max={item.max}
+                                  value={
+                                    this.state[item.name] !== undefined
+                                      ? this.state[item.name]
+                                      : item.default
+                                  }
+                                  getValue={(value) =>
+                                    this.setState({ [item.name]: value })
+                                  }
+                                  formClassName={
+                                    this.state[item.name] !== undefined
+                                      ? "w-75 activated"
+                                      : "w-75"
+                                  }
+                                />
+                                <MDBIcon
+                                  far
+                                  className="font-weight-bold blue-text ml-2 mt-1"
+                                  icon="thumbs-up"
+                                />
+                              </MDBRow>
+                            </MDBCol>
+                          );
+                        })}
+                      <MDBCol md="12">
+                        <hr />
+                        <p className="lead">Facebook</p>
+                        {!this.state.has_facebook && (
+                          <p>
+                            You told yourself, that the company does not have a
+                            Facebook page.
+                          </p>
+                        )}
+                      </MDBCol>
+                      {this.state.has_facebook &&
+                        analysis.facebook.map((item, i) => {
+                          return (
+                            <MDBCol md="12" key={i}>
+                              <p className="mb-0">
+                                {item.label}
+                                <small className="blue-text ml-2">
+                                  {this.state[item.name] !== undefined
+                                    ? this.state[item.name]
+                                    : 50}
+                                </small>
+                              </p>
+                              <small className="text-muted">{item.info}</small>
+                              <MDBRow className="my-4" center>
+                                <MDBIcon
+                                  far
+                                  className="font-weight-bold blue-text mr-2 mt-1"
+                                  icon="thumbs-down"
+                                />
+                                <MDBRangeInput
+                                  min={item.min}
+                                  max={item.max}
+                                  value={
+                                    this.state[item.name] !== undefined
+                                      ? this.state[item.name]
+                                      : item.default
+                                  }
+                                  getValue={(value) =>
+                                    this.setState({ [item.name]: value })
+                                  }
+                                  formClassName={
+                                    this.state[item.name] !== undefined
+                                      ? "w-75 activated"
+                                      : "w-75"
+                                  }
+                                />
+                                <MDBIcon
+                                  far
+                                  className="font-weight-bold blue-text ml-2 mt-1"
+                                  icon="thumbs-up"
+                                />
+                              </MDBRow>
+                            </MDBCol>
+                          );
+                        })}
+                      <MDBCol md="12">
+                        <hr />
+                        <p className="lead">Instagram</p>
+                        {!this.state.has_instagram && (
+                          <p>
+                            You told yourself, that the company does not have a
+                            Instagram account.
+                          </p>
+                        )}
+                      </MDBCol>
+                      {this.state.has_instagram &&
+                        analysis.instagram.map((item, i) => {
+                          return (
+                            <MDBCol md="12" key={i}>
+                              <p className="mb-0">
+                                {item.label}
+                                <small className="blue-text ml-2">
+                                  {this.state[item.name] !== undefined
+                                    ? this.state[item.name]
+                                    : 50}
+                                </small>
+                              </p>
+                              <small className="text-muted">{item.info}</small>
+                              <MDBRow className="my-4" center>
+                                <MDBIcon
+                                  far
+                                  className="font-weight-bold blue-text mr-2 mt-1"
+                                  icon="thumbs-down"
+                                />
+                                <MDBRangeInput
+                                  min={item.min}
+                                  max={item.max}
+                                  value={
+                                    this.state[item.name] !== undefined
+                                      ? this.state[item.name]
+                                      : item.default
+                                  }
+                                  getValue={(value) =>
+                                    this.setState({ [item.name]: value })
+                                  }
+                                  formClassName={
+                                    this.state[item.name] !== undefined
+                                      ? "w-75 activated"
+                                      : "w-75"
+                                  }
+                                />
+                                <MDBIcon
+                                  far
+                                  className="font-weight-bold blue-text ml-2 mt-1"
+                                  icon="thumbs-up"
+                                />
+                              </MDBRow>
+                            </MDBCol>
+                          );
+                        })}
+                      <MDBCol md="12">
+                        <hr />
+                        <p className="lead">Corporate Identity</p>
+                      </MDBCol>
+                      {analysis.corporate.map((item, i) => {
+                        return (
+                          <MDBCol md="12" key={i}>
+                            <p className="mb-0">
+                              {item.label}
+                              <small className="blue-text ml-2">
+                                {this.state[item.name] !== undefined
+                                  ? this.state[item.name]
+                                  : 50}
+                              </small>
+                            </p>
+                            <small className="text-muted">{item.info}</small>
+                            <MDBRow className="my-4" center>
+                              <MDBIcon
+                                far
+                                className="font-weight-bold blue-text mr-2 mt-1"
+                                icon="thumbs-down"
+                              />
+                              <MDBRangeInput
+                                min={item.min}
+                                max={item.max}
+                                value={
+                                  this.state[item.name] !== undefined
+                                    ? this.state[item.name]
+                                    : item.default
+                                }
+                                getValue={(value) =>
+                                  this.setState({ [item.name]: value })
+                                }
+                                formClassName={
+                                  this.state[item.name] !== undefined
+                                    ? "w-75 activated"
+                                    : "w-75"
+                                }
+                              />
+                              <MDBIcon
+                                far
+                                className="font-weight-bold blue-text ml-2 mt-1"
+                                icon="thumbs-up"
+                              />
+                            </MDBRow>
+                          </MDBCol>
+                        );
+                      })}
+                      <MDBCol md="12">
+                        <hr />
+                        <p className="lead">Image</p>
+                      </MDBCol>
+                      {analysis.image.map((item, i) => {
+                        return (
+                          <MDBCol md="12" key={i}>
+                            <p className="mb-0">
+                              {item.label}
+                              <small className="blue-text ml-2">
+                                {this.state[item.name] !== undefined
+                                  ? this.state[item.name]
+                                  : 50}
+                              </small>
+                            </p>
+                            <small className="text-muted">{item.info}</small>
+                            <MDBRow className="my-4" center>
+                              <MDBIcon
+                                far
+                                className="font-weight-bold blue-text mr-2 mt-1"
+                                icon="thumbs-down"
+                              />
+                              <MDBRangeInput
+                                min={item.min}
+                                max={item.max}
+                                value={
+                                  this.state[item.name] !== undefined
+                                    ? this.state[item.name]
+                                    : item.default
+                                }
+                                getValue={(value) =>
+                                  this.setState({ [item.name]: value })
+                                }
+                                formClassName={
+                                  this.state[item.name] !== undefined
+                                    ? "w-75 activated"
+                                    : "w-75"
+                                }
+                              />
+                              <MDBIcon
+                                far
+                                className="font-weight-bold blue-text ml-2 mt-1"
+                                icon="thumbs-up"
+                              />
+                            </MDBRow>
+                          </MDBCol>
+                        );
+                      })}
+                      <MDBCol md="12">
+                        <hr />
+                        <p className="lead">SEO</p>
+                        {!this.state.has_website && (
+                          <p>
+                            You told yourself, that the company does not have a
+                            website.
+                          </p>
+                        )}
+                      </MDBCol>
+                      {this.state.has_website &&
+                        analysis.seo.map((item, i) => {
+                          return (
+                            <MDBCol md="12" key={i}>
+                              <p className="mb-0">
+                                {item.label}
+                                <small className="blue-text ml-2">
+                                  {this.state[item.name] !== undefined
+                                    ? this.state[item.name]
+                                    : 50}
+                                </small>
+                              </p>
+                              <small className="text-muted">{item.info}</small>
+                              <MDBRow className="my-4" center>
+                                <MDBIcon
+                                  far
+                                  className="font-weight-bold blue-text mr-2 mt-1"
+                                  icon="thumbs-down"
+                                />
+                                <MDBRangeInput
+                                  min={item.min}
+                                  max={item.max}
+                                  value={
+                                    this.state[item.name] !== undefined
+                                      ? this.state[item.name]
+                                      : item.default
+                                  }
+                                  getValue={(value) =>
+                                    this.setState({ [item.name]: value })
+                                  }
+                                  formClassName={
+                                    this.state[item.name] !== undefined
+                                      ? "w-75 activated"
+                                      : "w-75"
+                                  }
+                                />
+                                <MDBIcon
+                                  far
+                                  className="font-weight-bold blue-text ml-2 mt-1"
+                                  icon="thumbs-up"
+                                />
+                              </MDBRow>
+                            </MDBCol>
+                          );
+                        })}
+                      <MDBCol md="12" className="text-center">
+                        <MDBBtn color="indigo" onClick={() => this.createCat()}>
+                          <MDBIcon icon="cat" />
+                          Create cat
+                        </MDBBtn>
+                      </MDBCol>
                     </MDBRow>
-                  </MDBCol>
-                );
-              })}
-              <MDBCol md="12">
-                <hr />
-                <p className="lead">Image</p>
+                  </MDBCardBody>
+                </MDBCard>
               </MDBCol>
-              {analysis.image.map((item, i) => {
-                return (
-                  <MDBCol md="12">
-                    <p className="mb-0">
-                      {item.label}
-                      <small className="blue-text ml-2">
-                        {this.state[item.name] !== undefined
-                          ? this.state[item.name]
-                          : 50}
-                      </small>
-                    </p>
-                    <small className="text-muted">{item.info}</small>
-                    <MDBRow className="my-4" center>
-                      <MDBIcon
-                        far
-                        className="font-weight-bold blue-text mr-2 mt-1"
-                        icon="thumbs-down"
-                      />
-                      <MDBRangeInput
-                        min={item.min}
-                        max={item.max}
-                        value={
-                          this.state[item.name] !== undefined
-                            ? this.state[item.name]
-                            : item.default
-                        }
-                        getValue={(value) =>
-                          this.setState({ [item.name]: value })
-                        }
-                        formClassName={
-                          this.state[item.name] !== undefined
-                            ? "w-75 activated"
-                            : "w-75"
-                        }
-                      />
-                      <MDBIcon
-                        far
-                        className="font-weight-bold blue-text ml-2 mt-1"
-                        icon="thumbs-up"
-                      />
-                    </MDBRow>
-                  </MDBCol>
-                );
-              })}
-              <MDBCol md="12">
-                <hr />
-                <p className="lead">SEO</p>
-                {!this.state.has_website && (
-                  <p>
-                    You told yourself, that the company does not have a website.
-                  </p>
-                )}
-              </MDBCol>
-              {this.state.has_website &&
-                analysis.seo.map((item, i) => {
-                  return (
-                    <MDBCol md="12">
-                      <p className="mb-0">
-                        {item.label}
-                        <small className="blue-text ml-2">
-                          {this.state[item.name] !== undefined
-                            ? this.state[item.name]
-                            : 50}
-                        </small>
-                      </p>
-                      <small className="text-muted">{item.info}</small>
-                      <MDBRow className="my-4" center>
-                        <MDBIcon
-                          far
-                          className="font-weight-bold blue-text mr-2 mt-1"
-                          icon="thumbs-down"
-                        />
-                        <MDBRangeInput
-                          min={item.min}
-                          max={item.max}
-                          value={
-                            this.state[item.name] !== undefined
-                              ? this.state[item.name]
-                              : item.default
-                          }
-                          getValue={(value) =>
-                            this.setState({ [item.name]: value })
-                          }
-                          formClassName={
-                            this.state[item.name] !== undefined
-                              ? "w-75 activated"
-                              : "w-75"
-                          }
-                        />
-                        <MDBIcon
-                          far
-                          className="font-weight-bold blue-text ml-2 mt-1"
-                          icon="thumbs-up"
-                        />
-                      </MDBRow>
-                    </MDBCol>
-                  );
-                })}
-              <MDBCol md="12" className="text-center">
-                <MDBBtn color="indigo" onClick={() => this.createCat()}>
-                  <MDBIcon icon="cat" />
-                  Create cat
-                </MDBBtn>
+              <MDBCol md="3" className="text-center">
+                <MDBCard className="w-100" testimonial>
+                  <MDBCardUp className="indigo lighten-3" />
+                  <MDBAvatar className="mx-auto white">
+                    <img
+                      src={
+                        "https://www.aichner-christian.com/img/kisy/" +
+                        profile.image
+                      }
+                      alt=""
+                    />
+                  </MDBAvatar>
+                  <MDBCardBody>
+                    <input
+                      type="text"
+                      className="form-control mb-3"
+                      placeholder="What are you doing?"
+                    />
+                    <p className="lead mb-3">0:00</p>
+                    <MDBBtn outline color="indigo" className="w-100 mx-0">
+                      <MDBIcon far icon="pause-circle" />
+                      Pause
+                    </MDBBtn>
+                    <MDBBtn color="indigo" className="w-100 mx-0">
+                      <MDBIcon icon="stopwatch" />
+                      Start
+                    </MDBBtn>
+                    <MDBBtn color="indigo" className="w-100 mx-0">
+                      <MDBIcon icon="stop-circle" />
+                      Stop
+                    </MDBBtn>
+                  </MDBCardBody>
+                </MDBCard>
               </MDBCol>
             </MDBRow>
           </>
