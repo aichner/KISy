@@ -110,6 +110,7 @@ class CatList extends React.Component {
       password: Math.random().toString(36).slice(-8),
     };
     this.props.upgradeCat(cat);
+    this.props.goTo(0);
   };
 
   getUserList = (cats) => {
@@ -127,13 +128,13 @@ class CatList extends React.Component {
               </div>
             ),
             company: (
-              <>
+              <small>
                 <small>
                   <strong>{cat.company_name}</strong>
                 </small>
                 <br />
                 <small>{cat.city}</small>
-              </>
+              </small>
             ),
             contact: (
               <>
