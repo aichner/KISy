@@ -10,11 +10,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
  * ProfilePage: Profile of the member
  * LoginPage: Login page
  */
-import {
-  ProfilePage,
-  LoginPage,
-  MessagePage,
-} from "./components/pages";
+import { ProfilePage, LoginPage, MessagePage } from "./components/pages";
 
 class Routes extends React.Component {
   render() {
@@ -22,20 +18,20 @@ class Routes extends React.Component {
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <Route exact path="/me" component={ProfilePage} />
-        <Route 
-        exact
-        path="/about"
-        component={(props) => <MessagePage {...props}/>}
+        <Route
+          exact
+          path="/about"
+          component={(props) => <MessagePage {...props} />}
         />
         <Route
-        exact
-        path="/privacy"
-        component={(props) => <MessagePage {...props} />}
+          exact
+          path="/privacy"
+          component={(props) => <MessagePage {...props} />}
         />
         <Route
-        exact
-        path="/privacy/me"
-        component={(props) => <MessagePage {...props} />}
+          exact
+          path="/privacy/me"
+          component={(props) => <MessagePage {...props} />}
         />
         <Route
           render={function () {
@@ -49,7 +45,7 @@ class Routes extends React.Component {
 
 export default Routes;
 
-/** 
+/**
  * SPDX-License-Identifier: (EUPL-1.2)
  * Copyright © 2019 Werbeagentur Christian Aichner
  */

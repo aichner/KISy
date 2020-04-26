@@ -61,11 +61,11 @@ class ProfilePage extends React.Component {
     // Store selected greeting
     let selected = null;
     console.log(curHr);
-    if (curHr > 5) {
+    if (curHr > 5 && curHr <= 11) {
       selected = <span>Guten Morgen</span>;
-    } else if (curHr > 11) {
+    } else if (curHr > 11 && curHr <= 17) {
       selected = <span>Willkommen zurück</span>;
-    } else if (curHr > 18 || curHr > 0) {
+    } else if (curHr > 17 || curHr > 0) {
       selected = <span>Guten Abend</span>;
     }
 
@@ -78,11 +78,11 @@ class ProfilePage extends React.Component {
     // Get current hours
     let curHr = today.getHours();
 
-    if (curHr > 5) {
+    if (curHr > 5 && curHr <= 11) {
       this.setState({ greetingImage: <MorningImg className="img-fluid" /> });
-    } else if (curHr > 11) {
+    } else if (curHr > 11 && curHr <= 17) {
       this.setState({ greetingImage: <DayImg className="img-fluid" /> });
-    } else if (curHr > 18 || curHr > 0) {
+    } else if (curHr > 17 || curHr > 0) {
       this.setState({ greetingImage: <NightImg className="img-fluid" /> });
     }
   };
@@ -152,10 +152,6 @@ class ProfilePage extends React.Component {
                       Add cat
                     </MDBBtn>
                   )}
-                  <MDBBtn color="elegant">
-                    <MDBIcon far icon="file" />
-                    Meine Dokumente
-                  </MDBBtn>
                 </MDBCol>
               </MDBRow>
             </MDBContainer>

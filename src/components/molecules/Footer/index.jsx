@@ -35,9 +35,7 @@ class Footer extends React.Component {
                   </li>
                 </a>
                 <Link to="/company">
-                  <li className="list-unstyled">
-                    Unternehmensdaten
-                  </li>
+                  <li className="list-unstyled">Unternehmensdaten</li>
                 </Link>
               </ul>
             </MDBCol>

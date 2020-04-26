@@ -1,15 +1,15 @@
 // Have initial state for when state is not ready to be passed
 const initState = {
   receivedUser: undefined,
-}
+};
 
 const userReducer = (state = initState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case "USERLOAD_SUCCESS":
       console.log("Get user info success");
       return {
         ...state,
-        receivedUser: action.results
+        receivedUser: action.results,
       };
     case "USERLOAD_ERROR":
       console.log("Get user info error", action.err);
@@ -26,15 +26,15 @@ const userReducer = (state = initState, action) => {
       return {
         ...state,
         receivedUser: undefined,
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default userReducer;
 
-/** 
+/**
  * SPDX-License-Identifier: (EUPL-1.2)
  * Copyright © 2020 Christian Aichner
  */
