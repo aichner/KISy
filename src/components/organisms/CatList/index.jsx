@@ -8,7 +8,11 @@ import { Link, Redirect } from "react-router-dom";
 // Connect
 import { connect } from "react-redux";
 // Actions
-import { getCats, removeCat, upgradeCat } from "../../../store/actions/authActions";
+import {
+  getCats,
+  removeCat,
+  upgradeCat,
+} from "../../../store/actions/authActions";
 
 //> Additional modules
 // Copy to clipboard
@@ -57,11 +61,6 @@ class CatList extends React.Component {
         {
           label: "Company",
           field: "company",
-          sort: "disabled",
-        },
-        {
-          label: "City",
-          field: "city",
           sort: "disabled",
         },
         {
@@ -127,8 +126,15 @@ class CatList extends React.Component {
                 />
               </div>
             ),
-            company: cat.company_name,
-            city: cat.city,
+            company: (
+              <>
+                <small>
+                  <strong>{cat.company_name}</strong>
+                </small>
+                <br />
+                <small>{cat.city}</small>
+              </>
+            ),
             contact: (
               <>
                 <p className="mb-1 clickable" onClick={() => copy(cat.email)}>
@@ -219,8 +225,16 @@ class CatList extends React.Component {
             <>
               <MDBCard className="w-100">
                 <MDBCardBody>
-                  <h2>Cats</h2>
-                  <p className="lead">This is an overview of all cat users.</p>
+                  <h2 className="d-flex">
+                    <MDBBadge color="indigo" className="mr-3">
+                      Phase 1
+                    </MDBBadge>{" "}
+                    Cats
+                  </h2>
+                  <p className="lead">
+                    Phase 1 collects data from companies and creates free
+                    analysis for them.
+                  </p>
                   <div className="text-right mb-4">
                     {this.state.removeCat && (
                       <>
