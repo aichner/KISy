@@ -161,7 +161,7 @@ class ProfilePage extends React.Component {
               {this.state.activePage === 0 && (
                 <CoachPage goTo={this.goTo} profile={profile} />
               )}
-              {this.state.activePage === 1 && <FormCat />}
+              {this.state.activePage === 1 && <FormCat goTo={this.goTo} />}
               {this.state.activePage === 2 && <CatList />}
             </MDBContainer>
           </div>

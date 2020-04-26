@@ -89,16 +89,19 @@ class FormCat extends React.Component {
       // Web
       const web = {
         web_responsive: this.state.web_responsive
-          ? this.state.web_responsive
+          ? this.state.web_responsive / 2
           : 50,
-        web_design: this.state.web_design ? this.state.web_design : 50,
-        web_analysis: this.state.web_analysis ? this.state.web_analysis : 50,
-        web_contact: this.state.web_contact ? this.state.web_contact : 50,
-        web_legal: this.state.web_legal ? this.state.web_legal : 50,
-        web_picture_quality: this.state.web_picture_quality
-          ? this.state.web_picture_quality
+        web_design: this.state.web_design ? this.state.web_design * 2 : 50,
+        web_analysis: this.state.web_analysis
+          ? this.state.web_analysis / 2
           : 50,
-        web_wording: this.state.web_wording ? this.state.web_wording : 50,
+        web_contact: this.state.web_contact ? this.state.web_contact / 2 : 50,
+        web_legal: this.state.web_legal ? this.state.web_legal / 2 : 50,
+        web_picture_quality:
+          this.state.web_picture_quality / 2
+            ? this.state.web_picture_quality
+            : 50,
+        web_wording: this.state.web_wording ? this.state.web_wording / 2 : 50,
       };
       // Get web average
       const web_avg =
@@ -231,7 +234,15 @@ class FormCat extends React.Component {
       <div className="formcat">
         {catDetails ? (
           <>
-            <ResultChart data={catDetails.analysis[0].results} />
+            <MDBRow className="justify-content-center">
+              <MDBCol md="7">
+                <MDBCard className="w-100">
+                  <MDBCardBody>
+                    <ResultChart data={catDetails.analysis[0].results} />
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
           </>
         ) : (
           <>
@@ -724,35 +735,17 @@ class FormCat extends React.Component {
                 </MDBCard>
               </MDBCol>
               <MDBCol md="3" className="text-center">
-                <MDBCard className="w-100" testimonial>
-                  <MDBCardUp className="indigo lighten-3" />
-                  <MDBAvatar className="mx-auto white">
-                    <img
-                      src={
-                        "https://www.aichner-christian.com/img/kisy/" +
-                        profile.image
-                      }
-                      alt=""
-                    />
-                  </MDBAvatar>
+                <MDBCard className="w-100">
                   <MDBCardBody>
-                    <input
-                      type="text"
-                      className="form-control mb-3"
-                      placeholder="What are you doing?"
-                    />
-                    <p className="lead mb-3">0:00</p>
-                    <MDBBtn outline color="indigo" className="w-100 mx-0">
-                      <MDBIcon far icon="pause-circle" />
-                      Pause
-                    </MDBBtn>
-                    <MDBBtn color="indigo" className="w-100 mx-0">
-                      <MDBIcon icon="stopwatch" />
-                      Start
-                    </MDBBtn>
-                    <MDBBtn color="indigo" className="w-100 mx-0">
-                      <MDBIcon icon="stop-circle" />
-                      Stop
+                    <p className="mb-1 text-muted">
+                      <small>{this.state.company_name}</small>
+                    </p>
+                    <p className="text-muted">{this.state.full_name}</p>
+                    <div>
+                      <MDBBadge color="indigo">{this.state.sector}</MDBBadge>
+                    </div>
+                    <MDBBtn color="danger" onClick={() => this.props.goTo(0)}>
+                      Cancel
                     </MDBBtn>
                   </MDBCardBody>
                 </MDBCard>
