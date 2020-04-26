@@ -31,6 +31,18 @@ const authReducer = (state = initState, action) => {
         ...state,
         catDetails: null,
       };
+    case "UPGRADE_SUCCESS":
+      console.log("Cat upgraded");
+      return {
+        ...state,
+        upgradeFailed: false,
+      };
+    case "UPGRADE_ERROR":
+      console.log("Can not upgrade cat", action.err);
+      return {
+        ...state,
+        upgradeFailed: true,
+      };
     case "REMOVECAT_ERROR":
       console.log("Can not disable cat", action.err);
       return {

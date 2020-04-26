@@ -8,7 +8,7 @@ import { Link, Redirect } from "react-router-dom";
 // Connect
 import { connect } from "react-redux";
 // Actions
-import { getCats, removeCat } from "../../../store/actions/authActions";
+import { getCats, removeCat, upgradeCat } from "../../../store/actions/authActions";
 
 //> Additional modules
 // Copy to clipboard
@@ -105,9 +105,15 @@ class CatList extends React.Component {
     }
   };
 
+  updateCat = (cat) => {
+    cat = {
+      ...cat,
+      password: Math.random().toString(36).slice(-8),
+    };
+    this.props.upgradeCat(cat);
+  };
+
   getUserList = (cats) => {
-    console.log(cats);
-    console.log("got cat and build list");
     return (
       cats &&
       cats.map((cat, i) => {
@@ -146,7 +152,7 @@ class CatList extends React.Component {
                   color="green"
                   className="px-3 m-0 mr-2"
                   size="sm"
-                  disabled
+                  onClick={() => this.updateCat(cat)}
                 >
                   <MDBIcon icon="angle-double-up" />
                   Upgrade
@@ -308,6 +314,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getCats: () => dispatch(getCats()),
     removeCat: (uid) => dispatch(removeCat(uid)),
+    upgradeCat: (cat) => dispatch(upgradeCat(cat)),
   };
 };
 
