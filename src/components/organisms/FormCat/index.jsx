@@ -744,9 +744,6 @@ class FormCat extends React.Component {
                     <div>
                       <MDBBadge color="indigo">{this.state.sector}</MDBBadge>
                     </div>
-                    <MDBBtn color="danger" onClick={() => this.props.goTo(0)}>
-                      Cancel
-                    </MDBBtn>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
