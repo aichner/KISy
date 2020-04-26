@@ -50,8 +50,8 @@ export const upgradeCat = (cat) => {
       .then(function (firebaseUser) {
         // Log out secondary user
         secondaryApp.auth().signOut();
+        // Delete the secondary App
         secondaryApp.delete();
-
         // Create user
         firestore
           .collection("users")
@@ -86,9 +86,36 @@ export const upgradeCat = (cat) => {
   };
 };
 
+export const getZombies = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection("users")
+      .where("mode", "==", "zombie")
+      .get()
+      .then((querySnapshot) => {
+        let zombies = querySnapshot.docs.map((doc) => {
+          let data = doc.data();
+          data.uid = doc.id;
+          return data;
+        });
+        dispatch({
+          type: "GETZOMBIE_SUCCESS",
+          zombies,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "GETZOMBIE_ERROR",
+          err,
+        });
+      });
+  };
+};
+
 export const createCat = (newUser) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
 
     // Create new user to firebase
@@ -109,7 +136,6 @@ export const createCat = (newUser) => {
 
 export const getCats = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
 
     firestore

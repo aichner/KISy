@@ -32,7 +32,7 @@ import {
 } from "mdbreact";
 
 //> Components
-import { FormCat, CatList, CoachPage } from "../../organisms";
+import { FormCat, CatList, CoachPage, ZombieList } from "../../organisms";
 
 //> CSS
 import "./profilepage.scss";
@@ -95,6 +95,9 @@ class ProfilePage extends React.Component {
         break;
       case "catlist":
         to = 2;
+        break;
+      case "zombielist":
+        to = 3;
         break;
       default:
         to = 0;
@@ -163,6 +166,7 @@ class ProfilePage extends React.Component {
               )}
               {this.state.activePage === 1 && <FormCat goTo={this.goTo} />}
               {this.state.activePage === 2 && <CatList />}
+              {this.state.activePage === 3 && <ZombieList />}
             </MDBContainer>
           </div>
         </div>

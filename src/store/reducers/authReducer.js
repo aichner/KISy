@@ -31,6 +31,18 @@ const authReducer = (state = initState, action) => {
         ...state,
         catDetails: null,
       };
+    case "GETZOMBIE_SUCCESS":
+      console.log("Zombies received");
+      return {
+        ...state,
+        zombies: action.zombies,
+      };
+    case "GETZOMBIE_ERROR":
+      console.log("Can not get zombies", action.err);
+      return {
+        ...state,
+        zombies: null,
+      };
     case "UPGRADE_SUCCESS":
       console.log("Cat upgraded");
       return {
