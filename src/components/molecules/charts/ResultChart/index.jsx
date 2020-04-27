@@ -81,6 +81,7 @@ class ResultChart extends React.Component {
       const unsortedData = this.props.data;
       // Sort object
       const orderedData = {};
+
       Object.keys(unsortedData)
         .sort()
         .forEach(function (key) {
@@ -88,9 +89,7 @@ class ResultChart extends React.Component {
         });
 
       // Get value and label
-      console.log(Object.keys(orderedData));
       Object.keys(orderedData).map((keyName, i) => {
-        console.log(keyName);
         labels.push(orderedData[keyName].name);
         data.push(orderedData[keyName].value);
       });

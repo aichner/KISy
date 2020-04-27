@@ -107,14 +107,6 @@ class ZombieList extends React.Component {
     }
   };
 
-  updateCat = (cat) => {
-    cat = {
-      ...cat,
-      password: Math.random().toString(36).slice(-8),
-    };
-    this.props.upgradeCat(cat);
-  };
-
   getUserList = (zombies) => {
     return (
       zombies &&
@@ -167,7 +159,6 @@ class ZombieList extends React.Component {
 
   render() {
     const { auth, profile, zombies } = this.props;
-    console.log(this.state);
 
     if (!profile.isLoaded) {
       return (

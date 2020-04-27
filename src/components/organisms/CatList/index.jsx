@@ -109,6 +109,7 @@ class CatList extends React.Component {
       ...cat,
       password: Math.random().toString(36).slice(-8),
     };
+
     this.props.upgradeCat(cat);
     this.props.goTo(0);
   };

@@ -60,7 +60,7 @@ class ProfilePage extends React.Component {
 
     // Store selected greeting
     let selected = null;
-    console.log(curHr);
+
     if (curHr > 5 && curHr <= 11) {
       selected = <span>Guten Morgen</span>;
     } else if (curHr > 11 && curHr <= 17) {
@@ -109,7 +109,7 @@ class ProfilePage extends React.Component {
 
   render() {
     const { auth, profile } = this.props;
-    console.log(auth, profile);
+
     // Check if firebase has loaded profile data
     if (!profile.isLoaded) {
       return (
@@ -165,7 +165,7 @@ class ProfilePage extends React.Component {
                 <CoachPage goTo={this.goTo} profile={profile} />
               )}
               {this.state.activePage === 1 && <FormCat />}
-              {this.state.activePage === 2 && <CatList goTo={this.goTo}/>}
+              {this.state.activePage === 2 && <CatList goTo={this.goTo} />}
               {this.state.activePage === 3 && <ZombieList />}
             </MDBContainer>
           </div>
