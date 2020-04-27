@@ -1,3 +1,5 @@
+import fbConfig from "../../config/fbConfig";
+
 export const signIn = (credentials) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
@@ -34,9 +36,86 @@ export const signOut = () => {
   };
 };
 
+export const upgradeCat = (cat) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // Create new firebase and firestore instance
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    // Create second app for creating users without logging out the current one
+    const secondaryApp = firebase.initializeApp(fbConfig, "Secondary");
+
+    secondaryApp
+      .auth()
+      .createUserWithEmailAndPassword(cat.email, cat.password)
+      .then(function (firebaseUser) {
+        // Log out secondary user
+        secondaryApp.auth().signOut();
+        // Delete the secondary App
+        secondaryApp.delete();
+        // Create user
+        firestore
+          .collection("users")
+          .doc(firebaseUser.user.uid)
+          .set({
+            ...cat,
+            coach: false,
+            mode: "zombie",
+            law: false,
+            newsletter: false,
+            image: null,
+          })
+          .then((res) => {
+            firestore
+              .collection("cats")
+              .doc(cat.uid)
+              .delete()
+              .then((res) => {
+                dispatch({ type: "UPGRADE_SUCCESS" });
+              })
+              .catch((err) => {
+                dispatch({ type: "UPGRADE_ERROR", err });
+              });
+          })
+          .catch((err) => {
+            dispatch({ type: "UPGRADE_ERROR", err });
+          });
+      })
+      .catch((err) => {
+        dispatch({ type: "UPGRADE_ERROR", err });
+      });
+  };
+};
+
+export const getZombies = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection("users")
+      .where("mode", "==", "zombie")
+      .get()
+      .then((querySnapshot) => {
+        let zombies = querySnapshot.docs.map((doc) => {
+          let data = doc.data();
+          data.uid = doc.id;
+          return data;
+        });
+        dispatch({
+          type: "GETZOMBIE_SUCCESS",
+          zombies,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "GETZOMBIE_ERROR",
+          err,
+        });
+      });
+  };
+};
+
 export const createCat = (newUser) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
 
     // Create new user to firebase
@@ -57,7 +136,6 @@ export const createCat = (newUser) => {
 
 export const getCats = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
 
     firestore

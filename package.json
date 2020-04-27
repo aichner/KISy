@@ -1,6 +1,6 @@
 {
   "name": "kisy",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "license": "(EUPL-1.2)",
   "dependencies": {
@@ -50,5 +50,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "prettier": {
+    "useTabs": false
+  }
 }

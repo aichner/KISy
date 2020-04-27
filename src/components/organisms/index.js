@@ -3,14 +3,11 @@
 import FormCat from "./FormCat";
 import CatList from "./CatList";
 import CoachPage from "./CoachPage";
+import ZombieList from "./ZombieList";
 
-export {
-  FormCat,
-  CatList,
-  CoachPage,
-};
+export { FormCat, CatList, CoachPage, ZombieList };
 
-/** 
+/**
  * SPDX-License-Identifier: (EUPL-1.2)
  * Copyright © 2020 Christian Aichner
  */

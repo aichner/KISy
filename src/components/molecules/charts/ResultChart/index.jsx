@@ -12,7 +12,7 @@ class ResultChart extends React.Component {
       responsive: true,
       elements: {
         line: {
-          tension: 0.2,
+          tension: 0.15,
         },
       },
       legend: {
@@ -77,10 +77,21 @@ class ResultChart extends React.Component {
       labels = [];
       data = [];
 
+      // Initialize data
+      const unsortedData = this.props.data;
+      // Sort object
+      const orderedData = {};
+
+      Object.keys(unsortedData)
+        .sort()
+        .forEach(function (key) {
+          orderedData[key] = unsortedData[key];
+        });
+
       // Get value and label
-      Object.keys(this.props.data).map((keyName, i) => {
-        labels.push(this.props.data[keyName].name);
-        data.push(this.props.data[keyName].value);
+      Object.keys(orderedData).map((keyName, i) => {
+        labels.push(orderedData[keyName].name);
+        data.push(orderedData[keyName].value);
       });
 
       // Set data radar chart
@@ -89,11 +100,9 @@ class ResultChart extends React.Component {
           labels,
           datasets: [
             {
-              label: "# of Votes",
               data,
-              backgroundColor: ["rgba(246, 26, 66, 0.2)"],
-              borderColor: ["rgba(246, 26, 66, 1)"],
-              borderWidth: 1,
+              backgroundColor: "rgba(246, 26, 66, 0.5)",
+              borderColor: "rgb(246, 26, 66)",
             },
           ],
         },

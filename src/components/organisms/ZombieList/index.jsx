@@ -8,11 +8,7 @@ import { Link, Redirect } from "react-router-dom";
 // Connect
 import { connect } from "react-redux";
 // Actions
-import {
-  getCats,
-  removeCat,
-  upgradeCat,
-} from "../../../store/actions/authActions";
+import { getZombies } from "../../../store/actions/authActions";
 
 //> Additional modules
 // Copy to clipboard
@@ -47,9 +43,9 @@ import {
 import { ResultChart } from "../../molecules/charts";
 
 //> CSS
-import "./catlist.scss";
+import "./zombie.scss";
 
-class CatList extends React.Component {
+class ZombieList extends React.Component {
   state = {
     data: {
       columns: [
@@ -64,13 +60,18 @@ class CatList extends React.Component {
           sort: "disabled",
         },
         {
+          label: "City",
+          field: "city",
+          sort: "disabled",
+        },
+        {
           label: "Contact",
           field: "contact",
           sort: "disabled",
         },
         {
-          label: "Actions",
-          field: "actions",
+          label: "Nutzerdaten",
+          field: "access",
           sort: "disabled",
         },
       ],
@@ -79,10 +80,12 @@ class CatList extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    // Check if cats have changed
-    if (JSON.stringify(this.props.cats) !== JSON.stringify(nextProps.cats)) {
-      nextProps.cats &&
-        this.setState({ sync: false }, () => this.fillTable(nextProps.cats));
+    // Check if zombies have changed
+    if (
+      JSON.stringify(this.props.zombies) !== JSON.stringify(nextProps.zombies)
+    ) {
+      nextProps.zombies &&
+        this.setState({ sync: false }, () => this.fillTable(nextProps.zombies));
     } else {
       this.setState({ sync: false });
     }
@@ -104,20 +107,10 @@ class CatList extends React.Component {
     }
   };
 
-  updateCat = (cat) => {
-    cat = {
-      ...cat,
-      password: Math.random().toString(36).slice(-8),
-    };
-
-    this.props.upgradeCat(cat);
-    this.props.goTo(0);
-  };
-
-  getUserList = (cats) => {
+  getUserList = (zombies) => {
     return (
-      cats &&
-      cats.map((cat, i) => {
+      zombies &&
+      zombies.map((cat, i) => {
         if (!cat.disabled) {
           return {
             chart: (
@@ -128,15 +121,8 @@ class CatList extends React.Component {
                 />
               </div>
             ),
-            company: (
-              <small>
-                <small>
-                  <strong>{cat.company_name}</strong>
-                </small>
-                <br />
-                <small>{cat.city}</small>
-              </small>
-            ),
+            company: cat.company_name,
+            city: cat.city,
             contact: (
               <>
                 <p className="mb-1 clickable" onClick={() => copy(cat.email)}>
@@ -145,41 +131,15 @@ class CatList extends React.Component {
                 {cat.phone ? <p className="mb-1">{cat.phone}</p> : null}
               </>
             ),
-            actions: (
+            access: (
               <>
-                <MDBBtn
-                  color="indigo"
-                  className="px-3 m-0 mr-2"
-                  size="sm"
-                  onClick={() => this.toggle(cat)}
+                <p className="mb-1">E-Mail: {cat.email}</p>
+                <p
+                  className="mb-0 clickable"
+                  onClick={() => copy(cat.password)}
                 >
-                  <MDBIcon icon="chart-area" />
-                  Analysis
-                </MDBBtn>
-                <MDBBtn
-                  color="green"
-                  className="px-3 m-0 mr-2"
-                  size="sm"
-                  onClick={() => this.updateCat(cat)}
-                >
-                  <MDBIcon icon="angle-double-up" />
-                  Upgrade
-                </MDBBtn>
-                {!this.state["remove" + cat.uid] && (
-                  <MDBBtn
-                    className="px-3 m-0 float-right"
-                    color="danger"
-                    outline
-                    size="sm"
-                    onClick={() =>
-                      this.setState({
-                        removeCat: { name: cat.company_name, uid: cat.uid },
-                      })
-                    }
-                  >
-                    <MDBIcon icon="trash-alt" size="md" className="mr-0" />
-                  </MDBBtn>
-                )}
+                  Password: {cat.password} <MDBIcon far icon="copy" />
+                </p>
               </>
             ),
           };
@@ -188,18 +148,17 @@ class CatList extends React.Component {
     );
   };
 
-  fillTable = (cats) => {
+  fillTable = (zombies) => {
     this.setState({
       data: {
         ...this.state.data,
-        rows: this.getUserList(cats),
+        rows: this.getUserList(zombies),
       },
     });
   };
 
   render() {
-    const { auth, profile, cats } = this.props;
-    console.log(this.state);
+    const { auth, profile, zombies } = this.props;
 
     if (!profile.isLoaded) {
       return (
@@ -212,30 +171,30 @@ class CatList extends React.Component {
       if (auth.uid === undefined) return <Redirect to="/" />;
       if (profile && !profile.coach) return <Redirect to="/" />;
 
-      // Get firebase cats
-      if (!this.props.cats) {
-        this.props.getCats();
+      // Get firebase zombies
+      if (!this.props.zombies) {
+        this.props.getZombies();
       } else {
         if (!this.state.data.rows) {
-          this.fillTable(this.props.cats);
+          this.fillTable(this.props.zombies);
         }
       }
 
       return (
         <>
-          <div id="catlist">
+          <div id="zombielist">
             <>
               <MDBCard className="w-100">
                 <MDBCardBody>
                   <h2 className="d-flex">
                     <MDBBadge color="indigo" className="mr-3">
-                      Phase 1
+                      Phase 2
                     </MDBBadge>{" "}
-                    Cats
+                    Zombies
                   </h2>
                   <p className="lead">
-                    Phase 1 collects data from companies and creates free
-                    analysis for them.
+                    Phase 2 tries to transform <code>cats</code> into{" "}
+                    <code>interested</code>.
                   </p>
                   <div className="text-right mb-4">
                     {this.state.removeCat && (
@@ -277,40 +236,6 @@ class CatList extends React.Component {
               </MDBCard>
             </>
           </div>
-          {this.state.modal && this.state.modalCat && (
-            <MDBModal
-              modalStyle="primary"
-              className="text-white"
-              size="md"
-              backdrop={true}
-              isOpen={this.state.modal}
-              toggle={this.toggle}
-            >
-              <MDBModalHeader
-                className="text-center"
-                titleClass="w-100"
-                tag="p"
-              >
-                {this.state.modalCat.company_name} Analysis Details
-              </MDBModalHeader>
-              <MDBModalBody className="text-center">
-                {this.state.modalCat && (
-                  <ResultChart
-                    data={
-                      this.state.modalCat.analysis[
-                        this.state.modalCat.analysis.length - 1
-                      ].results
-                    }
-                  />
-                )}
-              </MDBModalBody>
-              <MDBModalFooter className="justify-content-center">
-                <MDBBtn color="elegant" outline onClick={this.toggle}>
-                  Close
-                </MDBBtn>
-              </MDBModalFooter>
-            </MDBModal>
-          )}
         </>
       );
     }
@@ -318,23 +243,20 @@ class CatList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    cats: state.auth.cats,
+    zombies: state.auth.zombies,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCats: () => dispatch(getCats()),
-    removeCat: (uid) => dispatch(removeCat(uid)),
-    upgradeCat: (cat) => dispatch(upgradeCat(cat)),
+    getZombies: () => dispatch(getZombies()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CatList);
+export default connect(mapStateToProps, mapDispatchToProps)(ZombieList);
 
 /**
  * SPDX-License-Identifier: (EUPL-1.2)
