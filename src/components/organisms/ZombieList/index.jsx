@@ -121,7 +121,20 @@ class ZombieList extends React.Component {
                 />
               </div>
             ),
-            company: cat.company_name,
+            company: (
+              <>
+                <p>{cat.company_name}</p>
+                <MDBBtn
+                  color="indigo"
+                  className="px-3 m-0 mr-2"
+                  size="sm"
+                  onClick={() => this.toggle(cat)}
+                >
+                  <MDBIcon icon="chart-area" />
+                  Analysis
+                </MDBBtn>
+              </>
+            ),
             city: cat.city,
             contact: (
               <>
@@ -236,6 +249,40 @@ class ZombieList extends React.Component {
               </MDBCard>
             </>
           </div>
+          {this.state.modal && this.state.modalCat && (
+            <MDBModal
+              modalStyle="primary"
+              className="text-white"
+              size="md"
+              backdrop={true}
+              isOpen={this.state.modal}
+              toggle={this.toggle}
+            >
+              <MDBModalHeader
+                className="text-center"
+                titleClass="w-100"
+                tag="p"
+              >
+                {this.state.modalCat.company_name} Analysis Details
+              </MDBModalHeader>
+              <MDBModalBody className="text-center">
+                {this.state.modalCat && (
+                  <ResultChart
+                    data={
+                      this.state.modalCat.analysis[
+                        this.state.modalCat.analysis.length - 1
+                      ].results
+                    }
+                  />
+                )}
+              </MDBModalBody>
+              <MDBModalFooter className="justify-content-center">
+                <MDBBtn color="elegant" outline onClick={this.toggle}>
+                  Close
+                </MDBBtn>
+              </MDBModalFooter>
+            </MDBModal>
+          )}
         </>
       );
     }
