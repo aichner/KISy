@@ -20,9 +20,10 @@ class ResultChart extends React.Component {
       },
       scale: {
         pointLabels: {
-          fontSize: 16,
+          fontSize: 14,
           display: this.props.hideLabels ? false : true,
-          fontFamily: "Roboto",
+          fontFamily: "Fira Sans",
+          fontColor: "black",
         },
         ticks: {
           beginAtZero: true,
