@@ -72,6 +72,12 @@ class ResultChart extends React.Component {
     ],
   };
 
+  componentDidMount = () => {
+    if (!this.state.dataRadar) {
+      this.getChart();
+    }
+  };
+
   getChart = () => {
     if (this.props.data) {
       let labels, data;
@@ -121,7 +127,6 @@ class ResultChart extends React.Component {
         />
       );
     } else {
-      this.getChart();
       return null;
     }
   }
