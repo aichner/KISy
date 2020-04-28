@@ -107,7 +107,7 @@ class FormCat extends React.Component {
       const web_avg =
         this.getSum(web) / (analysis.web.length - 1) -
         (this.state.web_performance > 2000
-          ? this.state.web_performance / 200
+          ? this.state.web_performance / 500
           : 0);
       // Facebook
       const facebook = {
