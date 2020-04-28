@@ -125,7 +125,12 @@ class ZombieList extends React.Component {
               <>
                 <p className="mb-0">{zombie.company_name}</p>
                 <div className="mb-2">
-                  {zombie.processed && <MDBBadge color="green">Done</MDBBadge>}
+                  {zombie.processed && (
+                    <MDBBadge color="green">
+                      <MDBIcon icon="check-circle" className="mr-1" />
+                      Done
+                    </MDBBadge>
+                  )}
                 </div>
                 <MDBBtn
                   color="indigo"
@@ -138,7 +143,7 @@ class ZombieList extends React.Component {
                 </MDBBtn>
                 {!zombie.processed && (
                   <MDBBtn
-                    color="elegant"
+                    color="green"
                     className="px-3 m-0 mr-2"
                     size="sm"
                     onClick={() => this.markDone(zombie.uid)}
