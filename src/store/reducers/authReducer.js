@@ -44,6 +44,7 @@ const authReducer = (state = initState, action) => {
         upgradeFailed: false,
       };
     case "UPGRADE_ERROR":
+      console.error("Could not upgrade", action.err);
       return {
         ...state,
         upgradeFailed: true,

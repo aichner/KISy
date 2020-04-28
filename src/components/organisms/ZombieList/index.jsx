@@ -31,6 +31,7 @@ import {
   MDBBtn,
   MDBBadge,
   MDBIcon,
+  MDBProgress,
   MDBFormInline,
   MDBInput,
   MDBAlert,
@@ -278,7 +279,7 @@ class ZombieList extends React.Component {
           {this.state.modal && this.state.modalCat && (
             <MDBModal
               modalStyle="primary"
-              className="text-white"
+              className="text-white modal-zombie"
               size="md"
               backdrop={true}
               isOpen={this.state.modal}
@@ -300,6 +301,43 @@ class ZombieList extends React.Component {
                       ].results
                     }
                   />
+                )}
+                {this.state.modalCat.analysis && (
+                  <div className="text-left">
+                    {Object.keys(
+                      this.state.modalCat.analysis[
+                        this.state.modalCat.analysis.length - 1
+                      ].results
+                    ).map((key, i) => {
+                      if (
+                        this.state.modalCat.analysis[
+                          this.state.modalCat.analysis.length - 1
+                        ].results[key].value < 70
+                      ) {
+                        return (
+                          <>
+                            <span>
+                              {
+                                this.state.modalCat.analysis[
+                                  this.state.modalCat.analysis.length - 1
+                                ].results[key].name
+                              }
+                            </span>
+                            <MDBProgress
+                              value={
+                                this.state.modalCat.analysis[
+                                  this.state.modalCat.analysis.length - 1
+                                ].results[key].value
+                              }
+                              className="mt-1 mb-2"
+                            />
+                          </>
+                        );
+                      } else {
+                        return null;
+                      }
+                    })}
+                  </div>
                 )}
               </MDBModalBody>
               <MDBModalFooter className="justify-content-center">
