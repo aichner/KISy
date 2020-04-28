@@ -33,6 +33,7 @@ const authReducer = (state = initState, action) => {
         zombies: action.zombies,
       };
     case "GETZOMBIE_ERROR":
+      console.error("Could not get zombies", action.err);
       return {
         ...state,
         zombies: null,

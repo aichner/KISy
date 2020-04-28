@@ -161,6 +161,52 @@ export const getCats = () => {
   };
 };
 
+export const markDoneZombie = (uid) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection("users")
+      .doc(uid)
+      .set(
+        {
+          processed: true,
+        },
+        { merge: true }
+      )
+      .then(() => {
+        firestore
+          .collection("users")
+          .where("mode", "==", "zombie")
+          .get()
+          .then((querySnapshot) => {
+            let zombies = querySnapshot.docs.map((doc) => {
+              let data = doc.data();
+              data.uid = doc.id;
+              return data;
+            });
+
+            dispatch({
+              type: "GETZOMBIE_SUCCESS",
+              zombies,
+            });
+          })
+          .catch((err) => {
+            dispatch({
+              type: "GETZOMBIE_ERROR",
+              err,
+            });
+          });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "GETZOMBIE_ERROR",
+          err,
+        });
+      });
+  };
+};
+
 export const removeCat = (uid) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();

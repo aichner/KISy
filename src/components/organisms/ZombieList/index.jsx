@@ -8,7 +8,7 @@ import { Link, Redirect } from "react-router-dom";
 // Connect
 import { connect } from "react-redux";
 // Actions
-import { getZombies } from "../../../store/actions/authActions";
+import { getZombies, markDoneZombie } from "../../../store/actions/authActions";
 
 //> Additional modules
 // Copy to clipboard
@@ -91,12 +91,12 @@ class ZombieList extends React.Component {
     }
   }
 
-  toggle = (cat) => {
+  toggle = (zombie) => {
     if (!this.state.modal) {
       this.setState({
         modal: true,
         modalCat: {
-          ...cat,
+          ...zombie,
         },
       });
     } else {
@@ -110,48 +110,65 @@ class ZombieList extends React.Component {
   getUserList = (zombies) => {
     return (
       zombies &&
-      zombies.map((cat, i) => {
-        if (!cat.disabled) {
+      zombies.map((zombie, i) => {
+        if (!zombie.disabled) {
           return {
             chart: (
               <div>
                 <ResultChart
-                  data={cat.analysis[cat.analysis.length - 1].results}
+                  data={zombie.analysis[zombie.analysis.length - 1].results}
                   hideLabels
                 />
               </div>
             ),
             company: (
               <>
-                <p>{cat.company_name}</p>
+                <p className="mb-0">{zombie.company_name}</p>
+                <div className="mb-2">
+                  {zombie.processed && <MDBBadge color="green">Done</MDBBadge>}
+                </div>
                 <MDBBtn
                   color="indigo"
                   className="px-3 m-0 mr-2"
                   size="sm"
-                  onClick={() => this.toggle(cat)}
+                  onClick={() => this.toggle(zombie)}
                 >
-                  <MDBIcon icon="chart-area" />
+                  <MDBIcon icon="signature" />
                   Analysis
                 </MDBBtn>
+                {!zombie.processed && (
+                  <MDBBtn
+                    color="elegant"
+                    className="px-3 m-0 mr-2"
+                    size="sm"
+                    onClick={() => this.markDone(zombie.uid)}
+                  >
+                    <MDBIcon icon="check" />
+                    Done
+                  </MDBBtn>
+                )}
               </>
             ),
-            city: cat.city,
+            city: zombie.city,
             contact: (
               <>
-                <p className="mb-1 clickable" onClick={() => copy(cat.email)}>
-                  {cat.email} <MDBIcon far icon="copy" />
+                <p
+                  className="mb-1 clickable"
+                  onClick={() => copy(zombie.email)}
+                >
+                  {zombie.email} <MDBIcon far icon="copy" />
                 </p>
-                {cat.phone ? <p className="mb-1">{cat.phone}</p> : null}
+                {zombie.phone ? <p className="mb-1">{zombie.phone}</p> : null}
               </>
             ),
             access: (
               <>
-                <p className="mb-1">E-Mail: {cat.email}</p>
+                <p className="mb-1">E-Mail: {zombie.email}</p>
                 <p
                   className="mb-0 clickable"
-                  onClick={() => copy(cat.password)}
+                  onClick={() => copy(zombie.password)}
                 >
-                  Password: {cat.password} <MDBIcon far icon="copy" />
+                  Password: {zombie.password} <MDBIcon far icon="copy" />
                 </p>
               </>
             ),
@@ -168,6 +185,10 @@ class ZombieList extends React.Component {
         rows: this.getUserList(zombies),
       },
     });
+  };
+
+  markDone = (uid) => {
+    this.props.markDoneZombie(uid);
   };
 
   render() {
@@ -300,6 +321,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getZombies: () => dispatch(getZombies()),
+    markDoneZombie: (uid) => dispatch(markDoneZombie(uid)),
   };
 };
 
