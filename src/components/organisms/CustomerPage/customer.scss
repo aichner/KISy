@@ -1,0 +1,66 @@
+#customerpage {
+  .progress {
+    height: 7px;
+    .progress-bar {
+      background-color: #f61a42 !important;
+    }
+  }
+  .services {
+    background: white;
+    .col-md-4 {
+      padding: 0;
+      .nav-item {
+        padding: 0;
+        .nav-link {
+          padding: 1.2rem 0.5rem;
+          text-align: left;
+          color: #1e1e1e;
+          border-left: 5px white solid;
+          border-radius: 0;
+          transition: all 0.2s ease;
+          // Borders
+          &.border-orange {
+            border-left: 5px orange solid;
+          }
+          &.border-deep-purple {
+            border-left: 5px #673ab7 solid;
+          }
+          &.border-green {
+            border-left: 5px #4caf50 solid;
+          }
+          &.border-cyan {
+            border-left: 5px #00bcd4 solid;
+          }
+          &.border-orange {
+            border-left: 5px orange solid;
+          }
+          &.border-red {
+            border-left: 5px #f61a42 solid;
+          }
+          &:hover {
+            background-color: darken(white, 3%) !important;
+          }
+          &.active {
+            background-color: darken(white, 6%) !important;
+            box-shadow: none;
+          }
+          i {
+            width: 30px;
+            text-align: center;
+          }
+        }
+      }
+    }
+    .col-md-8 {
+      padding: 0;
+      .tab-content {
+        padding: 1rem 1.5rem;
+      }
+    }
+  }
+}
+
+/** 
+ * SPDX-License-Identifier: (EUPL-1.2)
+ * Copyright © 2020 Christian Aichner
+ */

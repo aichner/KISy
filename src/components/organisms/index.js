@@ -4,8 +4,9 @@ import FormCat from "./FormCat";
 import CatList from "./CatList";
 import CoachPage from "./CoachPage";
 import ZombieList from "./ZombieList";
+import CustomerPage from "./CustomerPage";
 
-export { FormCat, CatList, CoachPage, ZombieList };
+export { FormCat, CatList, CoachPage, ZombieList, CustomerPage };
 
 /**
  * SPDX-License-Identifier: (EUPL-1.2)
