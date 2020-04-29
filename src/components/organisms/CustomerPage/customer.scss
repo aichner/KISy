@@ -57,6 +57,21 @@
         padding: 1rem 1.5rem;
       }
     }
+    .progress {
+      height: 15px;
+      .progress-bar {
+        background-color: #f61a42 !important;
+      }
+    }
+    .feature{
+      margin: .4rem 0;
+      font-size: .9rem;
+      i{
+        width: 20px;
+        text-align: center;
+        margin-right: .4rem;
+      }
+    }
   }
 }
 
