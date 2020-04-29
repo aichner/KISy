@@ -47,6 +47,7 @@ class Services extends React.Component {
 
   componentDidMount = () => {
     //this.getAnalytics();
+
     if (this.props.profile && this.props.profile.analysis) {
       this.getDetails();
     }
