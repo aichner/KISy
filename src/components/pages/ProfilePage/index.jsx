@@ -72,7 +72,7 @@ class ProfilePage extends React.Component {
     if (curHr > 5 && curHr <= 11) {
       selected = <span>Guten Morgen</span>;
     } else if (curHr > 11 && curHr <= 17) {
-      selected = <span>Willkommen zurück</span>;
+      selected = <span>Willkommen</span>;
     } else if (curHr > 17 || curHr > 0) {
       selected = <span>Guten Abend</span>;
     }
@@ -117,8 +117,6 @@ class ProfilePage extends React.Component {
 
   render() {
     const { auth, profile } = this.props;
-
-    console.log(profile);
 
     // Check if firebase has loaded profile data
     if (!profile.isLoaded) {
@@ -212,7 +210,6 @@ class ProfilePage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
