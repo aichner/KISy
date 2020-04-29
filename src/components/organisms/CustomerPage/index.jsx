@@ -58,60 +58,67 @@ class CustomerPage extends React.Component {
         </div>
         <div className="py-4">
           <MDBContainer>
+            {!profile.isLoaded && <MDBProgress material preloader />}
             <MDBRow>
               <MDBCol md="5">
                 <MDBCard>
                   <MDBCardBody className="text-center">
                     <p className="lead font-weight-bold mb-1">Das Ergebnis</p>
                     <p className="text-muted mb-4">
-                      Hier aufgeführt sind die Hauptkategorien einer Online
+                      Hier aufgeführt sind die Hauptkategorien Deiner Online
                       Präsenz, bewertet von unseren Experten.
                     </p>
-                    <ResultChart
-                      data={
-                        profile.analysis[profile.analysis.length - 1].results
-                      }
-                    />
-                    <div className="text-left mt-4">
-                      {Object.keys(
-                        profile.analysis[profile.analysis.length - 1].results
-                      ).map((key, i) => {
-                        if (
-                          profile.analysis[profile.analysis.length - 1].results[
-                            key
-                          ].value <= 100
-                        ) {
-                          return (
-                            <React.Fragment key={i}>
-                              <span className="mb-0">
-                                {
-                                  profile.analysis[profile.analysis.length - 1]
-                                    .results[key].name
-                                }
-                              </span>
-                              <MDBProgress
-                                value={
-                                  profile.analysis[profile.analysis.length - 1]
-                                    .results[key].value
-                                }
-                                className="mb-0"
-                              />
-                              <small className="d-block text-muted mb-2">
-                                {Math.round(
-                                  (profile.analysis[profile.analysis.length - 1]
-                                    .results[key].value +
-                                    Number.EPSILON) *
-                                    100
-                                ) / 100}{" "}
-                                / 100
-                              </small>
-                            </React.Fragment>
-                          );
-                        } else {
-                          return null;
+                    {profile.isLoaded && !profile.isEmpty && (
+                      <ResultChart
+                        data={
+                          profile.analysis[profile.analysis.length - 1].results
                         }
-                      })}
-                    </div>
+                      />
+                    )}
+                    {profile.isLoaded && !profile.isEmpty && (
+                      <div className="text-left mt-4">
+                        {Object.keys(
+                          profile.analysis[profile.analysis.length - 1].results
+                        ).map((key, i) => {
+                          if (
+                            profile.analysis[profile.analysis.length - 1]
+                              .results[key].value <= 100
+                          ) {
+                            return (
+                              <React.Fragment key={i}>
+                                <span className="mb-0">
+                                  {
+                                    profile.analysis[
+                                      profile.analysis.length - 1
+                                    ].results[key].name
+                                  }
+                                </span>
+                                <MDBProgress
+                                  value={
+                                    profile.analysis[
+                                      profile.analysis.length - 1
+                                    ].results[key].value
+                                  }
+                                  className="mb-0"
+                                />
+                                <small className="d-block text-muted mb-2">
+                                  {Math.round(
+                                    (profile.analysis[
+                                      profile.analysis.length - 1
+                                    ].results[key].value +
+                                      Number.EPSILON) *
+                                      100
+                                  ) / 100}{" "}
+                                  / 100
+                                </small>
+                              </React.Fragment>
+                            );
+                          } else {
+                            return null;
+                          }
+                        })}
+                      </div>
+                    )}
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
