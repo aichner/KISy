@@ -29,10 +29,18 @@ import {
   MDBBtn,
   MDBIcon,
   MDBBadge,
+  MDBProgress,
 } from "mdbreact";
 
 //> Components
-import { FormCat, CatList, CoachPage, ZombieList } from "../../organisms";
+import {
+  FormCat,
+  CatList,
+  CoachPage,
+  ZombieList,
+  CustomerPage,
+} from "../../organisms";
+import { ResultChart } from "../../molecules/charts";
 
 //> CSS
 import "./profilepage.scss";
@@ -64,7 +72,7 @@ class ProfilePage extends React.Component {
     if (curHr > 5 && curHr <= 11) {
       selected = <span>Guten Morgen</span>;
     } else if (curHr > 11 && curHr <= 17) {
-      selected = <span>Willkommen zurück</span>;
+      selected = <span>Willkommen</span>;
     } else if (curHr > 17 || curHr > 0) {
       selected = <span>Guten Abend</span>;
     }
@@ -125,50 +133,76 @@ class ProfilePage extends React.Component {
 
       return (
         <div id="profile">
-          <div className="greeting py-5 text-center">
+          <div className="greeting py-5 text-center position-relative">
+            <div
+              className="text-right mb-5 position-absolute"
+              style={{ right: "1rem", top: "1rem" }}
+            >
+              <MDBBtn
+                color="white"
+                size="md"
+                onClick={() => this.props.signOut()}
+              >
+                Sign Out
+              </MDBBtn>
+            </div>
             {this.state.greetingImage}
             <h2 className="text-center font-weight-bold">
-              {this.getGreetingTxt()} <span>{profile.first_name}</span>!
+              {this.getGreetingTxt()}{" "}
+              <span>
+                {profile.full_name
+                  ? profile.full_name.split(" ")[0]
+                  : profile.first_name
+                  ? profile.first_name
+                  : ""}
+              </span>
+              !
             </h2>
-            <MDBBtn color="white" outline onClick={() => this.props.signOut()}>
-              Sign Out
-            </MDBBtn>
           </div>
-          <div className="py-4 greeting-actions">
-            <MDBContainer>
-              <MDBRow className="flex-center">
-                <MDBCol md="2" className="text-center">
-                  <p className="lead">
-                    <MDBIcon icon="bolt" className="pr-2 orange-text" />
-                    Quick actions
-                  </p>
-                </MDBCol>
-                <MDBCol md="5" className="text-center">
-                  {this.state.activePage !== 0 ? (
-                    <MDBBtn color="indigo" onClick={() => this.goTo(0)}>
-                      <MDBIcon icon="columns" />
-                      Dashboard
-                    </MDBBtn>
-                  ) : (
-                    <MDBBtn color="indigo" onClick={() => this.goTo("formcat")}>
-                      <MDBIcon icon="cat" />
-                      Add cat
-                    </MDBBtn>
+          {!profile.coach ? (
+            <CustomerPage profile={profile} />
+          ) : (
+            <>
+              <div className="py-4 greeting-actions">
+                <MDBContainer>
+                  <MDBRow className="flex-center">
+                    <MDBCol md="2" className="text-center">
+                      <p className="lead">
+                        <MDBIcon icon="bolt" className="pr-2 orange-text" />
+                        Quick actions
+                      </p>
+                    </MDBCol>
+                    <MDBCol md="5" className="text-center">
+                      {this.state.activePage !== 0 ? (
+                        <MDBBtn color="indigo" onClick={() => this.goTo(0)}>
+                          <MDBIcon icon="columns" />
+                          Dashboard
+                        </MDBBtn>
+                      ) : (
+                        <MDBBtn
+                          color="indigo"
+                          onClick={() => this.goTo("formcat")}
+                        >
+                          <MDBIcon icon="cat" />
+                          Add cat
+                        </MDBBtn>
+                      )}
+                    </MDBCol>
+                  </MDBRow>
+                </MDBContainer>
+              </div>
+              <div className="main">
+                <MDBContainer className="py-5">
+                  {this.state.activePage === 0 && (
+                    <CoachPage goTo={this.goTo} profile={profile} />
                   )}
-                </MDBCol>
-              </MDBRow>
-            </MDBContainer>
-          </div>
-          <div className="main">
-            <MDBContainer className="py-5">
-              {this.state.activePage === 0 && (
-                <CoachPage goTo={this.goTo} profile={profile} />
-              )}
-              {this.state.activePage === 1 && <FormCat />}
-              {this.state.activePage === 2 && <CatList goTo={this.goTo} />}
-              {this.state.activePage === 3 && <ZombieList />}
-            </MDBContainer>
-          </div>
+                  {this.state.activePage === 1 && <FormCat />}
+                  {this.state.activePage === 2 && <CatList goTo={this.goTo} />}
+                  {this.state.activePage === 3 && <ZombieList />}
+                </MDBContainer>
+              </div>
+            </>
+          )}
         </div>
       );
     }
@@ -176,7 +210,6 @@ class ProfilePage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

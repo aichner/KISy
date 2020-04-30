@@ -20,9 +20,10 @@ class ResultChart extends React.Component {
       },
       scale: {
         pointLabels: {
-          fontSize: 16,
+          fontSize: 14,
           display: this.props.hideLabels ? false : true,
-          fontFamily: "Roboto",
+          fontFamily: "Fira Sans",
+          fontColor: "black",
         },
         ticks: {
           beginAtZero: true,
@@ -69,6 +70,12 @@ class ResultChart extends React.Component {
         },
       },
     ],
+  };
+
+  componentDidMount = () => {
+    if (!this.state.dataRadar) {
+      this.getChart();
+    }
   };
 
   getChart = () => {
@@ -120,7 +127,6 @@ class ResultChart extends React.Component {
         />
       );
     } else {
-      this.getChart();
       return null;
     }
   }

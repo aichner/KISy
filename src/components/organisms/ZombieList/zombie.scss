@@ -2,6 +2,14 @@
   table td:first-child {
     max-width: 150px !important;
   }
+  .badge {
+    box-shadow: none;
+  }
+}
+.modal-zombie {
+  .progress-bar {
+    background-color: #f61a42 !important;
+  }
 }
 
 /** 

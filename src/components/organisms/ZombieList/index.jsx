@@ -8,7 +8,7 @@ import { Link, Redirect } from "react-router-dom";
 // Connect
 import { connect } from "react-redux";
 // Actions
-import { getZombies } from "../../../store/actions/authActions";
+import { getZombies, markDoneZombie } from "../../../store/actions/authActions";
 
 //> Additional modules
 // Copy to clipboard
@@ -31,6 +31,7 @@ import {
   MDBBtn,
   MDBBadge,
   MDBIcon,
+  MDBProgress,
   MDBFormInline,
   MDBInput,
   MDBAlert,
@@ -91,12 +92,12 @@ class ZombieList extends React.Component {
     }
   }
 
-  toggle = (cat) => {
+  toggle = (zombie) => {
     if (!this.state.modal) {
       this.setState({
         modal: true,
         modalCat: {
-          ...cat,
+          ...zombie,
         },
       });
     } else {
@@ -110,35 +111,70 @@ class ZombieList extends React.Component {
   getUserList = (zombies) => {
     return (
       zombies &&
-      zombies.map((cat, i) => {
-        if (!cat.disabled) {
+      zombies.map((zombie, i) => {
+        if (!zombie.disabled) {
           return {
             chart: (
               <div>
                 <ResultChart
-                  data={cat.analysis[cat.analysis.length - 1].results}
+                  data={zombie.analysis[zombie.analysis.length - 1].results}
                   hideLabels
                 />
               </div>
             ),
-            company: cat.company_name,
-            city: cat.city,
+            company: (
+              <>
+                <p className="mb-0">{zombie.company_name}</p>
+                <div className="mb-2">
+                  {zombie.processed && (
+                    <MDBBadge color="green">
+                      <MDBIcon icon="check-circle" className="mr-1" />
+                      Done
+                    </MDBBadge>
+                  )}
+                </div>
+                <MDBBtn
+                  color="indigo"
+                  className="px-3 m-0 mr-2"
+                  size="sm"
+                  onClick={() => this.toggle(zombie)}
+                >
+                  <MDBIcon icon="signature" />
+                  Analysis
+                </MDBBtn>
+                {!zombie.processed && (
+                  <MDBBtn
+                    color="green"
+                    className="px-3 m-0 mr-2"
+                    size="sm"
+                    onClick={() => this.markDone(zombie.uid)}
+                  >
+                    <MDBIcon icon="check" />
+                    Done
+                  </MDBBtn>
+                )}
+              </>
+            ),
+            city: zombie.city,
             contact: (
               <>
-                <p className="mb-1 clickable" onClick={() => copy(cat.email)}>
-                  {cat.email} <MDBIcon far icon="copy" />
+                <p
+                  className="mb-1 clickable"
+                  onClick={() => copy(zombie.email)}
+                >
+                  {zombie.email} <MDBIcon far icon="copy" />
                 </p>
-                {cat.phone ? <p className="mb-1">{cat.phone}</p> : null}
+                {zombie.phone ? <p className="mb-1">{zombie.phone}</p> : null}
               </>
             ),
             access: (
               <>
-                <p className="mb-1">E-Mail: {cat.email}</p>
+                <p className="mb-1">E-Mail: {zombie.email}</p>
                 <p
                   className="mb-0 clickable"
-                  onClick={() => copy(cat.password)}
+                  onClick={() => copy(zombie.password)}
                 >
-                  Password: {cat.password} <MDBIcon far icon="copy" />
+                  Password: {zombie.password} <MDBIcon far icon="copy" />
                 </p>
               </>
             ),
@@ -155,6 +191,10 @@ class ZombieList extends React.Component {
         rows: this.getUserList(zombies),
       },
     });
+  };
+
+  markDone = (uid) => {
+    this.props.markDoneZombie(uid);
   };
 
   render() {
@@ -236,6 +276,77 @@ class ZombieList extends React.Component {
               </MDBCard>
             </>
           </div>
+          {this.state.modal && this.state.modalCat && (
+            <MDBModal
+              modalStyle="primary"
+              className="text-white modal-zombie"
+              size="md"
+              backdrop={true}
+              isOpen={this.state.modal}
+              toggle={this.toggle}
+            >
+              <MDBModalHeader
+                className="text-center"
+                titleClass="w-100"
+                tag="p"
+              >
+                {this.state.modalCat.company_name} Analysis Details
+              </MDBModalHeader>
+              <MDBModalBody className="text-center">
+                {this.state.modalCat && (
+                  <ResultChart
+                    data={
+                      this.state.modalCat.analysis[
+                        this.state.modalCat.analysis.length - 1
+                      ].results
+                    }
+                  />
+                )}
+                {this.state.modalCat.analysis && (
+                  <div className="text-left">
+                    {Object.keys(
+                      this.state.modalCat.analysis[
+                        this.state.modalCat.analysis.length - 1
+                      ].results
+                    ).map((key, i) => {
+                      if (
+                        this.state.modalCat.analysis[
+                          this.state.modalCat.analysis.length - 1
+                        ].results[key].value < 70
+                      ) {
+                        return (
+                          <>
+                            <span>
+                              {
+                                this.state.modalCat.analysis[
+                                  this.state.modalCat.analysis.length - 1
+                                ].results[key].name
+                              }
+                            </span>
+                            <MDBProgress
+                              value={
+                                this.state.modalCat.analysis[
+                                  this.state.modalCat.analysis.length - 1
+                                ].results[key].value
+                              }
+                              className="mt-1 mb-2"
+                            />
+                          </>
+                        );
+                      } else {
+                        return null;
+                      }
+                    })}
+                  </div>
+                )}
+              </MDBModalBody>
+              <MDBModalFooter className="justify-content-center">
+                <MDBBtn color="elegant" outline onClick={this.toggle}>
+                  Close
+                </MDBBtn>
+              </MDBModalFooter>
+            </MDBModal>
+          )}
         </>
       );
     }
@@ -253,6 +364,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getZombies: () => dispatch(getZombies()),
+    markDoneZombie: (uid) => dispatch(markDoneZombie(uid)),
   };
 };
 

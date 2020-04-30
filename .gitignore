@@ -15,6 +15,9 @@ package-lock.json
 # production
 /build
 
+# Environment variable
+.env
+
 # MDB React Pro
 mdbreact-*
 

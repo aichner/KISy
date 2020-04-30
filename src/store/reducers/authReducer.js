@@ -33,6 +33,8 @@ const authReducer = (state = initState, action) => {
         zombies: action.zombies,
       };
     case "GETZOMBIE_ERROR":
+      console.error("Could not get zombies", action.err);
+
       return {
         ...state,
         zombies: null,
@@ -43,6 +45,8 @@ const authReducer = (state = initState, action) => {
         upgradeFailed: false,
       };
     case "UPGRADE_ERROR":
+      console.error("Could not upgrade", action.err);
+
       return {
         ...state,
         upgradeFailed: true,
