@@ -48,10 +48,12 @@ class CustomerPage extends React.Component {
                 </p>
               </MDBCol>
               <MDBCol md="5" className="text-center">
-                <MDBBtn color="indigo">
-                  <MDBIcon icon="cat" />
-                  Add cat
-                </MDBBtn>
+                <a href="mailto:info@aichner-christian.com">
+                  <MDBBtn color="agency-red">
+                    <MDBIcon icon="envelope" />
+                    Kontakt
+                  </MDBBtn>
+                </a>
               </MDBCol>
             </MDBRow>
           </MDBContainer>
