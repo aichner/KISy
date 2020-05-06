@@ -101,13 +101,42 @@ export const getZombies = () => {
           return data;
         });
         dispatch({
-          type: "GETZOMBIE_SUCCESS",
-          zombies,
+          type: "GETUSERS_SUCCESS",
+          users: zombies,
         });
       })
       .catch((err) => {
         dispatch({
-          type: "GETZOMBIE_ERROR",
+          type: "GETUSERS_ERROR",
+          err,
+        });
+      });
+  };
+};
+
+export const getGoodBoys = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection("users")
+      .where("mode", "==", "goodboy")
+      .get()
+      .then((querySnapshot) => {
+        let goodboys = querySnapshot.docs.map((doc) => {
+          let data = doc.data();
+          data.uid = doc.id;
+          return data;
+        });
+        console.log(goodboys);
+        dispatch({
+          type: "GETUSERS_SUCCESS",
+          users: goodboys,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "GETUSERS_ERROR",
           err,
         });
       });
@@ -148,13 +177,13 @@ export const getCats = () => {
           return data;
         });
         dispatch({
-          type: "GETCATS_SUCCESS",
-          cats,
+          type: "GETUSERS_SUCCESS",
+          users: cats,
         });
       })
       .catch((err) => {
         dispatch({
-          type: "GETCATS_ERROR",
+          type: "GETUSERS_ERRORS",
           err,
         });
       });
@@ -187,20 +216,20 @@ export const markDoneZombie = (uid) => {
             });
 
             dispatch({
-              type: "GETZOMBIE_SUCCESS",
-              zombies,
+              type: "GETUSERS_SUCCESS",
+              users: zombies,
             });
           })
           .catch((err) => {
             dispatch({
-              type: "GETZOMBIE_ERROR",
+              type: "GETUSERS_ERROR",
               err,
             });
           });
       })
       .catch((err) => {
         dispatch({
-          type: "GETZOMBIE_ERROR",
+          type: "GETUSERS_ERROR",
           err,
         });
       });
@@ -232,13 +261,13 @@ export const removeCat = (uid) => {
               return data;
             });
             dispatch({
-              type: "GETCATS_SUCCESS",
-              cats,
+              type: "GETUSERS_SUCCESS",
+              users: cats,
             });
           })
           .catch((err) => {
             dispatch({
-              type: "GETCATS_ERROR",
+              type: "GETUSERS_ERROR",
               err,
             });
           });
@@ -287,6 +316,7 @@ export const setFirstLogged = () => {
       .set(
         {
           firstLogin: new Date().getTime(),
+          mode: "goodboy",
         },
         { merge: true }
       )

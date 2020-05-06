@@ -83,7 +83,7 @@ class ZombieList extends React.Component {
   componentWillReceiveProps(nextProps) {
     // Check if zombies have changed
     if (
-      JSON.stringify(this.props.zombies) !== JSON.stringify(nextProps.zombies)
+      JSON.stringify(this.props.users) !== JSON.stringify(nextProps.zombies)
     ) {
       nextProps.zombies &&
         this.setState({ sync: false }, () => this.fillTable(nextProps.zombies));
@@ -212,11 +212,11 @@ class ZombieList extends React.Component {
       if (profile && !profile.coach) return <Redirect to="/" />;
 
       // Get firebase zombies
-      if (!this.props.zombies) {
+      if (!this.props.users) {
         this.props.getZombies();
       } else {
         if (!this.state.data.rows) {
-          this.fillTable(this.props.zombies);
+          this.fillTable(this.props.users);
         }
       }
 
@@ -357,7 +357,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    zombies: state.auth.zombies,
+    users: state.auth.users,
   };
 };
 

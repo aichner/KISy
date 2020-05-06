@@ -8,15 +8,13 @@ import { Link, Redirect } from "react-router-dom";
 // Connect
 import { connect } from "react-redux";
 // Actions
-import {
-  getCats,
-  removeCat,
-  upgradeCat,
-} from "../../../store/actions/authActions";
+import { getGoodBoys } from "../../../store/actions/authActions";
 
 //> Additional modules
 // Copy to clipboard
 import copy from "copy-to-clipboard";
+// Moment
+import moment from "moment";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
@@ -35,6 +33,7 @@ import {
   MDBBtn,
   MDBBadge,
   MDBIcon,
+  MDBProgress,
   MDBFormInline,
   MDBInput,
   MDBAlert,
@@ -47,9 +46,9 @@ import {
 import { ResultChart } from "../../molecules/charts";
 
 //> CSS
-import "./catlist.scss";
+import "./interested.scss";
 
-class CatList extends React.Component {
+class InterestedList extends React.Component {
   state = {
     data: {
       columns: [
@@ -64,13 +63,18 @@ class CatList extends React.Component {
           sort: "disabled",
         },
         {
+          label: "Actions",
+          field: "actions",
+          sort: "disabled",
+        },
+        {
           label: "Contact",
           field: "contact",
           sort: "disabled",
         },
         {
-          label: "Actions",
-          field: "actions",
+          label: "Nutzerdaten",
+          field: "access",
           sort: "disabled",
         },
       ],
@@ -78,22 +82,28 @@ class CatList extends React.Component {
     },
   };
 
+  componentDidMount = () => {
+    if (!this.props.users) {
+      this.props.getGoodBoys();
+    }
+  };
+
   componentWillReceiveProps(nextProps) {
-    // Check if cats have changed
-    if (JSON.stringify(this.props.users) !== JSON.stringify(nextProps.cats)) {
-      nextProps.cats &&
-        this.setState({ sync: false }, () => this.fillTable(nextProps.cats));
+    // Check if users have changed
+    if (JSON.stringify(this.props.users) !== JSON.stringify(nextProps.users)) {
+      nextProps.users &&
+        this.setState({ sync: false }, () => this.fillTable(nextProps.users));
     } else {
       this.setState({ sync: false });
     }
   }
 
-  toggle = (cat) => {
+  toggle = (user) => {
     if (!this.state.modal) {
       this.setState({
         modal: true,
         modalCat: {
-          ...cat,
+          ...user,
         },
       });
     } else {
@@ -104,82 +114,99 @@ class CatList extends React.Component {
     }
   };
 
-  updateCat = (cat) => {
-    cat = {
-      ...cat,
-      password: Math.random().toString(36).slice(-8).toUpperCase(),
-    };
-
-    this.props.upgradeCat(cat);
-    this.props.goTo(0);
-  };
-
-  getUserList = (cats) => {
+  getUserList = (users) => {
     return (
-      cats &&
-      cats.map((cat, i) => {
-        if (!cat.disabled) {
+      users &&
+      users.map((user, i) => {
+        if (!user.disabled) {
           return {
             chart: (
               <div>
                 <ResultChart
-                  data={cat.analysis[cat.analysis.length - 1].results}
+                  data={user.analysis[user.analysis.length - 1].results}
                   hideLabels
                 />
               </div>
             ),
             company: (
-              <small>
-                <small>
-                  <strong>{cat.company_name}</strong>
+              <>
+                <p className="mb-0">{user.company_name}</p>
+                <small className="text-muted d-block">
+                  Last seen:{" "}
+                  {moment(user.firstLogin).format("MMMM Do YYYY, h:mm:ss a")}
                 </small>
-                <br />
-                <small>{cat.city}</small>
-              </small>
-            ),
-            contact: (
-              <>
-                <p className="mb-1 clickable" onClick={() => copy(cat.email)}>
-                  {cat.email} <MDBIcon far icon="copy" />
-                </p>
-                {cat.phone ? <p className="mb-1">{cat.phone}</p> : null}
-              </>
-            ),
-            actions: (
-              <>
+                <div className="mb-2">
+                  {parseInt(user.firstLogin) + 8640000 >
+                    parseInt(new Date().getTime()) && (
+                    <MDBBadge color="green" className="my-2">
+                      <MDBIcon icon="clock" className="mr-1" />
+                      Logged in recently
+                    </MDBBadge>
+                  )}
+                </div>
                 <MDBBtn
                   color="indigo"
                   className="px-3 m-0 mr-2"
                   size="sm"
-                  onClick={() => this.toggle(cat)}
+                  onClick={() => this.toggle(user)}
                 >
-                  <MDBIcon icon="chart-area" />
+                  <MDBIcon icon="signature" />
                   Analysis
                 </MDBBtn>
-                <MDBBtn
-                  color="green"
-                  className="px-3 m-0 mr-2"
-                  size="sm"
-                  onClick={() => this.updateCat(cat)}
-                >
-                  <MDBIcon icon="angle-double-up" />
-                  Upgrade
-                </MDBBtn>
-                {!this.state["remove" + cat.uid] && (
+                {!user.processed && (
                   <MDBBtn
-                    className="px-3 m-0 float-right"
-                    color="danger"
-                    outline
+                    color="green"
+                    className="px-3 m-0 mr-2"
                     size="sm"
-                    onClick={() =>
-                      this.setState({
-                        removeCat: { name: cat.company_name, uid: cat.uid },
-                      })
-                    }
+                    onClick={() => this.markDone(user.uid)}
                   >
-                    <MDBIcon icon="trash-alt" size="md" className="mr-0" />
+                    <MDBIcon icon="check" />
+                    Done
                   </MDBBtn>
                 )}
+              </>
+            ),
+            actions: (
+              <>
+                <p className="mb-0 font-weight-bold">Requests</p>
+                <div>
+                  {user.request ? (
+                    <>
+                      {Object.keys(user.request).map((key, i) => {
+                        return (
+                          <span className="d-block" key={i}>
+                            <MDBIcon
+                              icon="check-circle"
+                              className="green-text mr-1"
+                            />
+                            {key}
+                          </span>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <small className="text-muted">No actions yet</small>
+                  )}
+                </div>
+              </>
+            ),
+            contact: (
+              <>
+                <p className="mb-1 clickable" onClick={() => copy(user.email)}>
+                  {user.email} <MDBIcon far icon="copy" />
+                </p>
+                {user.phone ? <p className="mb-1">{user.phone}</p> : null}
+              </>
+            ),
+            access: (
+              <>
+                <p className="mb-1">E-Mail: {user.email}</p>
+                <p
+                  className="mb-0 clickable"
+                  onClick={() => copy(user.password)}
+                >
+                  Password: {user.password} <MDBIcon far icon="copy" />
+                </p>
               </>
             ),
           };
@@ -188,18 +215,21 @@ class CatList extends React.Component {
     );
   };
 
-  fillTable = (cats) => {
+  fillTable = (users) => {
     this.setState({
       data: {
         ...this.state.data,
-        rows: this.getUserList(cats),
+        rows: this.getUserList(users),
       },
     });
   };
 
+  markDone = (uid) => {
+    this.props.markDoneZombie(uid);
+  };
+
   render() {
     const { auth, profile, users } = this.props;
-    console.log(this.state);
 
     if (!profile.isLoaded) {
       return (
@@ -212,30 +242,21 @@ class CatList extends React.Component {
       if (auth.uid === undefined) return <Redirect to="/" />;
       if (profile && !profile.coach) return <Redirect to="/" />;
 
-      // Get firebase cats
-      if (!this.props.users) {
-        this.props.getCats();
-      } else {
-        if (!this.state.data.rows) {
-          this.fillTable(this.props.users);
-        }
-      }
-
       return (
         <>
-          <div id="catlist">
+          <div id="interestedlist">
             <>
               <MDBCard className="w-100">
                 <MDBCardBody>
                   <h2 className="d-flex">
                     <MDBBadge color="indigo" className="mr-3">
-                      Phase 1
+                      Phase 3
                     </MDBBadge>{" "}
-                    Cats
+                    Good boys
                   </h2>
                   <p className="lead">
-                    Phase 1 collects data from companies and creates free
-                    analysis for them.
+                    Phase 3 tries to transform <code>good boys</code> into{" "}
+                    <code>customers</code>.
                   </p>
                   <div className="text-right mb-4">
                     {this.state.removeCat && (
@@ -280,7 +301,7 @@ class CatList extends React.Component {
           {this.state.modal && this.state.modalCat && (
             <MDBModal
               modalStyle="primary"
-              className="text-white"
+              className="text-white modal-user"
               size="md"
               backdrop={true}
               isOpen={this.state.modal}
@@ -303,6 +324,43 @@ class CatList extends React.Component {
                     }
                   />
                 )}
+                {this.state.modalCat.analysis && (
+                  <div className="text-left">
+                    {Object.keys(
+                      this.state.modalCat.analysis[
+                        this.state.modalCat.analysis.length - 1
+                      ].results
+                    ).map((key, i) => {
+                      if (
+                        this.state.modalCat.analysis[
+                          this.state.modalCat.analysis.length - 1
+                        ].results[key].value < 70
+                      ) {
+                        return (
+                          <>
+                            <span>
+                              {
+                                this.state.modalCat.analysis[
+                                  this.state.modalCat.analysis.length - 1
+                                ].results[key].name
+                              }
+                            </span>
+                            <MDBProgress
+                              value={
+                                this.state.modalCat.analysis[
+                                  this.state.modalCat.analysis.length - 1
+                                ].results[key].value
+                              }
+                              className="mt-1 mb-2"
+                            />
+                          </>
+                        );
+                      } else {
+                        return null;
+                      }
+                    })}
+                  </div>
+                )}
               </MDBModalBody>
               <MDBModalFooter className="justify-content-center">
                 <MDBBtn color="elegant" outline onClick={this.toggle}>
@@ -318,7 +376,6 @@ class CatList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
@@ -328,13 +385,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCats: () => dispatch(getCats()),
-    removeCat: (uid) => dispatch(removeCat(uid)),
-    upgradeCat: (cat) => dispatch(upgradeCat(cat)),
+    getGoodBoys: () => dispatch(getGoodBoys()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CatList);
+export default connect(mapStateToProps, mapDispatchToProps)(InterestedList);
 
 /**
  * SPDX-License-Identifier: (EUPL-1.2)
