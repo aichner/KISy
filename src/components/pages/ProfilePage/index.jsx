@@ -186,7 +186,7 @@ class ProfilePage extends React.Component {
                         Quick actions
                       </p>
                     </MDBCol>
-                    <MDBCol md="5" className="text-center">
+                    <MDBCol md="6" className="text-center">
                       {this.state.activePage !== 0 ? (
                         <MDBBtn color="indigo" onClick={() => this.goTo(0)}>
                           <MDBIcon icon="columns" />
@@ -212,6 +212,16 @@ class ProfilePage extends React.Component {
                             <MDBBtn color="blue">
                               <MDBIcon fab icon="microsoft" />
                               MS Office
+                            </MDBBtn>
+                          </a>
+                          <a
+                            href="https://my.sevdesk.de/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MDBBtn color="red">
+                              <MDBIcon icon="dollar-sign" />
+                              SevDesk
                             </MDBBtn>
                           </a>
                         </>
