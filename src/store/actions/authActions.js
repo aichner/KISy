@@ -100,7 +100,7 @@ export const getZombies = () => {
           data.uid = doc.id;
           return data;
         });
-        console.log(zombies);
+
         dispatch({
           type: "GETUSERS_SUCCESS",
           users: zombies,
@@ -129,7 +129,7 @@ export const getGoodBoys = () => {
           data.uid = doc.id;
           return data;
         });
-        console.log(goodboys);
+
         dispatch({
           type: "GETUSERS_SUCCESS",
           users: goodboys,
