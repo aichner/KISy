@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h3 align="center">official Agency Customer Information System</h3>
+<h3 align="center">Official Agency Customer Information System</h3>
 
 <p align="center">
   The customer information system provides vital dashboard functinality for coaches and provides a customer retention tool for our potential customers.
