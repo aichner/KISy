@@ -80,24 +80,27 @@ class ZombieList extends React.Component {
     },
   };
 
+  componentDidMount = () => {
+    // Get firebase users
+    this.props.getZombies();
+  };
+
   componentWillReceiveProps(nextProps) {
-    // Check if zombies have changed
-    if (
-      JSON.stringify(this.props.users) !== JSON.stringify(nextProps.zombies)
-    ) {
-      nextProps.zombies &&
-        this.setState({ sync: false }, () => this.fillTable(nextProps.zombies));
+    // Check if users have changed
+    if (JSON.stringify(this.props.users) !== JSON.stringify(nextProps.users)) {
+      nextProps.users &&
+        this.setState({ sync: false }, () => this.fillTable(nextProps.users));
     } else {
       this.setState({ sync: false });
     }
   }
 
-  toggle = (zombie) => {
+  toggle = (user) => {
     if (!this.state.modal) {
       this.setState({
         modal: true,
         modalCat: {
-          ...zombie,
+          ...user,
         },
       });
     } else {
@@ -108,25 +111,25 @@ class ZombieList extends React.Component {
     }
   };
 
-  getUserList = (zombies) => {
+  getUserList = (users) => {
     return (
-      zombies &&
-      zombies.map((zombie, i) => {
-        if (!zombie.disabled) {
+      users &&
+      users.map((user, i) => {
+        if (!user.disabled) {
           return {
             chart: (
               <div>
                 <ResultChart
-                  data={zombie.analysis[zombie.analysis.length - 1].results}
+                  data={user.analysis[user.analysis.length - 1].results}
                   hideLabels
                 />
               </div>
             ),
             company: (
               <>
-                <p className="mb-0">{zombie.company_name}</p>
+                <p className="mb-0">{user.company_name}</p>
                 <div className="mb-2">
-                  {zombie.processed && (
+                  {user.processed && (
                     <MDBBadge color="green">
                       <MDBIcon icon="check-circle" className="mr-1" />
                       Done
@@ -137,17 +140,17 @@ class ZombieList extends React.Component {
                   color="indigo"
                   className="px-3 m-0 mr-2"
                   size="sm"
-                  onClick={() => this.toggle(zombie)}
+                  onClick={() => this.toggle(user)}
                 >
                   <MDBIcon icon="signature" />
                   Analysis
                 </MDBBtn>
-                {!zombie.processed && (
+                {!user.processed && (
                   <MDBBtn
                     color="green"
                     className="px-3 m-0 mr-2"
                     size="sm"
-                    onClick={() => this.markDone(zombie.uid)}
+                    onClick={() => this.markDone(user.uid)}
                   >
                     <MDBIcon icon="check" />
                     Done
@@ -155,26 +158,23 @@ class ZombieList extends React.Component {
                 )}
               </>
             ),
-            city: zombie.city,
+            city: user.city,
             contact: (
               <>
-                <p
-                  className="mb-1 clickable"
-                  onClick={() => copy(zombie.email)}
-                >
-                  {zombie.email} <MDBIcon far icon="copy" />
+                <p className="mb-1 clickable" onClick={() => copy(user.email)}>
+                  {user.email} <MDBIcon far icon="copy" />
                 </p>
-                {zombie.phone ? <p className="mb-1">{zombie.phone}</p> : null}
+                {user.phone ? <p className="mb-1">{user.phone}</p> : null}
               </>
             ),
             access: (
               <>
-                <p className="mb-1">E-Mail: {zombie.email}</p>
+                <p className="mb-1">E-Mail: {user.email}</p>
                 <p
                   className="mb-0 clickable"
-                  onClick={() => copy(zombie.password)}
+                  onClick={() => copy(user.password)}
                 >
-                  Password: {zombie.password} <MDBIcon far icon="copy" />
+                  Password: {user.password} <MDBIcon far icon="copy" />
                 </p>
               </>
             ),
@@ -184,11 +184,11 @@ class ZombieList extends React.Component {
     );
   };
 
-  fillTable = (zombies) => {
+  fillTable = (users) => {
     this.setState({
       data: {
         ...this.state.data,
-        rows: this.getUserList(zombies),
+        rows: this.getUserList(users),
       },
     });
   };
@@ -198,7 +198,7 @@ class ZombieList extends React.Component {
   };
 
   render() {
-    const { auth, profile, zombies } = this.props;
+    const { auth, profile, users } = this.props;
 
     if (!profile.isLoaded) {
       return (
@@ -211,15 +211,6 @@ class ZombieList extends React.Component {
       if (auth.uid === undefined) return <Redirect to="/" />;
       if (profile && !profile.coach) return <Redirect to="/" />;
 
-      // Get firebase zombies
-      if (!this.props.users) {
-        this.props.getZombies();
-      } else {
-        if (!this.state.data.rows) {
-          this.fillTable(this.props.users);
-        }
-      }
-
       return (
         <>
           <div id="zombielist">
@@ -230,7 +221,7 @@ class ZombieList extends React.Component {
                     <MDBBadge color="indigo" className="mr-3">
                       Phase 2
                     </MDBBadge>{" "}
-                    Zombies
+                    users
                   </h2>
                   <p className="lead">
                     Phase 2 tries to transform <code>cats</code> into{" "}
@@ -279,7 +270,7 @@ class ZombieList extends React.Component {
           {this.state.modal && this.state.modalCat && (
             <MDBModal
               modalStyle="primary"
-              className="text-white modal-zombie"
+              className="text-white modal-user"
               size="md"
               backdrop={true}
               isOpen={this.state.modal}

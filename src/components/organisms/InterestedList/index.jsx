@@ -83,9 +83,7 @@ class InterestedList extends React.Component {
   };
 
   componentDidMount = () => {
-    if (!this.props.users) {
-      this.props.getGoodBoys();
-    }
+    this.props.getGoodBoys();
   };
 
   componentWillReceiveProps(nextProps) {

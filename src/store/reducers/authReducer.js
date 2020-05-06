@@ -3,6 +3,7 @@ const initState = {
   authError: null,
   authErrorDetails: null,
   catDetails: undefined,
+  users: null,
 };
 
 const authReducer = (state = initState, action) => {
@@ -44,6 +45,7 @@ const authReducer = (state = initState, action) => {
         ...state,
       };
     case "GETUSERS_SUCCESS":
+      console.log(action.users);
       return {
         ...state,
         users: action.users,

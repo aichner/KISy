@@ -100,6 +100,7 @@ export const getZombies = () => {
           data.uid = doc.id;
           return data;
         });
+        console.log(zombies);
         dispatch({
           type: "GETUSERS_SUCCESS",
           users: zombies,
@@ -152,6 +153,7 @@ export const createCat = (newUser) => {
       .collection("cats")
       .add({
         ...newUser,
+        disabled: false,
       })
       .then(() => {
         dispatch({ type: "CAT_SUCCESS", newUser });
@@ -169,6 +171,7 @@ export const getCats = () => {
 
     firestore
       .collection("cats")
+      .where("disabled", "==", false)
       .get()
       .then((querySnapshot) => {
         let cats = querySnapshot.docs.map((doc) => {
