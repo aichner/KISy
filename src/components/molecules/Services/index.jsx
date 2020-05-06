@@ -28,10 +28,12 @@ import {
   MDBTabPane,
   MDBAlert,
   MDBProgress,
+  MDBCardFooter,
 } from "mdbreact";
 
 //> Tabs
 const tabs = [
+  { name: "Mein Potential", color: "red", icon: "fire-alt" },
   { name: "Meine Website", color: "orange", icon: "desktop" },
   {
     name: "Mein Social Media",
@@ -198,6 +200,81 @@ class Services extends React.Component {
         <MDBCol md="8">
           <MDBTabContent activeItem={this.state.activeItem}>
             <MDBTabPane tabId={0}>
+              <p className="lead font-weight-bold mb-1">
+                Wie geht es nun weiter?
+              </p>
+              <p className="text-muted">
+                Durch unsere Analyse wurde aufgezeigt, wo Deine Online-Präsenz
+                noch ungenutztes Potential besitzt.
+              </p>
+              {profile.isLoaded && !profile.isEmpty && (
+                <div className="text-left mt-4">
+                  {Object.keys(
+                    profile.analysis[profile.analysis.length - 1].results
+                  ).map((key, i) => {
+                    if (
+                      profile.analysis[profile.analysis.length - 1].results[key]
+                        .value <= 70
+                    ) {
+                      return (
+                        <MDBCard className="border my-2" key={i}>
+                          <MDBCardBody>
+                            {
+                              profile.analysis[profile.analysis.length - 1]
+                                .results[key].name
+                            }
+                          </MDBCardBody>
+                          <MDBCardFooter className="d-flex justify-content-between align-items-center">
+                            <div className="w-100 pr-3">
+                              <small className="mb-0">Ihr Score</small>
+                              <MDBProgress
+                                value={
+                                  profile.analysis[profile.analysis.length - 1]
+                                    .results[key].value
+                                }
+                                className="mb-0"
+                              />
+                              <small className="d-block text-muted mb-2">
+                                {Math.round(
+                                  (profile.analysis[profile.analysis.length - 1]
+                                    .results[key].value +
+                                    Number.EPSILON) *
+                                    100
+                                ) / 100}{" "}
+                                / 100
+                              </small>
+                            </div>
+                            <div>
+                              <MDBBtn color="success">Verbessern</MDBBtn>
+                            </div>
+                          </MDBCardFooter>
+                        </MDBCard>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </div>
+              )}
+              <p className="lead font-weight-bold mt-3 mb-0">
+                Du hast Fragen zu unseren Angeboten?
+              </p>
+              <p className="text-muted">
+                Gerne bringen wir Dich in sämtlichen Gebieten Deiner
+                Online-Präsenz weiter.
+              </p>
+              <a
+                href="https://termin.aichner.cloud"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MDBBtn color="agency-red">
+                  <MDBIcon icon="calendar" />
+                  Kostenlosen Termin vereinbaren
+                </MDBBtn>
+              </a>
+            </MDBTabPane>
+            <MDBTabPane tabId={1}>
               {profile.us && (
                 <>
                   {profile.us.web ? (
@@ -277,7 +354,7 @@ class Services extends React.Component {
                 style={{ height: "500px" }}
               ></iframe>*/}
             </MDBTabPane>
-            <MDBTabPane tabId={1}>
+            <MDBTabPane tabId={2}>
               {profile.us && (
                 <>
                   {profile.us.social ? (
@@ -345,7 +422,7 @@ class Services extends React.Component {
                 </>
               )}
             </MDBTabPane>
-            <MDBTabPane tabId={2}>
+            <MDBTabPane tabId={3}>
               {profile.us && (
                 <>
                   {profile.us.image ? (
@@ -367,7 +444,7 @@ class Services extends React.Component {
                 </>
               )}
             </MDBTabPane>
-            <MDBTabPane tabId={3}>
+            <MDBTabPane tabId={4}>
               {profile.us && (
                 <>
                   {profile.us.presences ? (
