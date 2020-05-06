@@ -193,13 +193,28 @@ class ProfilePage extends React.Component {
                           Dashboard
                         </MDBBtn>
                       ) : (
-                        <MDBBtn
-                          color="indigo"
-                          onClick={() => this.goTo("formcat")}
-                        >
-                          <MDBIcon icon="cat" />
-                          Add cat
-                        </MDBBtn>
+                        <>
+                          <a
+                            href="https://console.firebase.google.com/u/0/project/wca-kisy/overview"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MDBBtn color="warning">
+                              <MDBIcon fab icon="google" />
+                              Firebase
+                            </MDBBtn>
+                          </a>
+                          <a
+                            href="https://outlook.office.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MDBBtn color="blue">
+                              <MDBIcon fab icon="microsoft" />
+                              MS Office
+                            </MDBBtn>
+                          </a>
+                        </>
                       )}
                     </MDBCol>
                   </MDBRow>
