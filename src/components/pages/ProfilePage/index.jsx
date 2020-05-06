@@ -59,6 +59,13 @@ class ProfilePage extends React.Component {
   componentDidMount = () => {
     // Load welcoming picture
     this.getGreetingImg();
+    // Check if there is an active page
+    const activePage = localStorage.getItem("activePage");
+    if (activePage) {
+      this.setState({
+        activePage: parseInt(activePage),
+      });
+    }
   };
 
   getGreetingTxt = () => {
@@ -114,9 +121,12 @@ class ProfilePage extends React.Component {
       default:
         to = 0;
     }
-    this.setState({
-      activePage: to,
-    });
+    this.setState(
+      {
+        activePage: to,
+      },
+      () => localStorage.setItem("activePage", to)
+    );
   };
 
   render() {

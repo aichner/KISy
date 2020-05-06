@@ -56,6 +56,7 @@ const authReducer = (state = initState, action) => {
         users: null,
       };
     case "SIGNOUT_SUCCESS":
+      localStorage.removeItem("activePage");
       return state;
     case "SIGNUP_SUCCESS":
       return {
