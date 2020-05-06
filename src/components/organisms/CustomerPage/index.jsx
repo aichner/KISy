@@ -54,6 +54,16 @@ class CustomerPage extends React.Component {
                     Kontakt
                   </MDBBtn>
                 </a>
+                <a
+                href="https://termin.aichner.cloud"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MDBBtn color="white">
+                  <MDBIcon icon="calendar" />
+                  Termin
+                </MDBBtn>
+              </a>
               </MDBCol>
             </MDBRow>
           </MDBContainer>

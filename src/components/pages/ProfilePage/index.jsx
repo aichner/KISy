@@ -143,7 +143,7 @@ class ProfilePage extends React.Component {
                 size="md"
                 onClick={() => this.props.signOut()}
               >
-                Sign Out
+                Ausloggen
               </MDBBtn>
             </div>
             {this.state.greetingImage}
