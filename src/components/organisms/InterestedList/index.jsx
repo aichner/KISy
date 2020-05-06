@@ -168,7 +168,7 @@ class InterestedList extends React.Component {
               <>
                 <p className="mb-0 font-weight-bold">Requests</p>
                 <div>
-                  {user.request ? (
+                  {Object.keys(user.request).length > 0 ? (
                     <>
                       {Object.keys(user.request).map((key, i) => {
                         return (
