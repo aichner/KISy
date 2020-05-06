@@ -44,14 +44,29 @@ import "./customer.scss";
 class CustomerPage extends React.Component {
   render() {
     const { profile } = this.props;
+    let orderedResults = {};
 
-    // Check if the user has logged in yet
     if (profile.isLoaded && !profile.isEmpty) {
+      // Order data
+      // Initialize data
+      const unsortedData =
+        profile.analysis[profile.analysis.length - 1].results;
+      // Sort object
+
+      Object.keys(unsortedData)
+        .sort()
+        .forEach(function (key) {
+          orderedResults[key] = unsortedData[key];
+        });
+
+      // Check if the user has logged in yet
       if (!profile.firstLogin) {
         // If this is the first time logging in, set the timestamp of the first login
         this.props.setFirstLogged();
       }
     }
+
+    console.log(orderedResults);
 
     return (
       <div id="customerpage">
@@ -104,15 +119,10 @@ class CustomerPage extends React.Component {
                         }
                       />
                     )}
-                    {profile.isLoaded && !profile.isEmpty && (
+                    {profile.isLoaded && !profile.isEmpty && orderedResults && (
                       <div className="text-left mt-4">
-                        {Object.keys(
-                          profile.analysis[profile.analysis.length - 1].results
-                        ).map((key, i) => {
-                          if (
-                            profile.analysis[profile.analysis.length - 1]
-                              .results[key].value <= 100
-                          ) {
+                        {Object.keys(orderedResults).map((key, i) => {
+                          if (orderedResults[key].value <= 100) {
                             return (
                               <React.Fragment key={i}>
                                 <span className="mb-0">
@@ -154,6 +164,7 @@ class CustomerPage extends React.Component {
               <MDBCol md="7">
                 <Services
                   profile={profile}
+                  orderedResults={orderedResults}
                   requestImprovement={this.props.requestImprovement}
                 />
               </MDBCol>

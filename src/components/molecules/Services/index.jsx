@@ -173,7 +173,7 @@ class Services extends React.Component {
   };
 
   render() {
-    const { profile } = this.props;
+    const { profile, orderedResults } = this.props;
 
     return (
       <MDBRow className="services">
@@ -210,10 +210,10 @@ class Services extends React.Component {
               {profile.isLoaded && !profile.isEmpty && (
                 <div className="text-left mt-4">
                   {Object.keys(
-                    profile.analysis[profile.analysis.length - 1].results
+                    orderedResults
                   ).map((key, i) => {
                     if (
-                      profile.analysis[profile.analysis.length - 1].results[key]
+                      orderedResults[key]
                         .value <= 70
                     ) {
                       return (
@@ -224,40 +224,47 @@ class Services extends React.Component {
                                 profile.analysis[profile.analysis.length - 1]
                                   .results[key].name
                               }
-                              {profile.request[
-                                profile.analysis[
-                                  profile.analysis.length - 1
-                                ].results[key].name
-                                  .replace(/\s+/g, "")
-                                  .toLowerCase()
-                              ] && (
-                                <>
-                                  <MDBBadge color="indigo ml-0 z-depth-0">
-                                    <MDBIcon icon="check-circle" className="mr-1" />
-                                    Angefragt
-                                  </MDBBadge>
-                                </>
-                              )}
+                              {profile.request &&
+                                profile.request[
+                                  profile.analysis[
+                                    profile.analysis.length - 1
+                                  ].results[key].name
+                                    .replace(/\s+/g, "")
+                                    .toLowerCase()
+                                ] && (
+                                  <>
+                                    <MDBBadge color="indigo ml-0 z-depth-0">
+                                      <MDBIcon
+                                        icon="check-circle"
+                                        className="mr-1"
+                                      />
+                                      Angefragt
+                                    </MDBBadge>
+                                  </>
+                                )}
                             </div>
                             <div>
-                              {profile.request[
-                                profile.analysis[
-                                  profile.analysis.length - 1
-                                ].results[key].name
-                                  .replace(/\s+/g, "")
-                                  .toLowerCase()
-                              ] && (
-                                <>
-                                  <small className="d-block text-muted">
-                                    Wir melden uns schnellstmöglich bei Dir.
-                                  </small>
-                                </>
-                              )}
+                              {profile.request &&
+                                profile.request[
+                                  profile.analysis[
+                                    profile.analysis.length - 1
+                                  ].results[key].name
+                                    .replace(/\s+/g, "")
+                                    .toLowerCase()
+                                ] && (
+                                  <>
+                                    <small className="d-block text-muted">
+                                      Wir melden uns schnellstmöglich bei Dir.
+                                    </small>
+                                  </>
+                                )}
                             </div>
                           </MDBCardBody>
                           <MDBCardFooter className="d-flex justify-content-between align-items-center">
                             <div className="w-100">
-                              <small className="mb-0">Dein jetziger Score</small>
+                              <small className="mb-0">
+                                Dein jetziger Score
+                              </small>
                               <MDBProgress
                                 value={
                                   profile.analysis[profile.analysis.length - 1]
@@ -344,14 +351,14 @@ class Services extends React.Component {
                       <span className="mb-0">Deine Website Analyse</span>
                       <MDBProgress
                         value={
-                          profile.analysis[profile.analysis.length - 1].results
+                          orderedResults
                             .web.value
                         }
                         className="mb-0"
                       />
                       <small className="d-block text-muted mb-2">
                         {Math.round(
-                          (profile.analysis[profile.analysis.length - 1].results
+                          (orderedResults
                             .web.value +
                             Number.EPSILON) *
                             100
@@ -420,9 +427,9 @@ class Services extends React.Component {
                   <span className="mb-0">Deine Social Media Analyse</span>
                   <MDBProgress
                     value={
-                      (profile.analysis[profile.analysis.length - 1].results
+                      (orderedResults
                         .facebook.value +
-                        profile.analysis[profile.analysis.length - 1].results
+                        orderedResults
                           .instagram.value) /
                       2
                     }
@@ -430,9 +437,9 @@ class Services extends React.Component {
                   />
                   <small className="d-block text-muted mb-2">
                     {Math.round(
-                      ((profile.analysis[profile.analysis.length - 1].results
+                      ((orderedResults
                         .facebook.value +
-                        profile.analysis[profile.analysis.length - 1].results
+                        orderedResults
                           .instagram.value) /
                         2 +
                         Number.EPSILON) *
