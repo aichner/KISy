@@ -219,14 +219,45 @@ class Services extends React.Component {
                       return (
                         <MDBCard className="border my-2" key={i}>
                           <MDBCardBody>
-                            {
-                              profile.analysis[profile.analysis.length - 1]
-                                .results[key].name
-                            }
+                            <div className="d-flex justify-content-between">
+                              {
+                                profile.analysis[profile.analysis.length - 1]
+                                  .results[key].name
+                              }
+                              {profile.request[
+                                profile.analysis[
+                                  profile.analysis.length - 1
+                                ].results[key].name
+                                  .replace(/\s+/g, "")
+                                  .toLowerCase()
+                              ] && (
+                                <>
+                                  <MDBBadge color="indigo ml-0 z-depth-0">
+                                    <MDBIcon icon="check-circle" className="mr-1" />
+                                    Angefragt
+                                  </MDBBadge>
+                                </>
+                              )}
+                            </div>
+                            <div>
+                              {profile.request[
+                                profile.analysis[
+                                  profile.analysis.length - 1
+                                ].results[key].name
+                                  .replace(/\s+/g, "")
+                                  .toLowerCase()
+                              ] && (
+                                <>
+                                  <small className="d-block text-muted">
+                                    Wir melden uns schnellstmöglich bei Dir.
+                                  </small>
+                                </>
+                              )}
+                            </div>
                           </MDBCardBody>
                           <MDBCardFooter className="d-flex justify-content-between align-items-center">
-                            <div className="w-100 pr-3">
-                              <small className="mb-0">Ihr Score</small>
+                            <div className="w-100">
+                              <small className="mb-0">Dein jetziger Score</small>
                               <MDBProgress
                                 value={
                                   profile.analysis[profile.analysis.length - 1]
@@ -234,7 +265,7 @@ class Services extends React.Component {
                                 }
                                 className="mb-0"
                               />
-                              <small className="d-block text-muted mb-2">
+                              <small className="d-block text-muted">
                                 {Math.round(
                                   (profile.analysis[profile.analysis.length - 1]
                                     .results[key].value +
@@ -245,7 +276,27 @@ class Services extends React.Component {
                               </small>
                             </div>
                             <div>
-                              <MDBBtn color="success">Verbessern</MDBBtn>
+                              {!profile.request[
+                                profile.analysis[
+                                  profile.analysis.length - 1
+                                ].results[key].name
+                                  .replace(/\s+/g, "")
+                                  .toLowerCase()
+                              ] && (
+                                <MDBBtn
+                                  color="success"
+                                  className="ml-4"
+                                  onClick={() =>
+                                    this.props.requestImprovement(
+                                      profile.analysis[
+                                        profile.analysis.length - 1
+                                      ].results[key].name
+                                    )
+                                  }
+                                >
+                                  Verbessern
+                                </MDBBtn>
+                              )}
                             </div>
                           </MDBCardFooter>
                         </MDBCard>

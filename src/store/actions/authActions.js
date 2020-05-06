@@ -249,6 +249,53 @@ export const removeCat = (uid) => {
   };
 };
 
+export const requestImprovement = (typeName) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // Initialize Firebase modules
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    // Initialize variables
+    const uid = firebase.auth().currentUser.uid;
+    const type = typeName.replace(/\s+/g, "").toLowerCase();
+
+    firestore
+      .collection("users")
+      .doc(uid)
+      .set(
+        {
+          request: { [type]: true },
+        },
+        { merge: true }
+      )
+      .catch((err) => {
+        console.error("Improvement sent fail", err);
+      });
+  };
+};
+
+export const setFirstLogged = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // Initialize Firebase modules
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    // Initialize variables
+    const uid = firebase.auth().currentUser.uid;
+
+    firestore
+      .collection("users")
+      .doc(uid)
+      .set(
+        {
+          firstLogin: new Date().getTime(),
+        },
+        { merge: true }
+      )
+      .catch((err) => {
+        console.error("First time logged sent fail", err);
+      });
+  };
+};
+
 /**
  * SPDX-License-Identifier: (EUPL-1.2)
  * Copyright © 2020 Christian Aichner

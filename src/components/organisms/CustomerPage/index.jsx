@@ -25,6 +25,15 @@ import {
   MDBProgress,
 } from "mdbreact";
 
+//> Redux
+// Connect
+import { connect } from "react-redux";
+// Actions
+import {
+  requestImprovement,
+  setFirstLogged,
+} from "../../../store/actions/authActions";
+
 //> Components
 import { ResultChart } from "../../molecules/charts";
 import { Services } from "../../molecules";
@@ -35,6 +44,14 @@ import "./customer.scss";
 class CustomerPage extends React.Component {
   render() {
     const { profile } = this.props;
+
+    // Check if the user has logged in yet
+    if (profile.isLoaded && !profile.isEmpty) {
+      if (!profile.firstLogin) {
+        // If this is the first time logging in, set the timestamp of the first login
+        this.props.setFirstLogged();
+      }
+    }
 
     return (
       <div id="customerpage">
@@ -55,15 +72,15 @@ class CustomerPage extends React.Component {
                   </MDBBtn>
                 </a>
                 <a
-                href="https://termin.aichner.cloud"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MDBBtn color="white">
-                  <MDBIcon icon="calendar" />
-                  Termin
-                </MDBBtn>
-              </a>
+                  href="https://termin.aichner.cloud"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MDBBtn color="white">
+                    <MDBIcon icon="calendar" />
+                    Termin
+                  </MDBBtn>
+                </a>
               </MDBCol>
             </MDBRow>
           </MDBContainer>
@@ -135,7 +152,10 @@ class CustomerPage extends React.Component {
                 </MDBCard>
               </MDBCol>
               <MDBCol md="7">
-                <Services profile={profile} />
+                <Services
+                  profile={profile}
+                  requestImprovement={this.props.requestImprovement}
+                />
               </MDBCol>
             </MDBRow>
           </MDBContainer>
@@ -145,7 +165,14 @@ class CustomerPage extends React.Component {
   }
 }
 
-export default CustomerPage;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    requestImprovement: (type) => dispatch(requestImprovement(type)),
+    setFirstLogged: () => dispatch(setFirstLogged()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CustomerPage);
 
 /**
  * SPDX-License-Identifier: (EUPL-1.2)
