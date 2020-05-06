@@ -126,7 +126,9 @@ export const getGoodBoys = () => {
       .then((querySnapshot) => {
         let goodboys = querySnapshot.docs.map((doc) => {
           let data = doc.data();
+
           data.uid = doc.id;
+
           return data;
         });
 

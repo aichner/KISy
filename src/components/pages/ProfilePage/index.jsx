@@ -59,8 +59,10 @@ class ProfilePage extends React.Component {
   componentDidMount = () => {
     // Load welcoming picture
     this.getGreetingImg();
+
     // Check if there is an active page
     const activePage = localStorage.getItem("activePage");
+
     if (activePage) {
       this.setState({
         activePage: parseInt(activePage),
