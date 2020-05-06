@@ -78,22 +78,26 @@ class CatList extends React.Component {
     },
   };
 
+  componentDidMount = () => {
+    this.props.getCats();
+  };
+
   componentWillReceiveProps(nextProps) {
-    // Check if cats have changed
-    if (JSON.stringify(this.props.cats) !== JSON.stringify(nextProps.cats)) {
-      nextProps.cats &&
-        this.setState({ sync: false }, () => this.fillTable(nextProps.cats));
+    // Check if users have changed
+    if (JSON.stringify(this.props.users) !== JSON.stringify(nextProps.users)) {
+      nextProps.users &&
+        this.setState({ sync: false }, () => this.fillTable(nextProps.users));
     } else {
       this.setState({ sync: false });
     }
   }
 
-  toggle = (cat) => {
+  toggle = (user) => {
     if (!this.state.modal) {
       this.setState({
         modal: true,
         modalCat: {
-          ...cat,
+          ...user,
         },
       });
     } else {
@@ -104,26 +108,26 @@ class CatList extends React.Component {
     }
   };
 
-  updateCat = (cat) => {
-    cat = {
-      ...cat,
+  updateCat = (user) => {
+    user = {
+      ...user,
       password: Math.random().toString(36).slice(-8).toUpperCase(),
     };
 
-    this.props.upgradeCat(cat);
+    this.props.upgradeCat(user);
     this.props.goTo(0);
   };
 
-  getUserList = (cats) => {
+  getUserList = (users) => {
     return (
-      cats &&
-      cats.map((cat, i) => {
-        if (!cat.disabled) {
+      users &&
+      users.map((user, i) => {
+        if (!user.disabled) {
           return {
             chart: (
               <div>
                 <ResultChart
-                  data={cat.analysis[cat.analysis.length - 1].results}
+                  data={user.analysis[user.analysis.length - 1].results}
                   hideLabels
                 />
               </div>
@@ -131,18 +135,18 @@ class CatList extends React.Component {
             company: (
               <small>
                 <small>
-                  <strong>{cat.company_name}</strong>
+                  <strong>{user.company_name}</strong>
                 </small>
                 <br />
-                <small>{cat.city}</small>
+                <small>{user.city}</small>
               </small>
             ),
             contact: (
               <>
-                <p className="mb-1 clickable" onClick={() => copy(cat.email)}>
-                  {cat.email} <MDBIcon far icon="copy" />
+                <p className="mb-1 clickable" onClick={() => copy(user.email)}>
+                  {user.email} <MDBIcon far icon="copy" />
                 </p>
-                {cat.phone ? <p className="mb-1">{cat.phone}</p> : null}
+                {user.phone ? <p className="mb-1">{user.phone}</p> : null}
               </>
             ),
             actions: (
@@ -151,7 +155,7 @@ class CatList extends React.Component {
                   color="indigo"
                   className="px-3 m-0 mr-2"
                   size="sm"
-                  onClick={() => this.toggle(cat)}
+                  onClick={() => this.toggle(user)}
                 >
                   <MDBIcon icon="chart-area" />
                   Analysis
@@ -160,12 +164,12 @@ class CatList extends React.Component {
                   color="green"
                   className="px-3 m-0 mr-2"
                   size="sm"
-                  onClick={() => this.updateCat(cat)}
+                  onClick={() => this.updateCat(user)}
                 >
                   <MDBIcon icon="angle-double-up" />
                   Upgrade
                 </MDBBtn>
-                {!this.state["remove" + cat.uid] && (
+                {!this.state["remove" + user.uid] && (
                   <MDBBtn
                     className="px-3 m-0 float-right"
                     color="danger"
@@ -173,7 +177,7 @@ class CatList extends React.Component {
                     size="sm"
                     onClick={() =>
                       this.setState({
-                        removeCat: { name: cat.company_name, uid: cat.uid },
+                        removeCat: { name: user.company_name, uid: user.uid },
                       })
                     }
                   >
@@ -188,17 +192,17 @@ class CatList extends React.Component {
     );
   };
 
-  fillTable = (cats) => {
+  fillTable = (users) => {
     this.setState({
       data: {
         ...this.state.data,
-        rows: this.getUserList(cats),
+        rows: this.getUserList(users),
       },
     });
   };
 
   render() {
-    const { auth, profile, cats } = this.props;
+    const { auth, profile, users } = this.props;
     console.log(this.state);
 
     if (!profile.isLoaded) {
@@ -211,15 +215,6 @@ class CatList extends React.Component {
       // Check if logged in
       if (auth.uid === undefined) return <Redirect to="/" />;
       if (profile && !profile.coach) return <Redirect to="/" />;
-
-      // Get firebase cats
-      if (!this.props.cats) {
-        this.props.getCats();
-      } else {
-        if (!this.state.data.rows) {
-          this.fillTable(this.props.cats);
-        }
-      }
 
       return (
         <>
@@ -322,7 +317,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    cats: state.auth.cats,
+    users: state.auth.users,
   };
 };
 
@@ -330,7 +325,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getCats: () => dispatch(getCats()),
     removeCat: (uid) => dispatch(removeCat(uid)),
-    upgradeCat: (cat) => dispatch(upgradeCat(cat)),
+    upgradeCat: (user) => dispatch(upgradeCat(user)),
   };
 };
 

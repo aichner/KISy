@@ -28,10 +28,12 @@ import {
   MDBTabPane,
   MDBAlert,
   MDBProgress,
+  MDBCardFooter,
 } from "mdbreact";
 
 //> Tabs
 const tabs = [
+  { name: "Mein Potential", color: "red", icon: "fire-alt" },
   { name: "Meine Website", color: "orange", icon: "desktop" },
   {
     name: "Mein Social Media",
@@ -171,7 +173,7 @@ class Services extends React.Component {
   };
 
   render() {
-    const { profile } = this.props;
+    const { profile, orderedResults } = this.props;
 
     return (
       <MDBRow className="services">
@@ -198,6 +200,139 @@ class Services extends React.Component {
         <MDBCol md="8">
           <MDBTabContent activeItem={this.state.activeItem}>
             <MDBTabPane tabId={0}>
+              <p className="lead font-weight-bold mb-1">
+                Wie geht es nun weiter?
+              </p>
+              <p className="text-muted">
+                Durch unsere Analyse wurde aufgezeigt, wo Deine Online-Präsenz
+                noch ungenutztes Potential besitzt.
+              </p>
+              {profile.isLoaded && !profile.isEmpty && (
+                <div className="text-left mt-4">
+                  {Object.keys(
+                    orderedResults
+                  ).map((key, i) => {
+                    if (
+                      orderedResults[key]
+                        .value <= 70
+                    ) {
+                      return (
+                        <MDBCard className="border my-2" key={i}>
+                          <MDBCardBody>
+                            <div className="d-flex justify-content-between">
+                              {
+                                profile.analysis[profile.analysis.length - 1]
+                                  .results[key].name
+                              }
+                              {profile.request &&
+                                profile.request[
+                                  profile.analysis[
+                                    profile.analysis.length - 1
+                                  ].results[key].name
+                                    .replace(/\s+/g, "")
+                                    .toLowerCase()
+                                ] && (
+                                  <>
+                                    <MDBBadge color="indigo ml-0 z-depth-0">
+                                      <MDBIcon
+                                        icon="check-circle"
+                                        className="mr-1"
+                                      />
+                                      Angefragt
+                                    </MDBBadge>
+                                  </>
+                                )}
+                            </div>
+                            <div>
+                              {profile.request &&
+                                profile.request[
+                                  profile.analysis[
+                                    profile.analysis.length - 1
+                                  ].results[key].name
+                                    .replace(/\s+/g, "")
+                                    .toLowerCase()
+                                ] && (
+                                  <>
+                                    <small className="d-block text-muted">
+                                      Wir melden uns schnellstmöglich bei Dir.
+                                    </small>
+                                  </>
+                                )}
+                            </div>
+                          </MDBCardBody>
+                          <MDBCardFooter className="d-flex justify-content-between align-items-center">
+                            <div className="w-100">
+                              <small className="mb-0">
+                                Dein jetziger Score
+                              </small>
+                              <MDBProgress
+                                value={
+                                  profile.analysis[profile.analysis.length - 1]
+                                    .results[key].value
+                                }
+                                className="mb-0"
+                              />
+                              <small className="d-block text-muted">
+                                {Math.round(
+                                  (profile.analysis[profile.analysis.length - 1]
+                                    .results[key].value +
+                                    Number.EPSILON) *
+                                    100
+                                ) / 100}{" "}
+                                / 100
+                              </small>
+                            </div>
+                            <div>
+                              {!profile.request[
+                                profile.analysis[
+                                  profile.analysis.length - 1
+                                ].results[key].name
+                                  .replace(/\s+/g, "")
+                                  .toLowerCase()
+                              ] && (
+                                <MDBBtn
+                                  color="success"
+                                  className="ml-4"
+                                  onClick={() =>
+                                    this.props.requestImprovement(
+                                      profile.analysis[
+                                        profile.analysis.length - 1
+                                      ].results[key].name
+                                    )
+                                  }
+                                >
+                                  Verbessern
+                                </MDBBtn>
+                              )}
+                            </div>
+                          </MDBCardFooter>
+                        </MDBCard>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </div>
+              )}
+              <p className="lead font-weight-bold mt-3 mb-0">
+                Du hast Fragen zu unseren Angeboten?
+              </p>
+              <p className="text-muted">
+                Gerne bringen wir Dich in sämtlichen Gebieten Deiner
+                Online-Präsenz weiter.
+              </p>
+              <a
+                href="https://termin.aichner.cloud"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MDBBtn color="agency-red">
+                  <MDBIcon icon="calendar" />
+                  Kostenlosen Termin vereinbaren
+                </MDBBtn>
+              </a>
+            </MDBTabPane>
+            <MDBTabPane tabId={1}>
               {profile.us && (
                 <>
                   {profile.us.web ? (
@@ -216,14 +351,14 @@ class Services extends React.Component {
                       <span className="mb-0">Deine Website Analyse</span>
                       <MDBProgress
                         value={
-                          profile.analysis[profile.analysis.length - 1].results
+                          orderedResults
                             .web.value
                         }
                         className="mb-0"
                       />
                       <small className="d-block text-muted mb-2">
                         {Math.round(
-                          (profile.analysis[profile.analysis.length - 1].results
+                          (orderedResults
                             .web.value +
                             Number.EPSILON) *
                             100
@@ -277,7 +412,7 @@ class Services extends React.Component {
                 style={{ height: "500px" }}
               ></iframe>*/}
             </MDBTabPane>
-            <MDBTabPane tabId={1}>
+            <MDBTabPane tabId={2}>
               {profile.us && (
                 <>
                   {profile.us.social ? (
@@ -292,9 +427,9 @@ class Services extends React.Component {
                   <span className="mb-0">Deine Social Media Analyse</span>
                   <MDBProgress
                     value={
-                      (profile.analysis[profile.analysis.length - 1].results
+                      (orderedResults
                         .facebook.value +
-                        profile.analysis[profile.analysis.length - 1].results
+                        orderedResults
                           .instagram.value) /
                       2
                     }
@@ -302,9 +437,9 @@ class Services extends React.Component {
                   />
                   <small className="d-block text-muted mb-2">
                     {Math.round(
-                      ((profile.analysis[profile.analysis.length - 1].results
+                      ((orderedResults
                         .facebook.value +
-                        profile.analysis[profile.analysis.length - 1].results
+                        orderedResults
                           .instagram.value) /
                         2 +
                         Number.EPSILON) *
@@ -345,7 +480,7 @@ class Services extends React.Component {
                 </>
               )}
             </MDBTabPane>
-            <MDBTabPane tabId={2}>
+            <MDBTabPane tabId={3}>
               {profile.us && (
                 <>
                   {profile.us.image ? (
@@ -367,7 +502,7 @@ class Services extends React.Component {
                 </>
               )}
             </MDBTabPane>
-            <MDBTabPane tabId={3}>
+            <MDBTabPane tabId={4}>
               {profile.us && (
                 <>
                   {profile.us.presences ? (

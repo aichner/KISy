@@ -100,14 +100,46 @@ export const getZombies = () => {
           data.uid = doc.id;
           return data;
         });
+
         dispatch({
-          type: "GETZOMBIE_SUCCESS",
-          zombies,
+          type: "GETUSERS_SUCCESS",
+          users: zombies,
         });
       })
       .catch((err) => {
         dispatch({
-          type: "GETZOMBIE_ERROR",
+          type: "GETUSERS_ERROR",
+          err,
+        });
+      });
+  };
+};
+
+export const getGoodBoys = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection("users")
+      .where("mode", "==", "goodboy")
+      .get()
+      .then((querySnapshot) => {
+        let goodboys = querySnapshot.docs.map((doc) => {
+          let data = doc.data();
+
+          data.uid = doc.id;
+
+          return data;
+        });
+
+        dispatch({
+          type: "GETUSERS_SUCCESS",
+          users: goodboys,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "GETUSERS_ERROR",
           err,
         });
       });
@@ -123,6 +155,8 @@ export const createCat = (newUser) => {
       .collection("cats")
       .add({
         ...newUser,
+        disabled: false,
+        request: {},
       })
       .then(() => {
         dispatch({ type: "CAT_SUCCESS", newUser });
@@ -140,6 +174,7 @@ export const getCats = () => {
 
     firestore
       .collection("cats")
+      .where("disabled", "==", false)
       .get()
       .then((querySnapshot) => {
         let cats = querySnapshot.docs.map((doc) => {
@@ -148,13 +183,13 @@ export const getCats = () => {
           return data;
         });
         dispatch({
-          type: "GETCATS_SUCCESS",
-          cats,
+          type: "GETUSERS_SUCCESS",
+          users: cats,
         });
       })
       .catch((err) => {
         dispatch({
-          type: "GETCATS_ERROR",
+          type: "GETUSERS_ERRORS",
           err,
         });
       });
@@ -187,20 +222,20 @@ export const markDoneZombie = (uid) => {
             });
 
             dispatch({
-              type: "GETZOMBIE_SUCCESS",
-              zombies,
+              type: "GETUSERS_SUCCESS",
+              users: zombies,
             });
           })
           .catch((err) => {
             dispatch({
-              type: "GETZOMBIE_ERROR",
+              type: "GETUSERS_ERROR",
               err,
             });
           });
       })
       .catch((err) => {
         dispatch({
-          type: "GETZOMBIE_ERROR",
+          type: "GETUSERS_ERROR",
           err,
         });
       });
@@ -232,19 +267,67 @@ export const removeCat = (uid) => {
               return data;
             });
             dispatch({
-              type: "GETCATS_SUCCESS",
-              cats,
+              type: "GETUSERS_SUCCESS",
+              users: cats,
             });
           })
           .catch((err) => {
             dispatch({
-              type: "GETCATS_ERROR",
+              type: "GETUSERS_ERROR",
               err,
             });
           });
       })
       .catch((err) => {
         dispatch({ type: "REMOVECAT_ERROR", err });
+      });
+  };
+};
+
+export const requestImprovement = (typeName) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // Initialize Firebase modules
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    // Initialize variables
+    const uid = firebase.auth().currentUser.uid;
+    const type = typeName.replace(/\s+/g, "").toLowerCase();
+
+    firestore
+      .collection("users")
+      .doc(uid)
+      .set(
+        {
+          request: { [type]: true },
+        },
+        { merge: true }
+      )
+      .catch((err) => {
+        console.error("Improvement sent fail", err);
+      });
+  };
+};
+
+export const setFirstLogged = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // Initialize Firebase modules
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    // Initialize variables
+    const uid = firebase.auth().currentUser.uid;
+
+    firestore
+      .collection("users")
+      .doc(uid)
+      .set(
+        {
+          firstLogin: new Date().getTime(),
+          mode: "goodboy",
+        },
+        { merge: true }
+      )
+      .catch((err) => {
+        console.error("First time logged sent fail", err);
       });
   };
 };

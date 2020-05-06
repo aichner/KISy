@@ -1,0 +1,18 @@
+#interestedlist {
+  table td:first-child {
+    max-width: 150px !important;
+  }
+  .badge {
+    box-shadow: none;
+  }
+}
+.modal-user {
+  .progress-bar {
+    background-color: #f61a42 !important;
+  }
+}
+
+/** 
+ * SPDX-License-Identifier: (EUPL-1.2)
+ * Copyright © 2020 Christian Aichner
+ */

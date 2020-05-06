@@ -3,6 +3,7 @@ const initState = {
   authError: null,
   authErrorDetails: null,
   catDetails: undefined,
+  users: null,
 };
 
 const authReducer = (state = initState, action) => {
@@ -27,18 +28,6 @@ const authReducer = (state = initState, action) => {
         ...state,
         catDetails: null,
       };
-    case "GETZOMBIE_SUCCESS":
-      return {
-        ...state,
-        zombies: action.zombies,
-      };
-    case "GETZOMBIE_ERROR":
-      console.error("Could not get zombies", action.err);
-
-      return {
-        ...state,
-        zombies: null,
-      };
     case "UPGRADE_SUCCESS":
       return {
         ...state,
@@ -55,17 +44,19 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
       };
-    case "GETCATS_SUCCESS":
+    case "GETUSERS_SUCCESS":
+      console.log(action.users);
       return {
         ...state,
-        cats: action.cats,
+        users: action.users,
       };
-    case "GETCATS_ERROR":
+    case "GETUSERS_ERROR":
       return {
         ...state,
-        cats: null,
+        users: null,
       };
     case "SIGNOUT_SUCCESS":
+      localStorage.removeItem("activePage");
       return state;
     case "SIGNUP_SUCCESS":
       return {

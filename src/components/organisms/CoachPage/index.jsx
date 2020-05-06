@@ -84,6 +84,16 @@ class CoachPage extends React.Component {
                       Zombie list
                     </MDBBtn>
                   </div>
+                  <p className="lead d-inline-block mt-3 mb-2">Phase 3</p>
+                  <div>
+                    <MDBBtn
+                      color="indigo"
+                      onClick={() => this.props.goTo("interestedList")}
+                    >
+                      <MDBIcon icon="dog" />
+                      Good boy list
+                    </MDBBtn>
+                  </div>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>

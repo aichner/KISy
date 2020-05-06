@@ -39,6 +39,7 @@ import {
   CoachPage,
   ZombieList,
   CustomerPage,
+  InterestedList,
 } from "../../organisms";
 import { ResultChart } from "../../molecules/charts";
 
@@ -58,6 +59,15 @@ class ProfilePage extends React.Component {
   componentDidMount = () => {
     // Load welcoming picture
     this.getGreetingImg();
+
+    // Check if there is an active page
+    const activePage = localStorage.getItem("activePage");
+
+    if (activePage) {
+      this.setState({
+        activePage: parseInt(activePage),
+      });
+    }
   };
 
   getGreetingTxt = () => {
@@ -107,12 +117,18 @@ class ProfilePage extends React.Component {
       case "zombielist":
         to = 3;
         break;
+      case "interestedList":
+        to = 4;
+        break;
       default:
         to = 0;
     }
-    this.setState({
-      activePage: to,
-    });
+    this.setState(
+      {
+        activePage: to,
+      },
+      () => localStorage.setItem("activePage", to)
+    );
   };
 
   render() {
@@ -143,7 +159,7 @@ class ProfilePage extends React.Component {
                 size="md"
                 onClick={() => this.props.signOut()}
               >
-                Sign Out
+                Ausloggen
               </MDBBtn>
             </div>
             {this.state.greetingImage}
@@ -172,20 +188,45 @@ class ProfilePage extends React.Component {
                         Quick actions
                       </p>
                     </MDBCol>
-                    <MDBCol md="5" className="text-center">
+                    <MDBCol md="6" className="text-center">
                       {this.state.activePage !== 0 ? (
                         <MDBBtn color="indigo" onClick={() => this.goTo(0)}>
                           <MDBIcon icon="columns" />
                           Dashboard
                         </MDBBtn>
                       ) : (
-                        <MDBBtn
-                          color="indigo"
-                          onClick={() => this.goTo("formcat")}
-                        >
-                          <MDBIcon icon="cat" />
-                          Add cat
-                        </MDBBtn>
+                        <>
+                          <a
+                            href="https://console.firebase.google.com/u/0/project/wca-kisy/overview"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MDBBtn color="warning">
+                              <MDBIcon fab icon="google" />
+                              Firebase
+                            </MDBBtn>
+                          </a>
+                          <a
+                            href="https://outlook.office.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MDBBtn color="blue">
+                              <MDBIcon fab icon="microsoft" />
+                              MS Office
+                            </MDBBtn>
+                          </a>
+                          <a
+                            href="https://my.sevdesk.de/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MDBBtn color="red">
+                              <MDBIcon icon="dollar-sign" />
+                              SevDesk
+                            </MDBBtn>
+                          </a>
+                        </>
                       )}
                     </MDBCol>
                   </MDBRow>
@@ -199,6 +240,7 @@ class ProfilePage extends React.Component {
                   {this.state.activePage === 1 && <FormCat />}
                   {this.state.activePage === 2 && <CatList goTo={this.goTo} />}
                   {this.state.activePage === 3 && <ZombieList />}
+                  {this.state.activePage === 4 && <InterestedList />}
                 </MDBContainer>
               </div>
             </>

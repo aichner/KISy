@@ -8,11 +8,13 @@ import { Link, Redirect } from "react-router-dom";
 // Connect
 import { connect } from "react-redux";
 // Actions
-import { getZombies, markDoneZombie } from "../../../store/actions/authActions";
+import { getGoodBoys } from "../../../store/actions/authActions";
 
 //> Additional modules
 // Copy to clipboard
 import copy from "copy-to-clipboard";
+// Moment
+import moment from "moment";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
@@ -44,9 +46,9 @@ import {
 import { ResultChart } from "../../molecules/charts";
 
 //> CSS
-import "./zombie.scss";
+import "./interested.scss";
 
-class ZombieList extends React.Component {
+class InterestedList extends React.Component {
   state = {
     data: {
       columns: [
@@ -61,8 +63,8 @@ class ZombieList extends React.Component {
           sort: "disabled",
         },
         {
-          label: "City",
-          field: "city",
+          label: "Actions",
+          field: "actions",
           sort: "disabled",
         },
         {
@@ -81,8 +83,7 @@ class ZombieList extends React.Component {
   };
 
   componentDidMount = () => {
-    // Get firebase users
-    this.props.getZombies();
+    this.props.getGoodBoys();
   };
 
   componentWillReceiveProps(nextProps) {
@@ -128,11 +129,16 @@ class ZombieList extends React.Component {
             company: (
               <>
                 <p className="mb-0">{user.company_name}</p>
+                <small className="text-muted d-block">
+                  Last seen:{" "}
+                  {moment(user.firstLogin).format("MMMM Do YYYY, h:mm:ss a")}
+                </small>
                 <div className="mb-2">
-                  {user.processed && (
-                    <MDBBadge color="green">
-                      <MDBIcon icon="check-circle" className="mr-1" />
-                      Done
+                  {parseInt(user.firstLogin) + 8640000 >
+                    parseInt(new Date().getTime()) && (
+                    <MDBBadge color="green" className="my-2">
+                      <MDBIcon icon="clock" className="mr-1" />
+                      Logged in recently
                     </MDBBadge>
                   )}
                 </div>
@@ -158,7 +164,30 @@ class ZombieList extends React.Component {
                 )}
               </>
             ),
-            city: user.city,
+            actions: (
+              <>
+                <p className="mb-0 font-weight-bold">Requests</p>
+                <div>
+                  {Object.keys(user.request).length > 0 ? (
+                    <>
+                      {Object.keys(user.request).map((key, i) => {
+                        return (
+                          <span className="d-block" key={i}>
+                            <MDBIcon
+                              icon="check-circle"
+                              className="green-text mr-1"
+                            />
+                            {key}
+                          </span>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <small className="text-muted">No actions yet</small>
+                  )}
+                </div>
+              </>
+            ),
             contact: (
               <>
                 <p className="mb-1 clickable" onClick={() => copy(user.email)}>
@@ -213,19 +242,19 @@ class ZombieList extends React.Component {
 
       return (
         <>
-          <div id="zombielist">
+          <div id="interestedlist">
             <>
               <MDBCard className="w-100">
                 <MDBCardBody>
                   <h2 className="d-flex">
                     <MDBBadge color="indigo" className="mr-3">
-                      Phase 2
+                      Phase 3
                     </MDBBadge>{" "}
-                    users
+                    Good boys
                   </h2>
                   <p className="lead">
-                    Phase 2 tries to transform <code>cats</code> into{" "}
-                    <code>interested</code>.
+                    Phase 3 tries to transform <code>good boys</code> into{" "}
+                    <code>customers</code>.
                   </p>
                   <div className="text-right mb-4">
                     {this.state.removeCat && (
@@ -354,12 +383,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getZombies: () => dispatch(getZombies()),
-    markDoneZombie: (uid) => dispatch(markDoneZombie(uid)),
+    getGoodBoys: () => dispatch(getGoodBoys()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ZombieList);
+export default connect(mapStateToProps, mapDispatchToProps)(InterestedList);
 
 /**
  * SPDX-License-Identifier: (EUPL-1.2)
