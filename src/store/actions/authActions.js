@@ -154,6 +154,7 @@ export const createCat = (newUser) => {
       .add({
         ...newUser,
         disabled: false,
+        request: {},
       })
       .then(() => {
         dispatch({ type: "CAT_SUCCESS", newUser });
