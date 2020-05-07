@@ -2,6 +2,7 @@
 // Authentication
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
+import customerContactReducer from "./customerContactReducer";
 
 //> Redux
 import { combineReducers } from "redux";
@@ -15,6 +16,7 @@ import { firebaseReducer } from "react-redux-firebase";
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
+  contact: customerContactReducer,
   firestore: firestoreReducer,
   firebase: firebaseReducer, // Authentication
 });
