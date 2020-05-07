@@ -122,6 +122,7 @@ class ZombieList extends React.Component {
                 <ResultChart
                   data={user.analysis[user.analysis.length - 1].results}
                   hideLabels
+                  green={user.processed ? true : false}
                 />
               </div>
             ),
@@ -130,7 +131,7 @@ class ZombieList extends React.Component {
                 <p className="mb-0">{user.company_name}</p>
                 <div className="mb-2">
                   {user.processed && (
-                    <MDBBadge color="green">
+                    <MDBBadge color="success">
                       <MDBIcon icon="check-circle" className="mr-1" />
                       Done
                     </MDBBadge>

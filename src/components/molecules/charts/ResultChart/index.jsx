@@ -73,12 +73,14 @@ class ResultChart extends React.Component {
   };
 
   componentDidMount = () => {
+    const { green } = this.props;
+
     if (!this.state.dataRadar) {
-      this.getChart();
+      this.getChart(green);
     }
   };
 
-  getChart = () => {
+  getChart = (green) => {
     if (this.props.data) {
       let labels, data;
       labels = [];
@@ -108,8 +110,8 @@ class ResultChart extends React.Component {
           datasets: [
             {
               data,
-              backgroundColor: "rgba(246, 26, 66, 0.5)",
-              borderColor: "rgb(246, 26, 66)",
+              backgroundColor: green ? "rgba(0, 200, 81, 0.5)" : "rgba(246, 26, 66, 0.5)", 
+              borderColor: green ? "rgb(0, 200, 81)" : "rgb(246, 26, 66)",
             },
           ],
         },
