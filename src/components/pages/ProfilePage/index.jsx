@@ -240,7 +240,7 @@ class ProfilePage extends React.Component {
                   {this.state.activePage === 2 && <CatList goTo={this.goTo} />}
                   {this.state.activePage === 3 && <ZombieList />}
                   {this.state.activePage === 4 && <InterestedList />}
-                  {this.state.activePage === 5 && <Requests />}
+                  {this.state.activePage === 5 && <Requests goTo={this.goTo} />}
                   {this.state.activePage === 6 && <Contact />}
                 </MDBContainer>
               </div>

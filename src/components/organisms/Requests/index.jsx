@@ -166,7 +166,10 @@ class Requests extends React.Component {
                     </a>
                     {!contact.data[this.state.activeTab].processed && (
                       <>
-                        <MDBBtn color="indigo">
+                        <MDBBtn
+                          color="indigo"
+                          onClick={() => this.props.goTo("formcat")}
+                        >
                           <MDBIcon icon="cat" />
                           Create as cat
                         </MDBBtn>
