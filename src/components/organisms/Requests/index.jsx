@@ -79,13 +79,20 @@ class Requests extends React.Component {
 
     return (
       <div id="requests">
-        <p className="lead font-weight-bold">Requests</p>
+        <p className="lead font-weight-bold">
+          Requests
+          <MDBBadge color="indigo" className="ml-2">
+            <MDBIcon icon="signature" /> Analysis
+          </MDBBadge>
+        </p>
         <div className="mb-3">
           <MDBBtn
             color="indigo"
             outline={this.state.show !== 0}
             onClick={() =>
-              this.setState({ show: 0 }, () => this.props.getData(false))
+              this.setState({ show: 0, sync: true }, () =>
+                this.props.getData(false)
+              )
             }
           >
             Show <MDBBadge color="danger">open</MDBBadge>
@@ -94,13 +101,23 @@ class Requests extends React.Component {
             color="indigo"
             outline={this.state.show !== 1}
             onClick={() =>
-              this.setState({ show: 1 }, () => this.props.getData(true))
+              this.setState({ show: 1, sync: true }, () =>
+                this.props.getData(true)
+              )
             }
           >
             Show <MDBBadge color="success">closed</MDBBadge>
           </MDBBtn>
         </div>
-        {contact && contact.data && contact.data.length > 0 ? (
+        {this.state.sync && (
+          <div>
+            <MDBProgress material preloader />
+          </div>
+        )}
+        {!this.state.sync &&
+        contact &&
+        contact.data &&
+        contact.data.length > 0 ? (
           <MDBRow>
             <MDBCol lg="3">
               <MDBCard>
@@ -122,7 +139,7 @@ class Requests extends React.Component {
                               {request.company}
                             </small>
                           </p>
-                          <p className="mb-0 mt-0">
+                          <p className="mb-0 my-0">
                             <small>{request.full_name}</small>
                           </p>
                           {request.processed ? (
@@ -131,12 +148,20 @@ class Requests extends React.Component {
                             <MDBBadge color="danger">Open</MDBBadge>
                           )}
                           <p className="mb-0">
-                            <small className="text-muted">
+                            <small className="text-muted d-block">
                               <MDBIcon icon="clock" className="mr-1" />
                               {moment(request.timestamp).format(
-                                "DD.MM.YYYY HH:MM"
+                                "DD.MM.YYYY H:mm"
                               )}
                             </small>
+                            {request.processedInfo && (
+                              <small className="text-muted d-block">
+                                <MDBIcon icon="check-circle" className="mr-1" />
+                                {moment(request.processedInfo.timestamp).format(
+                                  "DD.MM.YYYY H:mm"
+                                )}
+                              </small>
+                            )}
                           </p>
                         </div>
                       );
@@ -217,7 +242,7 @@ class Requests extends React.Component {
         ) : (
           <MDBCard>
             <MDBCardBody>
-              <p className="mb-0">No new requests</p>
+              {!this.state.sync && <p className="mb-0">No new requests</p>}
             </MDBCardBody>
           </MDBCard>
         )}
@@ -238,7 +263,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getData: (processed) => dispatch(getData("requests", processed)),
     assignRequest: (request) => dispatch(assignRequest(request)),
-    markAsDone: (id) => dispatch(markAsDone("requests", id)),
+    markAsDone: (id, processed) =>
+      dispatch(markAsDone("requests", id, processed)),
   };
 };
 

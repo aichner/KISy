@@ -37,9 +37,14 @@ export const assignRequest = (request) => {
   };
 };
 
-export const markAsDone = (collection, id) => {
+export const markAsDone = (collection, id, processed) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
     const firestore = getFirestore();
+
+    if (!processed) {
+      processed = false;
+    }
 
     firestore
       .collection(collection)
@@ -47,12 +52,19 @@ export const markAsDone = (collection, id) => {
       .set(
         {
           processed: true,
+          processedInfo: {
+            uid: firebase.auth().currentUser.uid
+              ? firebase.auth().currentUser.uid
+              : null,
+            timestamp: new Date().getTime(),
+          },
         },
         { merge: true }
       )
       .then(() => {
         firestore
           .collection(collection)
+          .where("processed", "==", processed)
           .get()
           .then((querySnapshot) => {
             let dataObjects = querySnapshot.docs.map((doc) => {
