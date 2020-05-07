@@ -1,30 +1,15 @@
 //> React
 // Contains all the functionality necessary to define React components
 import React from "react";
-// Router
-import { Link, Redirect } from "react-router-dom";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import {
-  MDBContainer,
-  MDBDataTable,
   MDBRow,
   MDBCol,
-  MDBPopover,
-  MDBPopoverHeader,
-  MDBPopoverBody,
-  MDBModal,
-  MDBModalHeader,
-  MDBModalBody,
-  MDBModalFooter,
   MDBBtn,
   MDBBadge,
   MDBIcon,
-  MDBFormInline,
-  MDBInput,
-  MDBAlert,
-  MDBSpinner,
   MDBCard,
   MDBCardBody,
   MDBCardUp,
@@ -102,7 +87,7 @@ class CoachPage extends React.Component {
                 <MDBCardUp className="indigo lighten-3" />
                 <MDBAvatar className="mx-auto white">
                   {!this.state.imageLoaded && (
-                    <img src={defaultImg} alt="Profile image is loading" />
+                    <img src={defaultImg} alt="Loading" />
                   )}
                   <img
                     src={profile.image}

@@ -1,8 +1,6 @@
 //> React
 // Contains all the functionality necessary to define React components
 import React from "react";
-// Router
-import { Link, Redirect } from "react-router-dom";
 
 //> Redux
 // Connect
@@ -15,33 +13,18 @@ import {
 } from "../../../store/actions/customerContactActions";
 
 //> Additional modules
-// Copy to clipboard
-import copy from "copy-to-clipboard";
 // Moment
 import moment from "moment";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import {
-  MDBContainer,
-  MDBDataTable,
   MDBRow,
   MDBCol,
-  MDBPopover,
-  MDBPopoverHeader,
-  MDBPopoverBody,
-  MDBModal,
-  MDBModalHeader,
-  MDBModalBody,
-  MDBModalFooter,
   MDBBtn,
   MDBBadge,
   MDBIcon,
   MDBProgress,
-  MDBFormInline,
-  MDBInput,
-  MDBAlert,
-  MDBSpinner,
   MDBCard,
   MDBCardBody,
 } from "mdbreact";

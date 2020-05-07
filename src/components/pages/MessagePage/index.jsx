@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
-import { MDBContainer, MDBBtn, MDBAlert, MDBIcon } from "mdbreact";
+import { MDBContainer, MDBBtn, MDBIcon } from "mdbreact";
 
 //> Redux
 // Connect

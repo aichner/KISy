@@ -2,11 +2,7 @@
 // Contains all the functionality necessary to define React components
 import React from "react";
 // Router
-import { Link, Redirect, withRouter } from "react-router-dom";
-
-//> Additional modules
-// Firebase
-import firebase from "firebase";
+import { Redirect, withRouter } from "react-router-dom";
 
 //> Redux
 // Connect

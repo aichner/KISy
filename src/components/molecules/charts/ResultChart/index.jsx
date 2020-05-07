@@ -101,6 +101,8 @@ class ResultChart extends React.Component {
       Object.keys(orderedData).map((keyName, i) => {
         labels.push(orderedData[keyName].name);
         data.push(orderedData[keyName].value);
+
+        return true;
       });
 
       // Set data radar chart
@@ -110,7 +112,9 @@ class ResultChart extends React.Component {
           datasets: [
             {
               data,
-              backgroundColor: green ? "rgba(0, 200, 81, 0.5)" : "rgba(246, 26, 66, 0.5)", 
+              backgroundColor: green
+                ? "rgba(0, 200, 81, 0.5)"
+                : "rgba(246, 26, 66, 0.5)",
               borderColor: green ? "rgb(0, 200, 81)" : "rgb(246, 26, 66)",
             },
           ],

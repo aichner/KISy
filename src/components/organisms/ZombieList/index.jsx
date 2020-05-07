@@ -2,7 +2,7 @@
 // Contains all the functionality necessary to define React components
 import React from "react";
 // Router
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 //> Redux
 // Connect
@@ -19,11 +19,6 @@ import copy from "copy-to-clipboard";
 import {
   MDBContainer,
   MDBDataTable,
-  MDBRow,
-  MDBCol,
-  MDBPopover,
-  MDBPopoverHeader,
-  MDBPopoverBody,
   MDBModal,
   MDBModalHeader,
   MDBModalBody,
@@ -32,9 +27,6 @@ import {
   MDBBadge,
   MDBIcon,
   MDBProgress,
-  MDBFormInline,
-  MDBInput,
-  MDBAlert,
   MDBSpinner,
   MDBCard,
   MDBCardBody,
@@ -180,6 +172,8 @@ class ZombieList extends React.Component {
               </>
             ),
           };
+        } else {
+          return null;
         }
       })
     );
@@ -199,7 +193,7 @@ class ZombieList extends React.Component {
   };
 
   render() {
-    const { auth, profile, users } = this.props;
+    const { auth, profile } = this.props;
 
     if (!profile.isLoaded) {
       return (

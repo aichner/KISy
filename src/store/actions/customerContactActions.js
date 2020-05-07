@@ -31,7 +31,7 @@ export const getData = (collection, processed) => {
 
 export const assignRequest = (request) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore();
+    //const firestore = getFirestore();
 
     // To be added
   };

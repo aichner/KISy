@@ -1,6 +1,5 @@
 export const getUser = (uid) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
 
     // Get loading
