@@ -1,9 +1,10 @@
-export const getData = (collection) => {
+export const getData = (collection, processed) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
 
     firestore
       .collection(collection)
+      .where("processed", "==", processed)
       .get()
       .then((querySnapshot) => {
         let dataObjects = querySnapshot.docs.map((doc) => {
