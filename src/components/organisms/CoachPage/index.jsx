@@ -119,9 +119,11 @@ class CoachPage extends React.Component {
                     >
                       <MDBIcon icon="fire-alt" />
                       Anfragen
-                      <MDBBadge color="danger" className="z-depth-0 ml-1">
-                        2
-                      </MDBBadge>
+                      {false && (
+                        <MDBBadge color="danger" className="z-depth-0 ml-1">
+                          2
+                        </MDBBadge>
+                      )}
                     </MDBBtn>
                     <MDBBtn
                       color="indigo"
@@ -131,9 +133,11 @@ class CoachPage extends React.Component {
                     >
                       <MDBIcon icon="at" />
                       Kontakt
-                      <MDBBadge color="danger" className="z-depth-0 ml-1">
-                        2
-                      </MDBBadge>
+                      {false && (
+                        <MDBBadge color="danger" className="z-depth-0 ml-1">
+                          2
+                        </MDBBadge>
+                      )}
                     </MDBBtn>
                   </MDBCardBody>
                 )}
