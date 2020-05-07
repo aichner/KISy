@@ -62,20 +62,14 @@ class Requests extends React.Component {
       JSON.stringify(this.props.contact) !== JSON.stringify(nextProps.contact)
     ) {
       nextProps.contact &&
-        this.setState({ sync: false }, () => this.fillTable(nextProps.contact));
+        this.setState({ sync: false });
     } else {
       this.setState({ sync: false });
     }
   }
 
-  fillTable = (contact) => {
-    console.log(contact);
-  };
-
   render() {
-    const { auth, profile, contact } = this.props;
-
-    console.log(this.props);
+    const { contact } = this.props;
 
     return (
       <div id="requests">

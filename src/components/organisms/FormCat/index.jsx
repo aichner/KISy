@@ -222,8 +222,6 @@ class FormCat extends React.Component {
         ],
       };
 
-      console.log(userobject);
-
       this.props.createCat(userobject);
     }
   };
@@ -756,7 +754,6 @@ class FormCat extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

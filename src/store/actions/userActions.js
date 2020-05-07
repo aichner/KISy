@@ -6,8 +6,6 @@ export const getUser = (uid) => {
     // Get loading
     dispatch({ type: "USERLOAD_LOADING" });
 
-    console.log(uid);
-
     firestore
       .collection("users")
       .doc(uid)

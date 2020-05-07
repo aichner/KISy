@@ -6,7 +6,6 @@ const initState = {
 const customerContactReducer = (state = initState, action) => {
   switch (action.type) {
     case "GETDATA_SUCCESS":
-      console.log(action.data);
       return {
         ...state,
         data: action.data,

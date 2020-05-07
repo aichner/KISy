@@ -66,8 +66,6 @@ class CustomerPage extends React.Component {
       }
     }
 
-    console.log(orderedResults);
-
     return (
       <div id="customerpage">
         <div className="py-4 greeting-actions">
