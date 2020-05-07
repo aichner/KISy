@@ -44,8 +44,7 @@ class Requests extends React.Component {
     if (
       JSON.stringify(this.props.contact) !== JSON.stringify(nextProps.contact)
     ) {
-      nextProps.contact &&
-        this.setState({ sync: false });
+      nextProps.contact && this.setState({ sync: false });
     } else {
       this.setState({ sync: false });
     }

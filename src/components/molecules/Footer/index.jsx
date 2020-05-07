@@ -4,7 +4,7 @@ import React from "react";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
-import { MDBFooter,MDBContainer, MDBIcon } from "mdbreact";
+import { MDBFooter, MDBContainer, MDBIcon } from "mdbreact";
 
 //> Footer
 import "./footer.scss";
