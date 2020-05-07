@@ -140,10 +140,26 @@ class Requests extends React.Component {
                           {contact.data[this.state.activeTab].full_name}
                         </p>
                       </div>
-                      <MDBBtn color="success">
-                        <MDBIcon icon="check-circle" />
-                        Mark as done
-                      </MDBBtn>
+                      <div>
+                        {contact.data[this.state.activeTab].processed ? (
+                          <MDBBadge color="success">
+                            <MDBIcon icon="check-circle" />
+                            Done
+                          </MDBBadge>
+                        ) : (
+                          <MDBBtn
+                            color="success"
+                            onClick={() =>
+                              this.props.markAsDone(
+                                contact.data[this.state.activeTab].id
+                              )
+                            }
+                          >
+                            <MDBIcon icon="check-circle" />
+                            Mark as done
+                          </MDBBtn>
+                        )}
+                      </div>
                     </div>
                     <a
                       href={`mailto:${
@@ -182,7 +198,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getData: () => dispatch(getData("requests")),
     assignRequest: (request) => dispatch(assignRequest(request)),
-    markAsDone: (id) => dispatch(markAsDone("request", id)),
+    markAsDone: (id) => dispatch(markAsDone("requests", id)),
   };
 };
 
