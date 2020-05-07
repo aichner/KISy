@@ -112,23 +112,28 @@ class CoachPage extends React.Component {
                 </MDBAvatar>
                 {this.state.imageLoaded && (
                   <MDBCardBody>
-                    <input
-                      type="text"
-                      className="form-control mb-3"
-                      placeholder="What are you doing?"
-                    />
-                    <p className="lead mb-3">0:00</p>
-                    <MDBBtn outline color="indigo" className="w-100 mx-0">
-                      <MDBIcon far icon="pause-circle" />
-                      Pause
+                    <MDBBtn
+                      color="indigo"
+                      className="w-100 mx-0"
+                      onClick={() => this.props.goTo("requests")}
+                    >
+                      <MDBIcon icon="fire-alt" />
+                      Anfragen
+                      <MDBBadge color="danger" className="z-depth-0 ml-1">
+                        2
+                      </MDBBadge>
                     </MDBBtn>
-                    <MDBBtn color="indigo" className="w-100 mx-0">
-                      <MDBIcon icon="stopwatch" />
-                      Start
-                    </MDBBtn>
-                    <MDBBtn color="indigo" className="w-100 mx-0">
-                      <MDBIcon icon="stop-circle" />
-                      Stop
+                    <MDBBtn
+                      color="indigo"
+                      className="w-100 mx-0"
+                      outline
+                      onClick={() => this.props.goTo("contact")}
+                    >
+                      <MDBIcon icon="at" />
+                      Kontakt
+                      <MDBBadge color="danger" className="z-depth-0 ml-1">
+                        2
+                      </MDBBadge>
                     </MDBBtn>
                   </MDBCardBody>
                 )}
