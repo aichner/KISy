@@ -222,11 +222,11 @@ class ZombieList extends React.Component {
                     <MDBBadge color="indigo" className="mr-3">
                       Phase 2
                     </MDBBadge>{" "}
-                    users
+                    Zombies
                   </h2>
                   <p className="lead">
-                    Phase 2 tries to transform <code>cats</code> into{" "}
-                    <code>interested</code>.
+                    Phase 2 tries to transform <code>zombies</code> into{" "}
+                    <code>good boys</code>.
                   </p>
                   <div className="text-right mb-4">
                     {this.state.removeCat && (
