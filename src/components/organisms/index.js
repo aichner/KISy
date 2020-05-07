@@ -6,6 +6,8 @@ import CoachPage from "./CoachPage";
 import ZombieList from "./ZombieList";
 import CustomerPage from "./CustomerPage";
 import InterestedList from "./InterestedList";
+import Requests from "./Requests";
+import Contact from "./Contact";
 
 export {
   FormCat,
@@ -14,6 +16,8 @@ export {
   ZombieList,
   CustomerPage,
   InterestedList,
+  Requests,
+  Contact,
 };
 
 /**
