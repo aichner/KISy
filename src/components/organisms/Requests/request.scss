@@ -9,23 +9,23 @@
       border-left: 7px white solid;
       &:hover {
         background: lighten(lightgray, 17%);
-        border-left: 7px #77bd43 solid;
+        border-left: 7px lighten(#3f51b5, 30%) solid;
       }
       &.active {
         background: lighten(lightgray, 17%);
-        border-left: 7px #77bd43 solid;
+        border-left: 7px #3f51b5 solid;
       }
     }
   }
-  .request-body{
-    i{
+  .request-body {
+    i {
       width: 20px;
     }
-    .d-flex{
+    .d-flex {
       align-items: baseline;
     }
   }
-  .badge{
+  .badge {
     box-shadow: none;
   }
 }

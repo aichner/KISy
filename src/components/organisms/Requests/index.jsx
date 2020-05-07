@@ -147,17 +147,10 @@ class Requests extends React.Component {
                             Done
                           </MDBBadge>
                         ) : (
-                          <MDBBtn
-                            color="success"
-                            onClick={() =>
-                              this.props.markAsDone(
-                                contact.data[this.state.activeTab].id
-                              )
-                            }
-                          >
-                            <MDBIcon icon="check-circle" />
-                            Mark as done
-                          </MDBBtn>
+                          <MDBBadge color="danger">
+                            <MDBIcon icon="clock" />
+                            Open
+                          </MDBBadge>
                         )}
                       </div>
                     </div>
@@ -171,10 +164,25 @@ class Requests extends React.Component {
                         E-Mail
                       </MDBBtn>
                     </a>
-                    <MDBBtn color="indigo">
-                      <MDBIcon icon="cat" />
-                      Create as cat
-                    </MDBBtn>
+                    {!contact.data[this.state.activeTab].processed && (
+                      <>
+                        <MDBBtn color="indigo">
+                          <MDBIcon icon="cat" />
+                          Create as cat
+                        </MDBBtn>
+                        <MDBBtn
+                          color="success"
+                          onClick={() =>
+                            this.props.markAsDone(
+                              contact.data[this.state.activeTab].id
+                            )
+                          }
+                        >
+                          <MDBIcon icon="check-circle" />
+                          Mark as done
+                        </MDBBtn>
+                      </>
+                    )}
                   </>
                 )}
               </MDBCardBody>
