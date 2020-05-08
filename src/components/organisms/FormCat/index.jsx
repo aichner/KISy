@@ -1,8 +1,6 @@
 //> React
 // Contains all the functionality necessary to define React components
 import React from "react";
-// Router
-import { Link, Redirect } from "react-router-dom";
 
 //> Redux
 // Connect
@@ -13,24 +11,15 @@ import { createCat } from "../../../store/actions/authActions";
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import {
-  MDBContainer,
   MDBRow,
   MDBCol,
   MDBCard,
   MDBCardBody,
-  MDBCardUp,
-  MDBAvatar,
   MDBAlert,
   MDBBtn,
   MDBBadge,
   MDBInput,
   MDBIcon,
-  MDBTooltip,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-  MDBProgress,
   MDBRangeInput,
 } from "mdbreact";
 
@@ -222,14 +211,13 @@ class FormCat extends React.Component {
         ],
       };
 
-      console.log(userobject);
-
       this.props.createCat(userobject);
     }
   };
 
   render() {
-    const { auth, profile, catDetails } = this.props;
+    const { catDetails } = this.props;
+
     return (
       <div className="formcat">
         {catDetails ? (
@@ -756,7 +744,6 @@ class FormCat extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

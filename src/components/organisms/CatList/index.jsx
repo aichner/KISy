@@ -2,7 +2,7 @@
 // Contains all the functionality necessary to define React components
 import React from "react";
 // Router
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 //> Redux
 // Connect
@@ -23,11 +23,6 @@ import copy from "copy-to-clipboard";
 import {
   MDBContainer,
   MDBDataTable,
-  MDBRow,
-  MDBCol,
-  MDBPopover,
-  MDBPopoverHeader,
-  MDBPopoverBody,
   MDBModal,
   MDBModalHeader,
   MDBModalBody,
@@ -35,9 +30,6 @@ import {
   MDBBtn,
   MDBBadge,
   MDBIcon,
-  MDBFormInline,
-  MDBInput,
-  MDBAlert,
   MDBSpinner,
   MDBCard,
   MDBCardBody,
@@ -187,6 +179,8 @@ class CatList extends React.Component {
               </>
             ),
           };
+        } else {
+          return null;
         }
       })
     );
@@ -202,8 +196,7 @@ class CatList extends React.Component {
   };
 
   render() {
-    const { auth, profile, users } = this.props;
-    console.log(this.state);
+    const { auth, profile } = this.props;
 
     if (!profile.isLoaded) {
       return (
@@ -313,7 +306,6 @@ class CatList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

@@ -1,30 +1,15 @@
 //> React
 // Contains all the functionality necessary to define React components
 import React from "react";
-// Router
-import { Link, Redirect } from "react-router-dom";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import {
-  MDBContainer,
-  MDBDataTable,
   MDBRow,
   MDBCol,
-  MDBPopover,
-  MDBPopoverHeader,
-  MDBPopoverBody,
-  MDBModal,
-  MDBModalHeader,
-  MDBModalBody,
-  MDBModalFooter,
   MDBBtn,
   MDBBadge,
   MDBIcon,
-  MDBFormInline,
-  MDBInput,
-  MDBAlert,
-  MDBSpinner,
   MDBCard,
   MDBCardBody,
   MDBCardUp,
@@ -102,7 +87,7 @@ class CoachPage extends React.Component {
                 <MDBCardUp className="indigo lighten-3" />
                 <MDBAvatar className="mx-auto white">
                   {!this.state.imageLoaded && (
-                    <img src={defaultImg} alt="Profile image is loading" />
+                    <img src={defaultImg} alt="Loading" />
                   )}
                   <img
                     src={profile.image}
@@ -112,23 +97,32 @@ class CoachPage extends React.Component {
                 </MDBAvatar>
                 {this.state.imageLoaded && (
                   <MDBCardBody>
-                    <input
-                      type="text"
-                      className="form-control mb-3"
-                      placeholder="What are you doing?"
-                    />
-                    <p className="lead mb-3">0:00</p>
-                    <MDBBtn outline color="indigo" className="w-100 mx-0">
-                      <MDBIcon far icon="pause-circle" />
-                      Pause
+                    <MDBBtn
+                      color="indigo"
+                      className="w-100 mx-0"
+                      onClick={() => this.props.goTo("requests")}
+                    >
+                      <MDBIcon icon="fire-alt" />
+                      Anfragen
+                      {false && (
+                        <MDBBadge color="danger" className="z-depth-0 ml-1">
+                          2
+                        </MDBBadge>
+                      )}
                     </MDBBtn>
-                    <MDBBtn color="indigo" className="w-100 mx-0">
-                      <MDBIcon icon="stopwatch" />
-                      Start
-                    </MDBBtn>
-                    <MDBBtn color="indigo" className="w-100 mx-0">
-                      <MDBIcon icon="stop-circle" />
-                      Stop
+                    <MDBBtn
+                      color="indigo"
+                      className="w-100 mx-0"
+                      outline
+                      onClick={() => this.props.goTo("contact")}
+                    >
+                      <MDBIcon icon="at" />
+                      Kontakt
+                      {false && (
+                        <MDBBadge color="danger" className="z-depth-0 ml-1">
+                          2
+                        </MDBBadge>
+                      )}
                     </MDBBtn>
                   </MDBCardBody>
                 )}

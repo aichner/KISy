@@ -1,12 +1,9 @@
 export const getUser = (uid) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
 
     // Get loading
     dispatch({ type: "USERLOAD_LOADING" });
-
-    console.log(uid);
 
     firestore
       .collection("users")

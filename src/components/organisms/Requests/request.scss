@@ -1,0 +1,39 @@
+#requests {
+  // Navigation bar
+  .menu {
+    div {
+      padding: 0.7rem;
+      border-bottom: 1px lightgray solid;
+      cursor: pointer;
+      transition: background 0.1s ease, border-left 0.3s ease;
+      border-left: 7px white solid;
+      .badge{
+        margin: .4rem 0;
+      }
+      &:hover {
+        background: lighten(lightgray, 17%);
+        border-left: 7px lighten(#3f51b5, 30%) solid;
+      }
+      &.active {
+        background: lighten(lightgray, 17%);
+        border-left: 7px #3f51b5 solid;
+      }
+    }
+  }
+  .request-body {
+    i {
+      width: 20px;
+    }
+    .d-flex {
+      align-items: baseline;
+    }
+  }
+  .badge {
+    box-shadow: none;
+  }
+}
+
+/** 
+ * SPDX-License-Identifier: (EUPL-1.2)
+ * Copyright © 2020 Christian Aichner
+ */

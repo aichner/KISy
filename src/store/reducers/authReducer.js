@@ -45,7 +45,6 @@ const authReducer = (state = initState, action) => {
         ...state,
       };
     case "GETUSERS_SUCCESS":
-      console.log(action.users);
       return {
         ...state,
         users: action.users,

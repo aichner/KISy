@@ -15,6 +15,10 @@ import { ScrollToTop } from "./components/atoms";
 import Routes from "./Routes";
 
 class App extends React.Component {
+  componentDidMount = () => {
+    console.log("Version: " + process.env.REACT_APP_VERSION);
+  };
+
   render() {
     return (
       <Router>

@@ -9,19 +9,9 @@ import {
   MDBRow,
   MDBCol,
   MDBCard,
-  MDBCardUp,
-  MDBAvatar,
   MDBCardBody,
-  MDBListGroup,
-  MDBListGroupItem,
   MDBBtn,
   MDBIcon,
-  MDBBadge,
-  MDBNav,
-  MDBNavLink,
-  MDBNavItem,
-  MDBTabContent,
-  MDBTabPane,
   MDBProgress,
 } from "mdbreact";
 
@@ -65,8 +55,6 @@ class CustomerPage extends React.Component {
         this.props.setFirstLogged();
       }
     }
-
-    console.log(orderedResults);
 
     return (
       <div id="customerpage">

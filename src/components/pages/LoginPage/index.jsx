@@ -17,7 +17,6 @@ import {
   MDBRow,
   MDBCol,
   MDBAlert,
-  MDBInput,
   MDBBtn,
   MDBIcon,
   MDBView,

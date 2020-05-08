@@ -245,7 +245,6 @@ export const markDoneZombie = (uid) => {
 
 export const removeCat = (uid) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
 
     firestore

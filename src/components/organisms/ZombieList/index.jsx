@@ -2,7 +2,7 @@
 // Contains all the functionality necessary to define React components
 import React from "react";
 // Router
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 //> Redux
 // Connect
@@ -19,11 +19,6 @@ import copy from "copy-to-clipboard";
 import {
   MDBContainer,
   MDBDataTable,
-  MDBRow,
-  MDBCol,
-  MDBPopover,
-  MDBPopoverHeader,
-  MDBPopoverBody,
   MDBModal,
   MDBModalHeader,
   MDBModalBody,
@@ -32,9 +27,6 @@ import {
   MDBBadge,
   MDBIcon,
   MDBProgress,
-  MDBFormInline,
-  MDBInput,
-  MDBAlert,
   MDBSpinner,
   MDBCard,
   MDBCardBody,
@@ -122,6 +114,7 @@ class ZombieList extends React.Component {
                 <ResultChart
                   data={user.analysis[user.analysis.length - 1].results}
                   hideLabels
+                  green={user.processed ? true : false}
                 />
               </div>
             ),
@@ -130,7 +123,7 @@ class ZombieList extends React.Component {
                 <p className="mb-0">{user.company_name}</p>
                 <div className="mb-2">
                   {user.processed && (
-                    <MDBBadge color="green">
+                    <MDBBadge color="success">
                       <MDBIcon icon="check-circle" className="mr-1" />
                       Done
                     </MDBBadge>
@@ -179,6 +172,8 @@ class ZombieList extends React.Component {
               </>
             ),
           };
+        } else {
+          return null;
         }
       })
     );
@@ -198,7 +193,7 @@ class ZombieList extends React.Component {
   };
 
   render() {
-    const { auth, profile, users } = this.props;
+    const { auth, profile } = this.props;
 
     if (!profile.isLoaded) {
       return (
@@ -221,11 +216,11 @@ class ZombieList extends React.Component {
                     <MDBBadge color="indigo" className="mr-3">
                       Phase 2
                     </MDBBadge>{" "}
-                    users
+                    Zombies
                   </h2>
                   <p className="lead">
-                    Phase 2 tries to transform <code>cats</code> into{" "}
-                    <code>interested</code>.
+                    Phase 2 tries to transform <code>zombies</code> into{" "}
+                    <code>good boys</code>.
                   </p>
                   <div className="text-right mb-4">
                     {this.state.removeCat && (

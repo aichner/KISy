@@ -4,20 +4,15 @@ import React from "react";
 
 //> Additional
 // Axios
-import axios from "axios";
+//import axios from "axios";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import {
-  MDBContainer,
   MDBRow,
   MDBCol,
   MDBCard,
-  MDBCardUp,
-  MDBAvatar,
   MDBCardBody,
-  MDBListGroup,
-  MDBListGroupItem,
   MDBBtn,
   MDBIcon,
   MDBBadge,
@@ -76,67 +71,56 @@ class Services extends React.Component {
             value: rawData[key],
             name: "Analytics Einbindungen",
           };
-          break;
         case "web_design":
           return {
             value: rawData[key],
             name: "Design und Useability",
           };
-          break;
         case "web_contact":
           return {
             value: rawData[key],
             name: "Kontaktmöglichkeiten",
           };
-          break;
         case "web_legal":
           return {
             value: rawData[key],
             name: "DSGVO, Impressumpflicht und E-Commerce",
           };
-          break;
         case "web_picture_quality":
           return {
             value: rawData[key],
             name: "Qualität des Inhalts",
           };
-          break;
         case "web_responsive":
           return {
             value: rawData[key],
             name: "Mobile Ansicht",
           };
-          break;
         case "web_wording":
           return {
             value: rawData[key],
             name: "Wording",
           };
-          break;
         case "seo_https":
           return {
             value: rawData[key],
             name: "Sicherheit",
           };
-          break;
         case "seo_meta":
           return {
             value: rawData[key],
             name: "Meta Tags",
           };
-          break;
         case "seo_traceability":
           return {
             value: rawData[key],
             name: "Auffindbarkeit",
           };
-          break;
         case "seo_domain":
           return {
             value: rawData[key],
             name: "Deine Domain",
           };
-          break;
         default:
           return null;
       }

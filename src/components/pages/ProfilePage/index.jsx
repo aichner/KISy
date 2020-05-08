@@ -2,11 +2,7 @@
 // Contains all the functionality necessary to define React components
 import React from "react";
 // Router
-import { Link, Redirect, withRouter } from "react-router-dom";
-
-//> Additional modules
-// Firebase
-import firebase from "firebase";
+import { Redirect, withRouter } from "react-router-dom";
 
 //> Redux
 // Connect
@@ -20,16 +16,8 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBCard,
-  MDBCardUp,
-  MDBAvatar,
-  MDBCardBody,
-  MDBListGroup,
-  MDBListGroupItem,
   MDBBtn,
   MDBIcon,
-  MDBBadge,
-  MDBProgress,
 } from "mdbreact";
 
 //> Components
@@ -40,8 +28,9 @@ import {
   ZombieList,
   CustomerPage,
   InterestedList,
+  Requests,
+  Contact,
 } from "../../organisms";
-import { ResultChart } from "../../molecules/charts";
 
 //> CSS
 import "./profilepage.scss";
@@ -119,6 +108,12 @@ class ProfilePage extends React.Component {
         break;
       case "interestedList":
         to = 4;
+        break;
+      case "requests":
+        to = 5;
+        break;
+      case "contact":
+        to = 6;
         break;
       default:
         to = 0;
@@ -241,6 +236,8 @@ class ProfilePage extends React.Component {
                   {this.state.activePage === 2 && <CatList goTo={this.goTo} />}
                   {this.state.activePage === 3 && <ZombieList />}
                   {this.state.activePage === 4 && <InterestedList />}
+                  {this.state.activePage === 5 && <Requests goTo={this.goTo} />}
+                  {this.state.activePage === 6 && <Contact />}
                 </MDBContainer>
               </div>
             </>
