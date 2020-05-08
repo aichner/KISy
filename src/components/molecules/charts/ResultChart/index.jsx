@@ -83,6 +83,7 @@ class ResultChart extends React.Component {
   getChart = (green) => {
     if (this.props.data) {
       let labels, data;
+
       labels = [];
       data = [];
 

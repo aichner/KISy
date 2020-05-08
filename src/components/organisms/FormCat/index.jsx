@@ -217,6 +217,7 @@ class FormCat extends React.Component {
 
   render() {
     const { catDetails } = this.props;
+
     return (
       <div className="formcat">
         {catDetails ? (
